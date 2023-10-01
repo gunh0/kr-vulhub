@@ -5,7 +5,7 @@ Jupyter Notebook（이전 명칭: IPython notebook）은 40개 이상의 프로�
 Jupyter Notebook의 관리자가 비밀번호를 설정하지 않았다면, Jupyter Notebook은 CLI에 대한 접근통제를 전혀 하지 않는다.
 따라서 임의의 사용자가 CLI를 통해 원하는 명령어를 실행할 수 있다.
 
-## 실행 환견
+## 실행 환경
 
 테스트 환경 실행：
 
