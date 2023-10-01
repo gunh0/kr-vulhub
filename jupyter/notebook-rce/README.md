@@ -19,7 +19,7 @@ docker compose up -d
 
 메뉴 중 "new" 의 Terminal을 선택하면 새로운 CLI 콘솔이 열린다.
 
-![](1.png)
+![](jupyer__start.png)
 
 임의의 명령을 실행한 결과：
 
