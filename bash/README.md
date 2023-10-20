@@ -29,9 +29,9 @@ docker compose up -d
 
 `[http://your-ip/`를](http://your-ip/를) 방문하면 safe.cgi, victim.cgi두개의 하위페이지가 있다. safe.cgi는 최신 버전의 bash로 생성되었고 victim.cgi는 shellshock에 취약한 4.3 버전의 bash로 생성되었다.
 
-<!-- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b0d2f5ac-6821-4326-b143-ea7b7bbfe725/63477c1c-882b-4644-8464-bd64cb131f1d/Untitled.png) -->
+![image](https://github.com/bshyuunn/whitehat-school-vulhub/assets/87067974/7dc7ad69-4e32-412d-89b5-c6a308679a1a)
+![image](https://github.com/bshyuunn/whitehat-school-vulhub/assets/87067974/b3bac6ea-9724-403a-8e15-8bde22ffddb8)
 
-<!-- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b0d2f5ac-6821-4326-b143-ea7b7bbfe725/b31f20ce-62e9-461d-9ffe-a1266784b808/Untitled.png) -->
 
 <br>
 
@@ -39,11 +39,11 @@ docker compose up -d
 
 `() { foo; }; echo Content-Type: text/plain; echo; /usr/bin/id` 페이로드를 User-Agent header값에 넣으면 `/usr/bin/id` 가 실행된 결과가 응답값으로 오는 것을 확인할 수 있다.
 
-<!-- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b0d2f5ac-6821-4326-b143-ea7b7bbfe725/2ff1a9d3-55db-483e-9045-cba60913f375/Untitled.png) -->
+![image](https://github.com/bshyuunn/whitehat-school-vulhub/assets/87067974/4fedbf86-a08c-4f44-9c3d-c8aeb016c3fc)
 
 패치된 버전의 주소로 공격을 할 경우 페이로드가 통하지 않는다.
+![image](https://github.com/bshyuunn/whitehat-school-vulhub/assets/87067974/3d3835ad-d0b9-48d8-9fda-bb26db861c4b)
 
-<!-- ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/b0d2f5ac-6821-4326-b143-ea7b7bbfe725/17ae7442-0a99-4793-8e87-9b67e828104b/Untitled.png) -->
 
 <br>
 
