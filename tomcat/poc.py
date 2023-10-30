@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # Author: 00theway
+# References : https://github.com/00theway/Ghostcat-CNVD-2020-10487
 
 import socket
 import binascii
