@@ -1,0 +1,11 @@
+services:
+  web:
+    build: . 
+    restart: on-failure
+    ports:
+    - "8090:8090"
+  attacker:
+    build: ./attack
+    restart: on-failure
+    expose:
+      - 80
