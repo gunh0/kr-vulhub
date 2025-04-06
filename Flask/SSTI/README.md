@@ -1,6 +1,6 @@
 # Flask (Jinja2) SSTI (Server Side Template Injection)
 
-> [신경방 (@positiveWand)](https://github.com/positiveWand)
+> 화이트햇 스쿨 1기 - [신경방 (@positiveWand)](https://github.com/positiveWand)
 
 <br/>
 

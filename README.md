@@ -10,9 +10,11 @@
 
 ### Table of Contents
 
+- Django
+  - [CVE-2021-35042](./_Django/CVE-2021-35042/README.md) | QuerySet.order_by() SQL Injection
 - Flask
-  - [SSTI](./Flask/SSTI/README.md) | Server Side Template Injection | 화이트햇 스쿨 1기 - [신경방 (@positiveWand)](https://github.com/positiveWand)
+  - [SSTI](./Flask/SSTI/README.md) | Server Side Template Injection
 - MySQL
-  - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) | MySQL Authentication Bypass | 화이트햇 스쿨 1기 - [배소정 (@baethwjd2)](https://github.com/baethwjd2)
+  - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) | MySQL Authentication Bypass
 - Nginx
-  - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) | Nginx Integer Overflow Vulnerability | [박건호 (@c0dep1ayer)](https://github.com/c0dep1ayer)
+  - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) | Nginx Integer Overflow Vulnerability
