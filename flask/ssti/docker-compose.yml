@@ -1,0 +1,8 @@
+version: '2'
+services:
+ web:
+   image: vulhub/flask:1.1.1
+   volumes:
+    - ./src:/app
+   ports:
+    - "8000:8000"
