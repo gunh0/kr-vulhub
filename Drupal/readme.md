@@ -22,4 +22,5 @@
 File upload 공격은 서버에 파일이 업로드 되는 기능을 이용하여, 업로드 된 파일을 웹 서버에 요청할 때 발생하는 취약점이다. 따라서, 실행 권한을 제거하거나 MIME 타입 검증, 확장자 필터링 및 파일 크기 제한 등의 보안 조치를 취해야 한다.
 
 
-[my github url](https://github.com/wwwesh/whitehat.git)
+[my github url](https://github.com/wwwesh/whitehat.CVE/tree/main/Drupal)
+[pull request url](https://github.com/gunh0/kr-vulhub/pull/195)
