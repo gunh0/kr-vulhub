@@ -8,11 +8,8 @@
 <br/><br/> 
 ### 환경 구성 및 실행 
 - docker compose up -d 를 실행하여 테스트 환경을 실행
-  ![image](https://github.com/user-attachments/assets/837f0f9a-2850-475e-8751-93eda254a3db)
 - your-ip:8000 에 접속하여 drupal 설치
-  ![image](https://github.com/user-attachments/assets/4dc6c6f1-f373-4b6d-94ce-3a66b634438e)
-- php blog-poc.php your-ip 8080 을 실행하여 파일 업로드
-  ![image](https://github.com/user-attachments/assets/35062bcd-4fe1-4e1e-9e95-52aabe690161)
+- php poc.php your-ip 8080 을 실행하여 파일 업로드
 - your-ip:8080/sites/default/files/pictures/YYYY-MM 에 접속하면 XSS 취약점 발생
 <br/><br/>  
 ### 결과
