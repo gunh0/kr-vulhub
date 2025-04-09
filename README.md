@@ -16,5 +16,7 @@
   - [SSTI](./Flask/SSTI/README.md) | Server Side Template Injection
 - MySQL
   - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) | MySQL Authentication Bypass
+- Next.js
+  - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) | Next.js 미들웨어 인가 우회
 - Nginx
   - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) | Nginx Integer Overflow Vulnerability
