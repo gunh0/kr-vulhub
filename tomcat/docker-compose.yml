@@ -1,0 +1,10 @@
+# Docker Compose 버전 지정
+version: '2'
+
+# Docker Container 설정
+services:
+ tomcat:
+   image: vulhub/tomcat:9.0.30 # 컨테이너에서 사용할 base image
+   ports: # -p 옵션과 동일
+    - "8080:8080"
+    - "8009:8009"
