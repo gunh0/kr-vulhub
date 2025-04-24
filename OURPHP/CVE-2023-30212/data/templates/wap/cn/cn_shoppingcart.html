@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>购物车_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+</head>
+<body style="background:#f4f4f4;">
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">购物车</dd>
+		<div class="pos-a back"><a href="javascript:history.go(-1);"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a></div>
+	</div>
+	<div class="pages">
+        <div class="content2" style="margin:60px auto; background:#fff; padding:15px 0;">
+            [.*购物车模板开始，如果更换模板请从这里复制*.]
+            <script> 
+            $(function(){
+                var _url = $('#siteurl').val();
+                $('.delete').click(function(){
+                  setTotal();
+                  t.hide();
+                });
+            
+                $(".add").click(function(){
+                    var t=$(this).parent('li').find('input[class*=text_box]');
+					var carid = $(this).prop("name");
+						carid = carid.split("@");
+                    t.val(parseInt(t.val())+1);
+                    setTotal();
+					carnum(carid[0],1,carid[1]);
+                }); 
+            
+                $(".min").click(function(){
+                    var t=$(this).parent('li').find('input[class*=text_box]');
+					var carid = $(this).prop("name");
+						carid = carid.split("@");
+                    t.val(parseInt(t.val())-1)
+                    if(parseInt(t.val())<1){
+                        t.val(1);
+						return false;
+                    }
+					setTotal();
+					carnum(carid[0],2,carid[1]);
+              });
+            
+              $('.text_box').keyup(function(){
+                setTotal();
+              });
+              
+              function setTotal(){
+                var s=0;
+                $("#tab dt").each(function(){
+                  var numbers = parseInt($(this).find('input[class*=text_box]').val());
+                  if($.isNumeric(numbers))
+                  {
+                        numbers = parseInt(numbers);
+                  }else{
+						numbers = 0;
+                  }
+                  $(this).find('input[class*=text_box]').val(numbers);
+                  s += numbers*parseFloat($(this).find('span[class*=price]').text()); 
+            
+                }); 
+                $("#total").html(s.toFixed(2)); 
+              }
+            });
+			
+            function carnum(id,typec,md){
+				$.ajax({
+                    url:"[.$webpath.]function/ourphp_shopcarajax.class.php",
+                    type: 'post',
+                    data:{id:id, type:2, typec:typec, md:md},
+                    success: function(data){ 
+                        // 回应    
+                    }
+                }); 
+            }
+            </script> 
+            <style type="text/css">
+                .min{ width:20px; height:30px; border:0px; float:left;}
+                .text_box { width:50px; height:28px; border:1px #CCCCCC solid; line-height:28px; float:left; text-align:center}
+                .add{ width:20px; height:30px; border:0px; float:left;}
+				tbody{background:#fff;}
+            </style>
+			[.if $ordersarray == 1.]
+                <form id="form1" name="form1" method="post" action="[.$webpath.]client/wap/?cn-shoppingorders.html-&ourphp_cms=buy&type=wap" class="registerform">
+                [.foreach $shoppingcart as $op.]
+				  <table class="table radius-75" style="margin:2% 1%; border-radius:10px; width:98%;" id="tab">
+				  <tr>
+					<td valign="top" class="text-c" width="20%">
+						<p><img src="[.$op.img.]" width="100" height="100"  /><br />[.$op.quota.]</p>
+						<p class="claer mt-20 f-999"><small>[<a href="[.$webpath.]function/ourphp_play.class.php?ourphp_shopping=[.$op.cartid.]&lang=cn&type=wap" onclick="javascript:return confirm('确认删除吗?')">删除</a>]</small></p>
+					</td>
+					<td>
+						<table width="100%">
+						<thead>
+							<tr>
+							  <td colspan="2">
+									[.$op.title|truncate:17:"...".]
+									<span class="price2 f-r">￥[.$op.usermarket.]</span>
+							  </td>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr>
+							  <td>
+							  
+								<input type="hidden" name="ourphp_opcms[]" value="[.$op.id.]" />
+								<input type="hidden" name="ourphp_opcms[]" value="[.$op.title.]" />
+								<input type="hidden" name="ourphp_opcms[]" value="[.$op.attribute.]" />
+								<input type="hidden" name="ourphp_opcms[]" value="[.$op.weight.]" />
+								<input type="hidden" name="ourphp_opcms[]" value="[.$op.freight.]" />
+								<input type="hidden" name="ourphp_opcms[]" value="[.$op.webmarket.]" />
+								
+								<span class="f-12 f-999">[.$op.attribute2.]</span>
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								<dt>
+								  <table>
+									<tr>
+									  <td style="border-bottom:none;padding: 0;">
+										  <span class="price">[.$op.usermarket.]</span>
+										  <input type="hidden" name="ourphp_opcms[]" value="[.$op.usermarket.]" />
+										  <li class="f-l">
+											  <input class="min" name="[.$op.cartid.]@[.token info=$op.cartid.]" type="button" value="-" /> 
+											  <input class="text_box" name="ourphp_opcms[]" type="text" value="[.$op.number.]" readonly /> 
+											  <input class="add" name="[.$op.cartid.]@[.token info=$op.cartid.]" type="button" value="+" />
+										  </li>
+									  </td>
+									</tr>
+								  </table> 
+								</dt>
+							  </td>
+							</tr>
+							<tr>
+							  <td>
+								   <input type="text" name="ourphp_opcms[]" class="b-r5 userinput" style="border-top:1px #f4f4f4 solid;"  placeholder="输入对此商品的备注" />
+									<input type="hidden" name="ourphp_opcms[]" value="[.$op.barcode.]" />
+									[.*隐藏的表单元素，非常重要。更新模板时这里要保留不可以删除！ --开始*.]
+									<input type="hidden" name="ourphp_opcms[]" value="|" />
+									[.*隐藏的表单元素，非常重要。更新模板时这里要保留不可以删除！ --结束*.]
+							  </td>
+							</tr>
+						   </tbody>
+						</table>
+					</td>
+				  </tr>
+				  </table>
+				[./foreach.]
+                <table width="100%">
+				<tbody style="background:none;">
+                    <tr>
+                      <td height="50" style="text-align:right;padding-right:10px;font-size:18px; ">总价：<label id="total" style="color:#CC0000; font-family: Verdana, Arial, Helvetica, sans-serif;">[.$op.total.]</label>元</td>
+                    </tr>
+					</tbody>
+                 </table>
+                <table width="100%">
+				<tbody style="background:none;">
+                      <tr>
+                        <td>
+                        <input type="submit" name="Submit" value="收银台结算" style="width:80%; margin-left:10%" class="btn btn-danger pt-10 pb-10 mb-30 mt-20 radius-0"/>
+                        </td>
+                      </tr>
+					  </tbody>
+                </table>
+                </form>
+			[.else.]
+			<table width="100%" border="0" align="center" cellpadding="10">
+			<tbody style="background:none;">
+				<tr>
+				  <td>
+					<div align="center">
+					<img src="[.$webpath.]skin/ordersno.png" style="margin-top:50px;" class="maximg">
+					</div>
+				  </td>
+				</tr>
+			</tbody>
+			</table>
+			[./if.]
+            [.*购物车模板结束*.]
+        </div>
+    </div>
+	[.include file="cn/cn_shopfoot.html".]
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_shopcar").addClass("on");
+});
+</script>
+</body>
+</html>

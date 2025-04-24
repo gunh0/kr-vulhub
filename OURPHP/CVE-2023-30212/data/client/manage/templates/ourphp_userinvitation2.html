@@ -1,0 +1,81 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover" style="width:200px;">邀请奖励列表</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<div class="ourphp_newslist">
+		
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="5%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+                    <td width="15%" bgcolor="#EBEBEB">会员账号</td>
+					<td width="10%" bgcolor="#EBEBEB">会员姓名</td>
+					<td width="15%" bgcolor="#EBEBEB">奖励现金</td>
+					<td width="15%" bgcolor="#EBEBEB">奖励积分</td>
+                    <td width="15%" bgcolor="#EBEBEB">注册时间</td>
+                  </tr>
+				  [.section loop=$Userlist name=op.]
+                  <tr>
+				  	<td>
+						<div align="center">
+							[.if $a[0] == 'coupon'.]
+								<input type="checkbox" name="op_b[]" value="[.$Userlist[op].email.]" />
+							[./if.]
+							<font style="background:#009933; color:#FFFFFF; padding:2px; text-align:center;">[.$Userlist[op].id.]</font>
+						</div>
+					</td>
+                    <td>[.$Userlist[op].email.]<br />邀请<br />[.$Userlist[op].emailto.]</td>
+					<td>[.$Userlist[op].name.]</td>
+					<td>[.$Userlist[op].money.]</td>
+					<td>[.$Userlist[op].integral.]</td>
+					<td>[.$Userlist[op].time.]</td>
+                  </tr>
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="9">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+                  <tr>
+                    <td colspan="9">[.$ourphppage.]</td>
+                  </tr>
+                </table>
+			
+		</div>
+	  </li>
+  </ul>
+  
+  
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

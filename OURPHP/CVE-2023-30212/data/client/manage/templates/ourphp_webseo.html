@@ -1,0 +1,93 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit" class="registerform">
+<!--第一种形式-->
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">网站相关优化</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block"><li>
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center" class="ourphp_newslist">
+		  <tr>
+		  	<td width="170" valign="top"><div align="right">伪静态</div></td>
+			<td>
+			<label><input name="OP_Webrewrite" type="radio" value="1" [.if $ourphp_web.OP_Webrewrite == 1.]checked="checked"[./if.] />
+			  开启</label> 
+		      <label><input type="radio" name="OP_Webrewrite" value="2" [.if $ourphp_web.OP_Webrewrite == 2.]checked="checked"[./if.] />
+		      关闭</label>
+			  <div style="clear:both;"></div>
+			<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+				<p>1.开启网站伪静态功能，对网站的安全或是搜索引擎的收录都有好处</p>
+				<p>2.开启伪静态功能需要你的服务器支持伪静态组件并加载伪静态文件</p>
+				<p>3.<a href="https://pan.baidu.com/s/1EtwQpnztmQ8n-zeuiqu21g" target="_blank"><u>点击下载ourphp伪静态规则文件(提取码: yfy8)</u></a> - <a href="https://www.ourphp.net/club/forum.php?mod=viewthread&tid=17533" target="_blank"><u>伪静态使用教程</u></a></p>
+			</div>
+			  </td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">关健词优化</div></td>
+			<td>
+			<label><input name="OP_Webkeywords" type="radio" value="1" [.if $ourphp_web.OP_Webkeywords == 1.]checked="checked"[./if.] />
+			  开启</label> 
+		      <label><input type="radio" name="OP_Webkeywords" value="2" [.if $ourphp_web.OP_Webkeywords == 2.]checked="checked"[./if.] />
+		      关闭</label>
+			  <label><input type="radio" name="OP_Webkeywords" value="3" [.if $ourphp_web.OP_Webkeywords == 3.]checked="checked"[./if.] />
+		      双加</label>
+			  <div style="clear:both;"></div>
+			<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+				<p>1.开启后如果某条数据无单独关键词时，就调用全局关键词数据</p>
+				<p>2.关闭后不管这条数据有无单独关键词，都不调用全局关健词数据</p>
+				<p>3.双加后系统将数据中的单独关键词和全局关健词数据结合在一起输出</p>
+			</div>
+			</td>
+		  </tr>
+		   <tr>
+		  	<td valign="top"><div align="right">全局关健词</div></td>
+			<td>
+			<textarea name="OP_Webkeywordsto" cols="50" rows="5" class="wtextarea" [.$ourphp_bgcolor.]>[.$ourphp_web.OP_Webkeywordsto.]</textarea>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">全局描述</div></td>
+			<td>
+			<textarea name="OP_Webdescriptions" cols="50" rows="5" class="wtextarea" [.$ourphp_bgcolor.]>[.$ourphp_web.OP_Webdescriptions.]</textarea>
+			</td>
+		  </tr>
+		</table>
+  </li></ul>
+ </div>
+</div>
+		<table width="90%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse; margin-top:20px;" align="center">
+		  <tr>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+</form>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

@@ -1,0 +1,740 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script src="../../function/plugs/layer/layer.min.js"></script>
+<script src="../../function/plugs/laydate/laydate.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+function deli(i){
+	$("#deli"+i).remove();
+}
+</script>
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">修改信息</li>
+  <li onclick="setTab(0,1)">积分/团购</li>
+  <li onclick="setTab(0,2)">商品正文</li>
+  <li onclick="setTab(0,3)">商品组图</li>
+  <li><a href="javascript:history.go(-1)"><font color="#000000">返 回</font></a></li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+ <form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=[.$ourphp_product.id.]&page=[.$page.]&aid=[.$aid.]" class="registerform" autocomplete="off">
+  <ul class="block">
+	  <li>
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+		  	<td><div align="right">栏目</div><input type="hidden" value="[.$ourphp_product.OP_Class.]" name="c"></td>
+			<td>
+
+<select name="OP_Class"  datatype="zoo" class="win3">
+	<option value="0" >请选择</option>
+	[.assign var="level" value=0.]
+	[.function name=menu.]
+			[.foreach $data as $op.]
+				<option value="[.$op.id.]|[.$op.lang.]" [.if $op.model != 'product'.]disabled="true" style="color:#FF0000;"[.else.] style="color:#009900"[./if.] [.if $op.id == $ourphp_product.OP_Class.]selected="selected"[./if.]>
+				[.if $op.uid != 0.]
+					[.for $foo=1 to $level.]
+					&nbsp;&nbsp;
+					[./for.]
+					└
+				[./if.]
+				[.$op.title.]
+				</option>
+				
+				[.if isset($op.child).]
+					[.call name=menu data=$op.child level=$level+1.]
+				[./if.]
+			[./foreach.]
+	[./function.]
+	[.call name=menu data=$product.]
+</select>
+			<font color="#009900">绿色</font>表示可录入项，<font color="#FF0000">红色</font>禁止录入项.			
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">标题</div></td>
+			<td><input name="OP_Title" type="text" class="win" [.$ourphp_bgcolor.] value="[.$ourphp_product.OP_Title.]" datatype="*" nullmsg="标题是必填项!"/><font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">商品缩略图</div></td>
+			<td><input name="OP_Minimg" type="text" class="win" value="[.$ourphp_product.OP_Minimg .]" [.$ourphp_bgcolor.] id="upload" />
+			&nbsp;<input type="button" id="image3" value="上传" style="width:100px; height:25px; line-height:25px; background:#0099CC; color:#FFFFFF; border:0px;" />
+		[.include file="ourphp_editor.html".]
+		<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td></td>
+			<td>
+				<a href="javascript:cal();">↑&nbsp;复制到下面&nbsp;↓</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="javascript:imgtoimglist();">设置为组图第一张</a>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">商品大图</div></td>
+			<td><input name="OP_Maximg" type="text" class="win" value="[.$ourphp_product.OP_Maximg.]" [.$ourphp_bgcolor.] id="upload2"/>
+			&nbsp;<input type="button" id="image4" value="上传" style="width:100px; height:25px; line-height:25px; background:#0099CC; color:#FFFFFF; border:0px;" />
+		<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image4').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload2').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload2').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">商品编号</div></td>
+			<td><input name="OP_Number" type="text" class="win3" value="[.$ourphp_product.OP_Number.]" [.$ourphp_bgcolor.] />
+			&nbsp;&nbsp;&nbsp;&nbsp;商品货号&nbsp;<input name="OP_Goodsno" type="text" class="win3" value="[.$ourphp_product.OP_Goodsno.]" [.$ourphp_bgcolor.] id="hh" />
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">市场价格</div></td>
+			<td><input name="OP_Market" type="text" class="win3" value="[.$ourphp_product.OP_Market.]" [.$ourphp_bgcolor.] onkeyup="form1.m.value=this.value" id="scj" />
+			&nbsp;&nbsp;&nbsp;&nbsp;本站价格&nbsp;<input name="OP_Webmarket" type="text" class="win3" value="[.$ourphp_product.OP_Webmarket.]" [.$ourphp_bgcolor.] id="m" />
+			
+
+			<div style="position:absolute; z-index:1000; left:630px; top:39%;">
+			<fieldset><legend>会员价格</legend>
+			<p>&nbsp;&nbsp;&nbsp;
+			<input name="OP_Usermoneyclass" type="radio" value="1" [.if $ourphp_product.OP_Usermoneyclass == 1.]checked="checked"[./if.] onclick="usermoneyclass(1)" />&nbsp;减&nbsp;&nbsp;
+			<input type="radio" name="OP_Usermoneyclass" value="2" [.if $ourphp_product.OP_Usermoneyclass == 2.]checked="checked"[./if.] onclick="usermoneyclass(2)" />&nbsp;折
+			</p>
+
+			[.section loop=$Userleve name=op.]
+
+				&nbsp;&nbsp;&nbsp;
+				[.$Userleve[op].name.]:
+				&nbsp;&nbsp;&nbsp;
+
+				<font color="#FF0000" class="usermoneyclass">减</font>
+				&nbsp;&nbsp;&nbsp;
+				
+				[.if !empty($Usermoney[op].id).]
+				<input name="OP_Userj[]" type="hidden" value="[.$Usermoney[op].id.]" value="[.$Usermoney[op].id.]" />
+				<input name="OP_Userj[]" type="text" class="win2" value="[.$Usermoney[op].money.]"/>
+				<input name="OP_Userj[]" type="hidden" value="|" />
+				[.else.]
+				<input name="OP_Userj[]" type="hidden" value="[.$Userleve[op].id.]" value="[.$Userleve[op].id.]" />
+				<input name="OP_Userj[]" type="text" class="win2" value="0.00"/>
+				<input name="OP_Userj[]" type="hidden" value="|" />
+				[./if.]
+				
+				[.if $smarty.section.op.iteration % 3 == 0.]
+				<br />
+				[./if.]
+
+			[./section.]
+
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">品牌</div></td>
+			<td>
+			
+			<select name="OP_Brand" class="win3">
+			  <option value="0" [.if $ourphp_product.OP_Brand == '0'.]selected="selected"[./if.]>无</option>
+				  [.section loop=$Brand name=op.]
+					<option value="[.$Brand[op].id.]" [.if $Brand[op].id == $ourphp_product.OP_Brand.]selected="selected"[./if.]>[.$Brand[op].name.]</option>
+				  [./section.]		
+            </select>	
+			&nbsp;&nbsp;<a onClick="j();">计算器</a>
+			</td>
+		  </tr>
+		 [.if $Set[0]['set'] == 2.]
+		 <tr>
+		  	<td><div align="right">商品规格</div></td>
+			<td>
+				
+				<input onclick="javascript:dialog()" value="重新选择规格" type="button" style="width:100px; height:25px; line-height:25px; background:#0099CC; color:#FFFFFF; border:0px;" />&nbsp;&nbsp;<a href="javascript:openset(2);">管理规格</a>
+				<div id="parentIframe"></div>
+				<div id="ourphp_gg_sj">
+				<p>&nbsp;</p>
+				<table width="90%" border="1" align="left" cellpadding="5" bordercolor="#E3E3E3" style="border-collapse:collapse;">
+				  <tr>
+				    <td bgcolor="#F4F0F4"><div align="center">货号</div><input type="hidden" name="optitleid[]" value="[.$ourphp_product.OP_Specificationsid .]"></td>
+					[.section loop=$Specificationstitle name=op.]
+				    <td bgcolor="#F4F0F4"><div align="center">[.$Specificationstitle[op].name.]</div>
+					<input type="hidden" name="optitle[]" value="[.$Specificationstitle[op].name.]">
+					</td>
+					[./section.]
+				    <td bgcolor="#F4F0F4"><div align="center">市场价</div></td>
+				    <td bgcolor="#F4F0F4"><div align="center">本站价</div></td>
+				    <td bgcolor="#F4F0F4"><div align="center">库存</div></td>
+				    <td bgcolor="#F4F0F4"><div align="center">操作</div></td>
+				</tr>
+				<tbody id="gglist">
+				[.assign var="deli" value="1".]
+				[.section loop=$Specifications name=op.]
+				<tr id="deli[.$deli.]">
+					[.foreach $Specifications[op].three as $key => $op.]
+						[.if strstr($op,"uploadfile").]
+							<td bgcolor="#Ffffff"><div align="center"><img src="[.$webpath.][.$op.]" width="20" height="20"/><input type="hidden" name="op[]" value="[.$op.]"></div></td>
+						[.else.]
+							<td bgcolor="#Ffffff"><div align="center"><input type="text" name="op[]" value="[.$op.]" style=" width:90px;" [.if $key == 5.]class="op_kc"[./if.]></div></td>
+						[./if.]
+					[./foreach.]
+					<td>
+						<input type="hidden" name="op[]" value="|">
+						<div style="text-align:center;"><a href="javascript:deli([.$deli.]);">删除</a></div>
+					</td>
+
+				</tr>
+				[.assign var="deli" value=$deli + 1.]
+				[./section.]
+				</tbody>
+				<tr>
+					<td colspan="20">
+							<a href="javascript:ggadd(1);">自定义增加一条</a>
+							<script>
+									function ggadd(i){
+									    var x = 999999;
+									    var y = 111111;
+									    var rand = parseInt(Math.random() * (x - y + 1) + y);
+										var a = $("#deli"+i).html();
+										$("#gglist").append('<tr id="deli'+rand+'">'+a.replace("deli(1)","deli("+rand+")")+'</tr>');
+									}
+							</script>
+					</td>
+				</tr>
+				</table>
+				</div>
+					
+			</td>
+		  </tr>
+		  [./if.]
+		  <tr>
+		  	<td><div align="right">库存总量</div></td>
+			<td>
+			<input name="OP_Stock" type="text" class="win3" value="[.$ourphp_product.OP_Stock.]" [.$ourphp_bgcolor.] id="kc" />
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">商品属性</div></td>
+			<td>
+			
+			<select name="select" onchange="opsx(this.value)" class="win3">
+			<option value="0">===请选择===</option>
+				  [.section loop=$Attribute name=op.]
+					<option value="[.$Attribute[op].id.]" >[.$Attribute[op].name.]</option>
+				  [./section.]
+            </select>
+			&nbsp;&nbsp;<a href="javascript:openset(1);">管理属性</a>
+			<br />
+			<div id="Attribute">
+			
+				<table width="500" border="1" align="left" cellpadding="5" bordercolor="#E3E3E3" style="border-collapse:collapse;">
+				[.section loop=$Pattribute name=op.]
+					  <tr id="pattr[.$Pattribute[op].i.]">
+						<td bgcolor="#F4F0F4"><div align="right">[.$Pattribute[op].class.]：</div></td>
+						<td bgcolor="#ffffff">
+							<select name="OP_Pattribute[]" id="arr[.$Pattribute[op].i.]">
+							[.section loop=$Attributeto name=opo.]
+							[.if $Pattribute[op].class == $Attributeto[opo].name.]
+								[.foreach $Attributeto[opo].three as $op.]
+								<option value="[.$Attributeto[opo].id.]:[.$Attributeto[opo].name.]:[.$op.]" [.if $op == $Pattribute[op].name.]selected="selected"[./if.]>[.$op.]</option>
+								[./foreach.]
+							[./if.]
+							[./section.]
+							</select>
+							&nbsp;&nbsp;<a href="javascript:pattr([.$Pattribute[op].i.]);" style="float:right;">自定义参数值</a>
+						</td>
+					  </tr>	
+				[./section.]
+				</table>
+						
+			
+			</div>
+			<script type="text/javascript">
+				function pattr(id){
+					var arr = $('#arr'+id+' option:selected').val();
+					$("#pattr"+id).html('<td colspan="2" bgcolor="#ffffff"><input type="text" name="OP_Pattribute[]" value="'+arr+'" />&nbsp;&nbsp;(id:标题:参数值 , <font color=red>只能自定义参数值</font>)</td>');
+				}
+			</script>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">商品重量</div></td>
+			<td><input name="OP_Weight" type="text" class="win2" value="[.$ourphp_product.OP_Weight.]" [.$ourphp_bgcolor.] datatype="*" /> KG&nbsp;&nbsp;
+			<div style="clear:both;"></div>
+			<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+				<p>(重量是用来计算运费的，按公斤(KG)计算。如果商品不足1KG&nbsp;请填写1，表示按首重来计算。不支持小数点，整数计算)</p>
+			</div>
+			</td>
+		  </tr>		  
+		  <tr>
+		  	<td><div align="right">排序</div></td>
+			<td><input name="OP_Sorting" type="text" class="win2" value="[.$ourphp_product.OP_Sorting.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="排序是必填项!"/> 数字越小越靠前！</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">属性</div></td>
+			<td>
+				[.html_checkboxes name="OP_Attribute" options=$ourphph_qx selected=$selected separator="&nbsp;&nbsp;".]
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">运费模板</div></td>
+			<td>
+				<select name="OP_Freight" class="win3">
+				  [.section loop=$Freight name=op.]
+					<option value="[.$Freight[op].id.]" [.if $Freight[op].id == $ourphp_product.OP_Freight.]selected="selected"[./if.]>[.$Freight[op].title.]</option>
+				  [./section.]
+				</select>			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">跳转</div></td>
+			<td><input name="OP_Url" type="text" class="win" value="[.$ourphp_product.OP_Url.]" [.$ourphp_bgcolor.] /> 如果为空，则不跳转！</td>
+		  </tr>
+		  <tr>
+			<td></td>
+		  	<td><strong>--------------- SEO设置 ---------------</strong></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">关键词</div></td>
+			<td><input name="OP_Tag" type="text" class="win" value="[.$ourphp_product.OP_Tag.]" [.$ourphp_bgcolor.] />&nbsp;请用英文中的 , 格开</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">描述</div></td>
+			<td><textarea name="OP_Description" class="wtextarea" >[.$ourphp_product.OP_Description.]</textarea> 如果为空，自动截取正文前200个字</td>
+		  </tr>
+		</table>
+	  </li>
+  </ul>
+	<ul>
+	  <li>
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+		  	<td><div align="right">赠送积分</div></td>
+			<td><input name="OP_Integral" type="text" class="win2" value="[.$ourphp_product.OP_Integral.]" />&nbsp;(成功购买该商品后赠送的积分)</td>
+		</tr>
+		<tr>
+		  	<td><div align="right">积分兑换</div></td>
+			<td><input name="OP_Integralok" type="radio" value="0" [.if $ourphp_product.OP_Integralok == 0.]checked="checked"[./if.] />
+			否&nbsp;<input type="radio" name="OP_Integralok" value="1" [.if $ourphp_product.OP_Integralok == 1.]checked="checked"[./if.] />是&nbsp;(该商品是否可以用积分来兑换)</td>
+		</tr>
+		<tr>
+		  	<td><div align="right">需要积分</div></td>
+			<td><input name="OP_Integralexchange" type="text" class="win2" value="[.$ourphp_product.OP_Integralexchange.]" />&nbsp;(如果开启积分兑换,那么设置需要多少积分可以兑换)</td>
+		</tr>
+		<tr>
+			<td colspan="2"><hr /></td>
+		</tr>
+		<tr>
+		  	<td><div align="right">开启团购</div></td>
+			<td><input name="OP_Tuanset" type="radio" value="1" [.if $ourphp_product.OP_Tuanset == 1.]checked="checked"[./if.] />
+			否&nbsp;<input type="radio" name="OP_Tuanset" value="2" [.if $ourphp_product.OP_Tuanset == 2.]checked="checked"[./if.] />是&nbsp;(该商品是否可以团购)</td>
+		</tr>
+		<tr>
+		  	<td><div align="right">团购人数</div></td>
+			<td><input name="OP_Tuanusernum" type="text" class="win2" value="[.$ourphp_product.OP_Tuanusernum.]" />&nbsp;(如果开启团购，达到此人数团购成功)</td>
+		</tr>
+		<tr>
+		  	<td><div align="right">结束时间</div></td>
+			<td><input name="OP_Tuantime" type="text" class="win" id="test5" value="[.$ourphp_product.OP_Tuantime.]" autocomplete="off" />&nbsp;(团购结束时间)</td>
+		</tr>
+		<tr>
+			<td colspan="2"><hr /></td>
+		</tr>
+		<tr>
+		  	<td><div align="right">优惠券</div></td>
+			<td>
+			
+				<input onclick="javascript:coupon()" value="绑定优惠券" type="button" style="width:100px; height:25px; line-height:25px; background:#0099CC; color:#FFFFFF; border:0px;" />
+				<div id="ourphp_coupon_list">
+				
+				<table width="90%" border="1" align="left" cellpadding="5" bordercolor="#E3E3E3" style="border-collapse:collapse;">
+				[.foreach $coupon as $op.]
+					<tr>
+						<td>[.$op.title.]</td>
+					</tr>
+				[./foreach.]
+				</table>
+				
+				<input type="hidden" name="OP_Couponset" value="[.$ourphp_product.OP_Couponset.]" >
+				</div>
+				
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><hr /></td>
+		</tr>
+		<tr>
+		  	<td><div align="right">限购</div></td>
+			<td>
+			
+				<input name="OP_Buyoffnum" type="text" class="win2" value="[.$ourphp_product.OP_Buyoffnum.]" />&nbsp;(此商品会员限制购买份数,0表示不限购)
+				
+			</td>
+		</tr>
+		</table>
+	  </li>
+	</ul>
+  <ul>
+	  <li>
+				<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+					<tr>
+                      <td><div align="right">商品亮点(简短一句介绍)</div></td>
+                      <td>
+						<input name="OP_Suggest" type="text" class="win" value="[.$ourphp_product.OP_Suggest.]" id="OP_Suggest2" />&nbsp;<input type="button" id="OP_Suggest" value="上传图片" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+						<script>
+							KindEditor.ready(function(K) {
+								var editor = K.editor({
+									allowFileManager : true
+								});
+								K('#OP_Suggest').click(function() {
+									editor.loadPlugin('image', function() {
+										editor.plugin.imageDialog({
+											showRemote : false,
+											imageUrl : K('#OP_Suggest2').val(),
+											clickFn : function(url, title, width, height, border, align) {
+												K('#OP_Suggest2').val(url);
+												editor.hideDialog();
+											}
+										});
+									});
+								});
+							});
+						</script>
+					  </td>
+                    </tr>
+					  <tr>
+					  	<td><div align="right">发布时间</div></td>
+						<td>
+						<input name="time" type="text" id="time" class="win" value="[.$ourphp_product.time.]" [.$ourphp_bgcolor.] />
+						<script>
+							laydate.render({
+							  elem: '#time',
+							  type: 'datetime'
+							});
+						</script>
+						</td>
+					  </tr>
+                    <tr>
+                      <td valign="top"><div align="right">电脑端正文</div></td>
+                      <td>
+						<textarea name="OP_Content" class="wtextarea editor" style="width:100%; height:400px;">[.$ourphp_product.OP_Content.]</textarea><font color=red> (*)</font>
+					  </td>
+                    </tr>
+					  <tr>
+						<td valign="top"><div align="right">手机端正文</div></td>
+						<td>
+							<div class="newsleft" style="width: 68%;">
+								<textarea name="OP_Content_wap" class="wtextarea editor waplook" style="width:100%; height:400px;">[.$ourphp_product.OP_Content_wap.]</textarea>
+								<font color=red> (*)</font>
+							</div>
+							
+							<div class="newsright">
+								[.include file="ourphp_contentwap.html".]
+							</div>
+						</td>
+					  </tr>
+            </table>
+	  </li>
+  </ul>
+<ul>
+  	<li>
+	
+		<style type="text/css">
+			.img { width:1060px; height:auto; padding:10px; float:left;}
+			.img h1 { height:30px; line-height:30px; font-size:14px; font-weight:500;}
+		</style>
+		<div class="img">
+				<table width="1100" border="0" style="border-bottom:1px #CCCCCC dashed; margin-bottom:30px;">
+                    <tr>
+                      <td width="20%"><h1>[在这里上传商品组图图片]</h1></td>
+                      <td width="80%">
+					  
+		<input type="button" id="J_selectImage" value="上传组图" style="width:100px; height:25px; line-height:25px; background:#0099CC; color:#FFFFFF; border:0px;" />
+		<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#J_selectImage').click(function() {
+					editor.loadPlugin('multiimage', function() {
+						editor.plugin.multiImageDialog({
+							clickFn : function(urlList) {
+								var div = K('#J_imageView');
+								div.html('');
+								var DataImage = [];
+								K.each(urlList, function(i, data) {
+									div.append('<p style=" width:200px; float:left; margin-right:15px; margin-bottom:15px; text-align:center;"><img src="' + data.url + '" style="max-width:200px; border:0px;"><!--<br><a href="javascript:delItem(' + data.url + ')">[删除]</a>--></p>');
+									DataImage.push(data.url);
+								});
+								DataImage = DataImage.join('|');
+								/* 未加载 jQuery 使用下面*/
+								/*document.getElementById('uploadimg').value = DataImage;*/
+								/* 加载 jQuery 使用下面*/
+								$('#uploadimg').val(DataImage);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script> 
+					  
+					  </td>
+                    </tr>
+            </table>
+				<div style="clear:both;"></div>
+				<!--缩略图传递-->
+				<div id="J_imageView2"></div>
+				<input type="hidden" name="OP_Imgtoone" id="OP_Imgtoone" />
+				<!--上传组图-->
+				<div id="J_imageView"></div>
+				
+				<script>
+					function delete_order(order_id,i){    
+						confirm_ = confirm('删除后图片将无法恢复！确定删除?');
+						if(confirm_){
+							$.ajax({
+								type:"POST",
+								url:'ourphp_imgdel.php?url='+order_id,
+								success:function(msg){
+									/*alert("test order");*/
+									/*all delete is success,this can be execute*/
+									$("#tr_"+i).remove();
+								}
+							});
+						}
+					};
+				</script>			
+
+<script type="text/javascript" src="../../function/plugs/dragsort/jquery.dragsort-0.5.1.min.js"></script>
+<dd id="list1">				
+[.section loop=$productimglist name=op.]
+<div id="tr_[.$productimglist[op].i.]" style=" width:200px; float:left; margin-right:15px; margin-bottom:15px; text-align:center;"><img src="[.$webpath.][.$productimglist[op].img.]" style="max-width:200px; border:0px;"/><br /><br />标题：<input type="text" name="OP_Productimgname[]" value="[.$productimglist[op].imgname.]"><br /><a href="javascript:;" onclick="delete_order('../../[.$productimglist[op].img.]',[.$productimglist[op].i.])">[删除]</a><input type="hidden" name="OP_Img2[]" value="[.$productimglist[op].img.]"/></div>
+ [.sectionelse.]
+[./section.]
+</dd>
+<input type="hidden" name="OP_Img" value="" id="uploadimg" />
+<!-- save sort order here which can be retrieved on server on postback -->
+<input name="list1SortOrder" type="hidden" />
+<script type="text/javascript">
+	$("#list1").dragsort({ dragSelector: "div", dragBetween: true, dragEnd: saveOrder, placeHolderTemplate: "<div class='placeHolder'></div>" });
+	function saveOrder() {
+		var data = $("#list1 div").map(function() { return $(this).children().html(); }).get();
+		$("input[name=list1SortOrder]").val(data.join("|"));
+	};
+</script>
+		</div>
+			
+	</li>
+</ul>
+   <ul><li></li></ul>
+  <div style="clear:both"></div>
+<table width="100%" border="0">
+  		   <tr>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		   <tr>
+		   	<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		  </tr>
+</table>
+		  
+</form>
+ </div>
+</div>
+
+<script> 
+
+$(function(){
+	[.if $ourphp_product.OP_Usermoneyclass == 1.]
+	$(".usermoneyclass").html("减");
+	[.else.]
+	$(".usermoneyclass").html("折");
+	[./if.]
+	
+	setInterval(allkucun,1000);
+})
+
+laydate.render({
+  elem: '#test5',
+  type: 'datetime'
+});
+
+function coupon()
+{
+
+    $.layer({
+        type: 2,
+        title: '绑定优惠券',
+        shade: [0],
+		border: [5, 0.3, '#000'],
+        area: ['900px', '500px'],
+		iframe:{src: 'Coupon.php?our=gg',scrolling: 'yes'}
+    });
+
+}
+
+function usermoneyclass(type){
+	if(type == 1){
+		$(".usermoneyclass").html("减");
+	}else{
+		$(".usermoneyclass").html("折");
+	}
+}
+
+function cal(){
+ var rem = document.getElementById('upload').value;
+ document.getElementById('upload2').value = rem;
+}
+
+function imgtoimglist(){
+	var rem = "[.$webpath.]" + document.getElementById('upload').value;
+	if(rem == '[.$webpath.]' || rem == ''){
+		alert("缩略图不能为空!");
+		return false;
+	}
+	var div = $('#J_imageView2');
+	div.html('<p style=" width:200px; float:left; margin-right:15px; margin-bottom:15px; text-align:center;"><img src="' + rem.replace("[.$webpath.][.$webpath.]","[.$webpath.]") + '" style="max-width:200px; border:0px;"><br /><br />标题：<input type="text" name="OP_Productimgname[]"><!--<br><a href="javascript:delItem(' + rem.replace("[.$webpath.][.$webpath.]","[.$webpath.]") + ')">[删除]</a>--></p>');
+	$('#OP_Imgtoone').val(rem.replace("[.$webpath.][.$webpath.]","[.$webpath.]"));
+}
+
+function hh(){
+        $(".op_hh").val($("#hh").val()); 
+}
+function scj(){
+        $(".op_scj").val($("#scj").val()); 
+}
+function bzj(){
+        $(".op_bzj").val($("#m").val()); 
+}
+function kc(){
+        $(".op_kc").val($("#kc").val()); 
+}
+
+function allkucun(){
+
+	var num = 0;
+	$(".op_kc").each(function(){
+		num1 = Number($(this).val());
+		num = num + num1;
+	});
+	if(num == 0){
+		var valnum = $("#kc").val();
+		if(valnum == 0){
+			$("#kc").val(100);
+		}else{
+			$("#kc").val(valnum);
+		}
+	}else{
+		$("#kc").val(num);
+	}
+	
+}
+
+function bmb(){
+        layer.alert('这里不是设定会员的价格，而是设定每个等级的会员<br>按本站价减去多少钱，如：本站价是100元，<br>普通会员设定减20元 。那么普通会员在购买<br>该商品的时候，实际购买价格是80元。<br>0&nbsp;表示不减', 0, !1);
+}
+
+function opsx(objs){
+    $(function(){
+           $.get(
+                   'Attribute.php',
+                   {id:objs,our:'sx'},
+                   function(data){
+                         $('#Attribute').html(data);
+                   }
+           );
+     });
+}
+
+function dialog(){
+    $.layer({
+        type: 2,
+        title: '商品规格选择',
+        shade: [0],
+		border: [5, 0.3, '#000'],
+        area: ['900px', '500px'],
+		iframe:{src: 'Attribute.php?our=gg',scrolling: 'yes'}
+    });
+};
+
+function j(){
+    $.layer({
+        type: 2,
+        title: '商品计算器',
+        shade: [0],
+		border: [5, 0.3, '#000'],
+        area: ['460px', '510px'],
+		iframe:{src: '../manage/plugs/Calculator/index.html',scrolling: 'yes'}
+    });
+};
+
+function openset(ourphp){
+	var url;
+	if(ourphp == 1){
+		url = 'ourphp_productattribute.php?id=ourphp';
+	}else{
+		url = 'ourphp_productspecifications.php?id=ourphp'
+	}
+    $.layer({
+        type: 2,
+        title: '管理商品属性',
+        shade: [0],
+		border: [5, 0.3, '#000'],
+        area: ['70%', '510px'],
+		iframe:{src: url,scrolling: 'yes'}
+    });
+}
+</script>
+
+[.include file="ourphp_foot.html".]
+</body>
+</html>

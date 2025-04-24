@@ -1,0 +1,57 @@
+
+<!--页尾开始-->
+<footer id="footer_main">
+	<!--底部导航开始-->
+	<div class="bottomNav">
+		<ul class="list">
+			[.callcolumn id="0" row="8" lang="cn" type="td" name="callcolumn".]
+				<li><a href="[.$callcolumn.wapurl.]" title="[.$callcolumn.title.]">
+					<h3 class="tit">[.$callcolumn.title.]</h3>
+					<em class="icon"></em>
+				</a></li>
+			[./callcolumn.]
+		</ul>
+	</div>
+	<!--底部导航结束-->
+
+	<!--版权开始-->
+	<div id="copyright">
+		<p>Copyright &copy; [.$smarty.now|date_format:"%Y".] [.$ourphp_web.webname.] 版权所有</p>
+		<p>[.$ourphp_web.webicp.]</p>
+		<p>[.$ourphp_web.by|replace:"2019,&nbsp;&nbsp;哈尔滨伟成科技有限公司":date("Y").]&nbsp;[.$ourphp_web.webstatistics.]</p>
+	</div>
+	<!--版权结束-->
+</footer>
+<!--页尾结束-->
+
+<!--底部图标开始-->
+<section id="toolbar">
+	<ul class="list clearfix">
+		<li><a href="[.$webpath.]client/wap"><s class="icon"></s><span>首页</span></a></li>
+		<li><a href="tel:[.$ourphp_web.webtel.]" title="电话"><s class="icon"></s><span>电话</span></a></li>
+		<li><a onclick="dkcf()" title="微信"><s class="icon"></s><span>微信</span></a></li>
+		<li><a href="?cn-about-9.html" title="关于"><s class="icon"></s><span>关于</span></a></li>
+	</ul>
+</section>
+<!--底部图标结束-->
+
+<div id="wxnr">
+	<div class="nrdf"> <i onclick="gbcf()">X</i><img src="[.$ourphp_web.erweima.]" />
+		<p>截屏，微信识别二维码</p>
+		<p>微信号：<span id="btn" data-clipboard-text="[.$ourphp_web.weixin.]">[.$ourphp_web.weixin.]</span></p>
+	</div>
+</div>
+<div id="weixin">微信号已复制，请打开微信添加咨询详情！</div>
+
+<script type="text/javascript" src="[.$templatepath.]js/app.js?t=1552622430"></script><!-- 应用插件标签 start -->
+
+[.$advert.mpop.]
+ <!-- 应用插件标签 end -->
+
+
+<!--[if lt IE 9]>
+    <div class="notsupport">
+        <h1>:( 非常遗憾</h1>
+        <h2>您的浏览器版本太低，请升级您的浏览器</h2>
+    </div>
+    <![endif]-->

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>注册_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+<script type="text/javascript">
+	function reginfo()
+	{
+		layer.open({
+		  type: 1, 
+		  title :'《用户协议与隐私条款》',
+		  area: ['90%', '80%'],
+		  content: '<div style="padding:10px;">[.$usercontrol.protocol.]</div>'
+		});
+	}
+	
+	function regselect(){
+
+		var reg = $('#zh').val();
+		$.post("[.$webpath.]client/wap/sendcode.php?reg&zh="+reg,{},function(data){
+			if(data.error == 0){
+				layer.msg(data.msg);
+				return false;
+			}else{
+				if(reg == '格式:13888888888' || reg == '格式:77701950@qq.com'){
+					$("#regselect").html('*');
+				}else{
+					$("#regselect").html(data.msg);
+				}
+			}
+		},'json');
+
+	}
+
+	var wait = 120;
+	function anniu(){
+		if (wait == 0) { 
+			$('#btn').attr("disabled", false);
+			$('#btn').val('获取验证码');
+			$("#btn").removeClass("disabled").addClass("btn-success");
+			wait = 120; 
+		} else { 
+			$('#btn').attr("disabled", true); 
+			$('#btn').val('重新发送(' + wait + ')');
+			$("#btn").removeClass("btn-success").addClass("disabled");
+			wait--; 
+			setTimeout(function() { 
+				anniu();
+			}, 1000) 
+		};
+	}
+
+	function reg_code(){
+
+		var reg = $('#zh').val();
+		if(reg == '格式:13888888888' || reg == '格式:77701950@qq.com' || reg == ''){
+			layer.msg('* 号不能为空!');
+			return false;
+		}
+
+		$.post("[.$webpath.]client/wap/sendcode.php?code&zh="+reg,{},function(data){
+			if(data.error == 0){
+				layer.msg(data.msg);
+				return false;
+			}
+			anniu();
+		},'json');
+
+	}
+
+	$(function (){
+		var w = window.screen.availWidth;
+		if(w <= 320){
+			$(".userloginhead").css("height","220px");
+		}
+		if(w >320 && w <= 375){
+			$(".userloginhead").css("height","240px");
+		}
+		if(w >375){
+			$(".userloginhead").css("height","270px");
+		}
+	})
+	
+	function ok()
+	{
+		if ($('input[name="Fruit"]').get(0).checked) {
+		   return true;
+		}else{
+			layer.tips('请先勾选同意', 'input[name="Fruit"]', {
+			  tips: 1
+			});
+			return false;
+		}
+	}
+</script>
+<style type="text/css">
+td {width:100%; border-bottom:1px #f5f5f5 solid; padding:2px;}
+#YIQI-UI .border {border:none;}
+#YIQI-UI .btn-success {padding:5px 10px 5px 10px;}
+#YIQI-UI .ml-15 {margin-left:0;}
+.radio {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	-webkit-appearance: checkbox; 
+}
+</style>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="userloginhead">
+		<h1>注册会员</h1>
+	</div>
+	<div class="pages">
+		<form name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=reg&lang=cn&type=wap" class="registerform" onsubmit="javascript:return ok()">
+        <div class="content" style="margin:60px auto; background:#fff; padding:15px 0;">
+          <table width="100%" class="table">
+            [.$regtable.]
+            <tr>
+              <td>
+              	<div class="pl-10 pr-10">
+              		<span class="fromleft">密码</span><input type="password" name="OP_Userpass" class="userinput" placeholder="密码" datatype="*" /> <font class="ml-10 f-f00">*</font>
+              	</div>
+              	</td>
+            </tr>
+            <tr>
+              <td>
+              	<div class="pl-10 pr-10">
+              		<span class="fromleft">确认密码</span><input type="password" name="OP_Userpass2" class="userinput" placeholder="确认密码" datatype="*" /> <font class="ml-10 f-f00">*</font>
+              	</div>
+              </td>
+            </tr>
+			[.if $usercontrol.code == 0.]
+              <tr>
+                <td>
+                	<div class="pl-10 pr-10">
+                		<span class="fromleft">验证码</span><input type="text" name="code" class="input3" datatype="*" placeholder="验证码" onfocus="document.getElementById('checkcode').src+='?'" /><font class="ml-10 mr-10 f-f00">*</font><img title="点击刷新" id="checkcode" src="[.$webpath.]function/ourphp_code.php" align="absbottom" onclick="this.src='[.$webpath.]function/ourphp_code.php?'+Math.random();" width="80" height="25"></img>
+                	</div>
+                </td>
+              </tr>
+			 [./if.]
+              <tr>
+                  <td style="border-bottom:none;">
+					<input type="hidden" name="ip" value="[.$ip.ip.]" />
+					<input type="hidden" name="source" value="[.$ip.listid.]" />
+					<input type="hidden" name="lang" value="[.$ip.lang.]" />
+					<input type="hidden" name="introducer" value="[.$regconfig['introducer'].]" />
+					
+					<link rel="stylesheet" href="../../function/plugs/Validform/style.css" type="text/css" />
+					<script type="text/javascript" src="../../function/plugs/Validform/Validform_v5.3.2.js"></script>
+					<script type="text/javascript">
+					$(function(){
+						$(".registerform").Validform();  //就这一行代码！;
+					})
+					</script>
+                    <div class="mt-10">
+                      <input type="submit" name="Submit" value="免费注册" class="radius-20 userbtngo">
+                    </div>
+					<div class="clear"></div>
+					<div class="f-l mt-25 f-14">已经有账号了? <a href="?cn-userlogin.html">登陆</a></div>
+					  
+                  </td>
+              </tr>
+			  <tr>
+					<td class="text-c f-12 f-999" style="border-bottom:none;">
+							<p class="pt-50 f-12"><label><input name="Fruit" type="checkbox" class="radio" /> 已同意</label><a onclick="reginfo();"><u>《用户协议与隐私条款》</u></a></p>
+					</td>
+			  </tr>
+          </table>
+        </div>
+    </div>
+	<div class="clear"></div>
+	[.include file="cn/cn_shopfoot.html".] 
+    </form>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

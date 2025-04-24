@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员中心 - [.$ourphp_web.website.]</title>
+<link rel="stylesheet" href="[.$templatepath.]css/style.css" type="text/css" />
+<script type="text/javascript" src="[.$webpath.]function/plugs/YIQI-UI/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="[.$webpath.]function/plugs/YIQI-UI/YIQI-UI.min.css" type="text/css" />
+<link href="[.$webpath.]function/plugs/YIQI-UI/font/YIQI-UI-iconfont.min.css" rel="stylesheet">
+</head>
+<body class="bodygb">
+<div id="YIQI-UI">
+    [.include file="cn_top.html".] 
+	<div class="nav">
+		<div class="ourphp_center">
+				<li class="on"><a href="[.$webpath.]client/user/">会员中心</a></li>
+				<li><a href="[.$webpath.]?cn-shop.html">商城首页</a></li>
+				<li><a href="[.$webpath.]">企业官网</a></li>
+				<li><a href="[.$webpath.]?cn-product-11.html">积分中心</a></li>
+				<li><a href="[.$webpath.]?cn-product-12.html">团购</a></li>
+				<li><a href="[.$webpath.]?cn-brand-1.html">品牌商城</a></li>
+		</div>
+	</div>
+    <div class="clear"></div>
+    <div class="ourphp_center">
+    <div class="clear"></div>
+    
+        <div class="ourphp_login">
+            <div class="ourphp_user_left">
+                [.include file="cn_leftnav.html".] 
+            </div>
+            <div class="ourphp_user_right">
+            [.*表单开始*.]
+                <form id="form1" name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=moneyback&lang=cn" class="registerform">
+                  <table class="table table-border" style="border-top:none; background:#fff">
+                  <tr>
+                    <td colspan="6" class="f-14"><b>卖家收件信息</b></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="f-12"><span style="width:70px; float: left;">收件人</span>[.$sendout[0].]</td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="f-12"><span style="width:70px; float: left;">电话</span>[.$sendout[1].]</td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="f-12"><span style="width:70px; height: 40px; float: left;">收件地址</span>[.$sendout[2].]</td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="f-14"><b>寄件快递单号</b></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="f-12"><input type="number" name="posnum" placeholder="输入快递单号" class="pl-10 pt-5 pb-5" style="width: 90%"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="f-12"><input type="text" name="posname" placeholder="输入快递公司名称" class="pl-10 pt-5 pb-5" style="width: 90%"></td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-c">
+                        <input class="btn btn-danger pl-50 pr-50 pt-5 pb-5 f-16" type="submit" value="申请退款">
+                        <p>未发货商品快递信息不用填</p>
+                        <input type="hidden" name="id" value="[.$smarty.get.id.]">
+                        <input type="hidden" name="md" value="[.$smarty.get.md.]">
+                    </td>
+                  </tr>
+                  </table>
+                  </form>
+            </div>
+        </div>
+    </div>
+[.include file="cn_foot.html".]
+</div> 
+</body>
+</html>

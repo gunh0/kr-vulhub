@@ -1,0 +1,138 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css?12" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script charset="utf-8" src="templates/images/ourphp.js"></script>
+
+<style type="text/css">
+.fl {width: 12%; max-height: 800px; overflow:auto; float: left;}
+.fr {width: 88%; float: right;}
+.treeview-red {padding-top:20px;}
+.treeview-red a {font-size: 14px;}
+.closed { padding:5px 0;}
+.on {background: #488fcd; color: #fff; padding: 2px 5px}
+.on:hover {color: #fff;}
+</style>
+</head>
+
+<body>
+
+<div id="tabs0" class="mt-50">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">信息列表</li>
+  <li><a href="ourphp_product.php?aid=[.$smarty.get.aid.]"><font color="#000000">添加信息</font></a></li>
+  <li><a href="ourphp_product_stock.php?id=ourphp&aid=0"><font color="#000000">库存预警</font></a></li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+
+  <div class="fl">
+
+	<div id="black" class="treeview-red" style="max-height: 800px;">
+		[.function name=menu2.]
+				[.foreach $data as $op.]
+					<li class="closed" [.if $op.i % 2 == 0.]style="background:#f4f4f4;"[./if.]>
+						<span class="font">
+							[.if $op.uid != 0.]
+							<font style="font-size:12px; color:#999;">[.$op.uptitle.] -> </font>
+							[.else.]
+							<font style="font-size:12px; color:#999;">无上级栏目 -> </font>
+							[./if.]
+							<a href="?aid=[.$op.id.]" [.if $aid == $op.id.] class="on" [./if.]>
+							[.$op.title.]
+							</a>
+						</span>
+					</li>
+				[./foreach.]
+		[./function.]
+		[.call name=menu2 data=$productlist.]
+	</div>
+
+  </div>
+  <div class="fr">
+	  <li>
+		<div class="ourphp_newslist">
+		  <form id="form1" name="form1" method="post" action="?ourphp_cms=Batch">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="5%" bgcolor="#EBEBEB">批量</td>
+				  	<td width="3%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+					<td width="10%" bgcolor="#EBEBEB"><div align="center">缩略图</div></td>
+                    <td bgcolor="#EBEBEB">标题</td>
+                    <td width="13%" bgcolor="#EBEBEB">属性</td>
+					<td width="5%" bgcolor="#EBEBEB">库存</td>
+					<td width="11%" bgcolor="#EBEBEB">(好评/中评/差评)</td>
+                    <td width="12%" bgcolor="#EBEBEB">发布时间</td>
+                    <td width="10%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+				  [.section loop=$product name=op.]
+                  <tr>
+				  	<td><div align="center"><input name="op_b[]" type="checkbox" value="[.$product[op].id.]" /></div></td>
+				  	<td><div align="center"><font class="la">[.$product[op].id.]</font></div></td>
+					<td><div align="center"><img src="[.if !$product[op].minimg.]../../skin/noimage.png[.else.][.if strstr($product[op].minimg,'http://') || strstr($product[op].minimg,'https://').][.$product[op].minimg.][.else.][.$webpath.][.$product[op].minimg.][./if.][./if.]" border="0" width="80" height="80" /></div></td>
+                    <td>
+					
+					[.$product[op].title.]&nbsp;&nbsp;<a href="ourphp_copy.php?type=product&id=[.$product[op].id.]"><span style="color:#ff0000;">[复制]</span></a><br /><br />
+					<font class="lb">[.$product[op].lang.]</font>
+					<font class="le">[.$product[op].class.]</font>
+					<font class="ld">地址</font>&nbsp;&nbsp;
+					<a class="copyplus" data-clipboard-text="
+					[.$webpath.]?[.$product[op].lang.]-productview-[.$product[op].class2.]-[.$product[op].id.].html" href="javascript:;">
+					[.$webpath.]?[.$product[op].lang.]-productview-[.$product[op].class2.]-[.$product[op].id.].html
+					</a>
+					</td>
+					<td>[.if $product[op].moneyclass == 1.]有减[.else.]有折[./if.]<br />[.$product[op].att.]<br /><font class="la">排序：[.$product[op].sorting.]</font><font class="lb">浏览量：[.$product[op].click.]</font></td>
+					<td>[.$product[op].stock.]</td>
+					<td>(&nbsp;[.$product[op].h.]&nbsp;/&nbsp;[.$product[op].z.]&nbsp;/&nbsp;[.$product[op].c.]&nbsp;)</td>
+                    <td>[.$product[op].time.]</td>
+                    <td><a href="ourphp_productedit.php?id=[.$product[op].id.]&page=[.$page.]&aid=[.$aid.]">编辑</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="?ourphp_cms=del&id=[.$product[op].id.]&c=[.$product[op].class2.]&aid=[.$aid.]" onclick="javascript:return confirm('确认删除吗?')">删除</a></td>
+                  </tr>
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="10">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+				  <tr>
+				  	<td><div align="center"><input onclick="selectAll()" type="checkbox" name="controlAll" style="controlAll" id="controlAll"/></div></td>
+					<td colspan="9"></td>
+				  </tr>
+				  <tr>
+                    <td colspan="10">
+					<label><input type="checkbox" name="OP_Attribute[]" value="0" />&nbsp;头条</label>&nbsp;&nbsp;
+					<label><input type="checkbox" name="OP_Attribute[]" value="1" />&nbsp;热门</label>&nbsp;&nbsp;
+					<label><input type="checkbox" name="OP_Attribute[]" value="2" />&nbsp;滚动</label>&nbsp;&nbsp;
+					<label><input type="checkbox" name="OP_Attribute[]" value="3" />&nbsp;推荐</label>&nbsp;&nbsp;
+					<label><input type="checkbox" name="down[]" value="1" />&nbsp;<font color="#990000">下架</font></label>&nbsp;&nbsp;[&nbsp;&nbsp;
+					<!--<input type="radio" name="h" value="h" />&nbsp;回收站&nbsp;&nbsp;-->
+					<label><input type="radio" name="h" value="y" />&nbsp;移动</label>&nbsp;&nbsp;
+					<label><input type="radio" name="h" value="s" />&nbsp;删除</label>&nbsp;&nbsp;
+					<label><input type="radio" name="h" value="w" checked="checked" />
+					&nbsp;无&nbsp;&nbsp;]&nbsp;&nbsp;</label>
+					<input type="submit" name="Submit" value="批量提交" class="ourphp_listan" />
+					</td>
+                  </tr>
+                  <tr>
+                    <td colspan="10">[.$ourphppage.]</td>
+                  </tr>
+                </table>
+				</form>
+		</div>
+	  </li>
+	</div>
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+<script src="../../function/plugs/copyplus/clipboard.min.js"></script>
+<script type="text/javascript">
+	var clipboard = new Clipboard('.copyplus');
+	clipboard.on('success', function(e) {
+		alert("复制成功!");
+	});
+</script>
+</body>
+</html>

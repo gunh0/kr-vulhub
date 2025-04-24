@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员中心 - [.$ourphp_web.website.]</title>
+<link rel="stylesheet" href="[.$templatepath.]css/style.css" type="text/css" />
+<script type="text/javascript" src="[.$webpath.]function/plugs/YIQI-UI/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="[.$webpath.]function/plugs/YIQI-UI/YIQI-UI.min.css" type="text/css" />
+<link href="[.$webpath.]function/plugs/YIQI-UI/font/YIQI-UI-iconfont.min.css" rel="stylesheet">
+</head>
+<body class="bodygb">
+<div id="YIQI-UI">
+    [.include file="cn_top.html".] 
+	<div class="nav">
+		<div class="ourphp_center">
+				<li class="on"><a href="[.$webpath.]client/user/">会员中心</a></li>
+				<li><a href="[.$webpath.]?cn-shop.html">商城首页</a></li>
+				<li><a href="[.$webpath.]">企业官网</a></li>
+				<li><a href="[.$webpath.]?cn-product-11.html">积分中心</a></li>
+				<li><a href="[.$webpath.]?cn-product-12.html">团购</a></li>
+				<li><a href="[.$webpath.]?cn-brand-1.html">品牌商城</a></li>
+		</div>
+	</div>
+    <div class="clear"></div>
+    <div class="ourphp_center">
+    <div class="clear"></div>
+    
+        <div class="ourphp_login">
+            <div class="ourphp_user_left">
+                [.include file="cn_leftnav.html".] 
+            </div>
+            <div class="ourphp_user_right">
+            [.*修改资料表单开始*.]
+            <form id="form1" name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=edit&lang=cn" class="registerform">
+            <table width="100%" border="0" class="table">
+                  <tr>
+                    <td valign="top">
+						<h6>基本信息</h6>
+						<table width="100%" border="0" class="table">
+							<tr>
+								<td><div align="right">登录账号</div></td>
+								<td>[.$user.email.]</td>
+							</tr>
+							<tr>
+								<td><div align="right">登录密码</div></td>
+								<td><input type="password" name="OP_Userpass" class="input"  placeholder="不修改保持为空" /> 
+								<font color="#FF0000">*</font></td>
+							</tr>
+						    <tr>
+								<td><div align="right">密码确认</div></td>
+								<td><input type="password" name="OP_Userpass2" class="input" placeholder="不修改保持为空！" /> 
+								<font color="#FF0000">*</font></td>
+							</tr>
+							<tr>
+								<td><div align="right">微信/QQ</div></td>
+								<td><input type="text" name="OP_Userqq" class="input" value="[.$user.qq.]" placeholder="输入微信/QQ账号！" /></td>
+							</tr>
+							  <tr>
+								<td><div align="right">安全问题</div></td>
+								<td>
+								<select name="OP_Userproblem" class="input4">
+								[.foreach $problem as $op.]
+									<option value="[.$op.title.]" [.if $op.title == $user.problem.]selected[./if.]>[.$op.title.]</option>
+								[./foreach.]
+								</select><font color="#FF0000">*</font>
+								</td>
+							  </tr>
+							  <tr>
+								<td><div align="right">问题答案</div></td>
+								<td><input type="text" name="OP_Useranswer" class="input" datatype="*" value="[.$user.answer.]" placeholder="输入答案！" /><font color="#FF0000">*</font></td>
+							  </tr>
+							  <tr>
+
+								<td><div align="right">个人签名</div></td>
+								<td><textarea name="OP_Usertext" style=" width:290px; height:60px; border:1px #CCCCCC solid;" placeholder="输入签名！">[.$user.text.]</textarea></td>               
+							  </tr>
+						</table>
+					</td>
+					<td valign="top">
+						<h6>实名信息</h6>
+						<table width="100%" border="0" class="table">
+							<tr>
+								<td><div align="right">姓名</div></td>
+								<td><input type="text" name="OP_Username" class="input" datatype="*" value="[.$user.name.]" placeholder="输入姓名！" />
+								  <font color="#FF0000">*</font></td>
+							</tr>
+							<tr>
+								<td><div align="right">电话</div></td>
+								<td><input type="text" name="OP_Usertel" class="input" datatype="n" value="[.$user.tel.]" placeholder="输入电话！" />
+								  <font color="#FF0000">*</font></td>
+							</tr>
+							<tr>
+								<td><div align="right">身份证号</div></td>
+								<td><input type="text" name="OP_Useradd" class="input" value="[.$user.add.]" placeholder="输入身份证号！" /> <font color="#FF0000">*</font></td>
+							</tr>
+							<tr>
+								<td colspan="2"><h6>提现信息</h6></td>
+							</tr>
+							<tr>
+								<td><div align="right">收款类型</div></td>
+								<td><input type="text" name="OP_Userskype" class="input" value="[.$user.skype.]" placeholder="如：支付宝或工商银行" /></td>
+							</tr>
+							  <tr>
+								<td><div align="right">收款账号</div></td>
+								<td><input type="text" name="OP_Useraliww" class="input" value="[.$user.aliww.]" placeholder="收款账号！" /></td>
+							  </tr>
+						</table>
+					</td>
+					</tr>
+					  <tr>
+						<td>
+							<table width="100%" border="0" class="table">
+							<tr>
+								<td width="73">
+									<div align="right">验证码</div>
+								</td>
+								<td>
+									<input type="text" name="code" class="input3" datatype="*" /> <font color="#FF0000">*</font> <img title="点击刷新" src="[.$webpath.]function/ourphp_code.php" align="absbottom" onclick="this.src='[.$webpath.]function/ourphp_code.php?'+Math.random();" width="80" height="25"></img>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td colspan="3">
+								<input type="hidden" name="usercode" value="[.$user.code.]" />
+								<input type="hidden" name="lang" value="[.$ip.lang.]" />
+								<input type="hidden" name="password" value="[.$user.password.]" />
+								<input type="submit" name="Submit" value="提交" class="radius-6 btn-warning pt-5 pb-5 pl-30 pr-30" />
+								</td>
+							</tr>
+							</table>
+						</td>
+					  </tr>
+					</table>
+            </form>
+            <link rel="stylesheet" href="../../function/plugs/Validform/style.css" type="text/css" />
+            <script type="text/javascript" src="../../function/plugs/Validform/Validform_v5.3.2.js"></script>
+            <script type="text/javascript">
+            $(function(){
+                $(".registerform").Validform();  //就这一行代码！;
+            })
+            </script>
+            [.*修改资料表单结束*.]
+            </div>
+        </div>
+    </div>
+    [.include file="cn_foot.html".]
+</div>
+</body>
+</html>

@@ -1,0 +1,358 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">广告列表</li>
+  <li onclick="setTab(0,1)">漂浮广告</li>
+  <li onclick="setTab(0,2)">右下角广告</li>
+  <li onclick="setTab(0,3)">对联广告</li>
+  <li onclick="setTab(0,4)">移动端弹出</li>
+  <li onclick="setTab(0,5)">倒计时广告</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<div class="ourphp_newslist">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="10%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+                    <td width="20%" bgcolor="#EBEBEB">图示</td>
+					<td width="20%" bgcolor="#EBEBEB">名称</td>
+					<td width="30%" bgcolor="#EBEBEB">显示位置</td>
+                    <td width="20%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+				  [.section loop=$ADList name=op.]
+                  <tr>
+				  	<td><div align="center"><font style="background:#009933; color:#FFFFFF; padding:2px; text-align:center;">[.$ADList[op].id.]</font></div></td>
+					<td><img src="[.$ADList[op].img.]" border="0" /></td>
+                    <td>[.$ADList[op].name.]</td>
+					<td>[.$ADList[op].position.]</td>
+                    <td><a href="ourphp_adview.php?id=[.$ADList[op].id.]">编辑</a></td>
+                  </tr>
+				  [./section.]
+				  <tr>
+                    <td colspan="5"></td>
+                  </tr>
+				 
+                </table>
+		</div>
+	  </li>
+  </ul>
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=5" class="registerform">
+  <ul>
+	  <li>
+
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+			<td><div align="right">状态</div></td>
+			<td>
+			<label><input name="OP_Adstateo" type="radio" value="1" [.if $ourphp_ad.OP_Adstateo == 1.]checked="checked"[./if.] />
+			  显示</label>
+			  <label><input type="radio" name="OP_Adstateo" value="2" [.if $ourphp_ad.OP_Adstateo == 2.]checked="checked"[./if.] />关闭</label></td>
+		</tr>
+		  <tr>
+		  	<td><div align="right">广告图片</div></td>
+			<td><input name="OP_Adpiaofui" type="text" class="win" value="[.$ourphp_ad.OP_Adpiaofui.]" [.$ourphp_bgcolor.] id="upload" />&nbsp;
+			<input type="button" id="image3" value="上传图片" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			[.include file="ourphp_editor.html".]
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			
+			
+			<font color=red> (*)</font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">链接地址</div></td>
+			<td><input name="OP_Adpiaofuu" type="text" class="win" value="[.$ourphp_ad.OP_Adpiaofuu.]" [.$ourphp_bgcolor.]  /><font color=red> (*)</font>									
+			</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+
+		
+	  </li>
+  </ul>
+  
+  <ul>
+	  <li>
+
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+			<td><div align="right">状态</div></td>
+			<td>
+			<label><input name="OP_Adstatet" type="radio" value="1" [.if $ourphp_ad.OP_Adstatet == 1.]checked="checked"[./if.] />
+			  显示</label> 
+			  <label><input type="radio" name="OP_Adstatet" value="2" [.if $ourphp_ad.OP_Adstatet == 2.]checked="checked"[./if.] />关闭</label></td>
+		</tr>
+		  <tr>
+		  	<td><div align="right">广告标题</div></td>
+			<td><input name="OP_Adyouxiat" type="text" class="win" value="[.$ourphp_ad.OP_Adyouxiat.]" [.$ourphp_bgcolor.] />
+			<font color=red> (*)</font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">弹出框内容</div></td>
+			<td><textarea name="OP_Adyouxiaf" class="wtextarea" style="width:80%; height:150px;" [.$ourphp_bgcolor.] >[.$ourphp_ad.OP_Adyouxiaf.]</textarea><font color=red> (*)</font>									
+			</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+				
+	  </li>
+  </ul>
+  
+  <ul>
+	  <li>
+
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+			<td><div align="right">状态</div></td>
+			<td>
+			<label><input name="OP_Adstates" type="radio" value="1" [.if $ourphp_ad.OP_Adstates == 1.]checked="checked"[./if.] />
+			  显示</label> 
+			  <label><input type="radio" name="OP_Adstates" value="2" [.if $ourphp_ad.OP_Adstates == 2.]checked="checked"[./if.] />关闭</label></td>
+		</tr>
+		  <tr>
+		  	<td><div align="right">左侧对联图片</div></td>
+			<td><input name="OP_Adduilianli" type="text" class="win" value="[.$ourphp_ad.OP_Adduilianli.]" [.$ourphp_bgcolor.] id="upload1" />&nbsp;
+			<input type="button" id="image4" value="上传图片" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image4').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload1').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload1').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			<font color=red> (*)</font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">左侧对联链接地址</div></td>
+			<td>
+			<input name="OP_Adduilianlu" type="text" class="win" value="[.$ourphp_ad.OP_Adduilianlu.]" [.$ourphp_bgcolor.] /><font color=red> (*)</font>									
+			</td>
+		  </tr>
+		  		  <tr>
+		  	<td><div align="right">右侧对联图片</div></td>
+			<td><input name="OP_Adduilianri" type="text" class="win" value="[.$ourphp_ad.OP_Adduilianri.]" [.$ourphp_bgcolor.] id="upload2" />&nbsp;
+			<input type="button" id="image5" value="上传图片" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image5').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload2').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload2').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			<font color=red> (*)</font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">右侧对联链接地址</div></td>
+			<td>
+			<input name="OP_Adduilianru" type="text" class="win" value="[.$ourphp_ad.OP_Adduilianru.]" [.$ourphp_bgcolor.] /><font color=red> (*)</font>									
+			</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+				
+	  </li>
+  </ul>
+		</form>
+
+<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=7" class="registerform">
+  <ul>
+	  <li>
+
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+			<td><div align="right">状态</div></td>
+			<td>
+			<label><input name="OP_Adstates1" type="radio" value="1" [.if $ourphp_ad2.OP_Adstates == 1.]checked="checked"[./if.] />
+			  显示</label> 
+			  <label><input type="radio" name="OP_Adstates1" value="2" [.if $ourphp_ad2.OP_Adstates == 2.]checked="checked"[./if.] />关闭</label></td>
+		</tr>
+		  <tr>
+		  	<td><div align="right">广告图片</div></td>
+			<td><input name="OP_Adduilianli1" type="text" class="win" value="[.$ourphp_ad2.OP_Adduilianli.]" [.$ourphp_bgcolor.] id="upload6" />&nbsp;
+			<input type="button" id="image6" value="上传图片" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image6').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload6').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload6').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			<font color=red> (*)</font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">链接地址</div></td>
+			<td>
+			<input name="OP_Adduilianlu1" type="text" class="win" value="[.$ourphp_ad2.OP_Adduilianlu.]" [.$ourphp_bgcolor.] /><font color=red> (*)</font>									
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">说明</div></td>
+			<td>
+				此广告只在移动端展示，每个IP 24小时只弹出一次。		
+			</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+				
+	  </li>
+  </ul>
+  </form>
+  <form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=8" class="registerform">
+  <ul>
+	  <li>
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+			<td><div align="right">状态</div></td>
+			<td>
+			<label><input name="OP_Adstates1" type="radio" value="1" [.if $ourphp_ad3.OP_Adstates == 1.]checked="checked"[./if.] />
+			  显示</label> 
+			  <label><input type="radio" name="OP_Adstates1" value="2" [.if $ourphp_ad3.OP_Adstates == 2.]checked="checked"[./if.] />关闭</label></td>
+		</tr>
+		  <tr>
+		  	<td><div align="right">广告图片</div></td>
+			<td><input name="OP_Adduilianli1" type="text" class="win" value="[.$ourphp_ad3.OP_Adduilianli.]" [.$ourphp_bgcolor.] id="upload8" />&nbsp;
+			<input type="button" id="image8" value="上传图片" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image8').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload8').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload8').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			<font color=red> (*)</font>
+			</td>
+		  </tr>
+		  
+		  <tr>
+		  	<td><div align="right">倒计时时间</div></td>
+			<td>
+			<input name="OP_Adduilianlu1" type="text" class="win3" value="[.$ourphp_ad3.OP_Adduilianlu.]" [.$ourphp_bgcolor.] /><font color=red> 秒(*)</font>									
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">说明</div></td>
+			<td>
+				每10分钟弹出一次	
+			</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+	  </li>
+  </ul>
+  </form>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

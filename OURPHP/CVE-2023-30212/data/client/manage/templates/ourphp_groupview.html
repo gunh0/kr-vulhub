@@ -1,0 +1,138 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script charset="utf-8" src="templates/images/ourphp.js"></script>
+    <script type="text/javascript">
+			function GetRTime(s,i){
+
+				var a = s;
+				var b = a.split(" ");
+				var c = b[0].split("-");
+				var e = b[1].split(":");
+
+				var startTime = new Date();
+				startTime.setFullYear(c[0],(c[1] - 1),c[2]);
+				startTime.setHours(e[0]);
+				startTime.setMinutes(e[1]);
+				startTime.setSeconds(e[2]);
+				var EndTime=startTime.getTime();
+
+				var NowTime = new Date();
+				var nMS = EndTime - NowTime.getTime();
+				var nD = Math.floor(nMS/(1000 * 60 * 60 * 24));
+				var nH = Math.floor(nMS/(1000*60*60)) % 24;
+				var nM = Math.floor(nMS/(1000*60)) % 60;
+				var nS = Math.floor(nMS/1000) % 60;
+				if (nMS < 0){
+					$("#dao"+i).hide();
+					$("#daoend"+i).show();
+				}else{
+				   $("#dao"+i).show();
+				   $("#daoend"+i).hide();
+				   $("#RemainD"+i).text(nD);
+				   $("#RemainH"+i).text(nH);
+				   $("#RemainM"+i).text(nM);
+				   $("#RemainS"+i).text(nS); 
+				}
+
+			}
+    </script>
+</head>
+
+<body>
+
+<div id="tabs0" class="mt-50">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">第[.$ourphp_tuan.id.]团信息</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<div class="ourphp_newslist">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+				  <tr>
+					<td colspan="10">
+							<table width="100%" border="0" cellpadding="2" class="ourphp_newslist">
+								<tr>
+									<td>本团ID[.$ourphp_tuan.id.]</td>
+								</tr>
+								<tr>
+									<td>
+										<p>产品价格 : ￥[.$ourphp_pr.OP_Webmarket.] </p>
+										<p>产品标题 : [.$ourphp_pr.OP_Title.]</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									
+										<p>
+											<script>$(function(){ var timer_rt[.$product[op].id.] = window.setInterval("GetRTime('[.$ourphp_pr.OP_Tuantime.]',[.$ourphp_tuan.id.])", 1000); });</script>
+
+											<div id="daoend[.$ourphp_tuan.id.]" style="display:none;" class="a">本次活动已结束。</div>
+											<div id="dao[.$ourphp_tuan.id.]" class="a">剩余<strong id="RemainD[.$ourphp_tuan.id.]"></strong>天<strong id="RemainH[.$ourphp_tuan.id.]"></strong>时<strong id="RemainM[.$ourphp_tuan.id.]"></strong>分<strong id="RemainS[.$ourphp_tuan.id.]"></strong>秒</div>
+										</p>
+										<p>
+											[.$ourphp_tuan.OP_Tuannum.] 人团，还差 [.$ourphp_tuan.OP_Tuannum - $ourphp_tuan.OP_Tuanznum.] 人 
+										
+											[.if $ourphp_tuan.OP_Tuannum == $ourphp_tuan.OP_Tuanznum.]
+											<font style="background:#ff0000; color:#FFFFFF; padding:2px; text-align:center;">已完成</font>
+											[.else.]
+											<font style="background:#009933; color:#FFFFFF; padding:2px; text-align:center;">未完成</font>
+											[./if.]
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>团长 : [.$ourphp_tuan.OP_Tuanuser.]</p>
+										<p>姓名 : [.$ourphp_user.OP_Username.]</p>
+									</td>
+								</tr>
+							</table>
+					</td>
+				  </tr>
+                  <tr>
+				  	<td width="6%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+                    <td width="28%" bgcolor="#EBEBEB">参团人员信息</td>
+                    <td width="14%" bgcolor="#EBEBEB">产品ID</td>
+					<td width="12%" bgcolor="#EBEBEB">订单ID</td>
+                    <td width="12%" bgcolor="#EBEBEB">加入时间</td>
+                  </tr>
+				  [.section loop=$product name=op.]
+                  <tr>
+				  	<td><div align="center"><font class="la">[.$product[op].id.]</font></div></td>
+                    <td>
+						<p>[.$product[op].tuanuser.]</p>
+						<p>[.$product[op].username.]</p>
+					</td>
+					<td>[.$product[op].productid.]</td>
+					<td>[.$product[op].ordersid.]</td>
+                    <td>[.$product[op].time.]</td>
+                  </tr>
+				  [.assign var="oid" value=$product[op].oid.]
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="10">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+				  
+				  <tr>
+						<td colspan="10">
+							<a href="ourphp_orders.php?tuanall&tid=[.$oid.]" class="ourphp-anniu">处理本团订单</a>
+						</td>
+				  </tr>
+                </table>
+		</div>
+	  </li>
+  </ul>
+ </div>
+</div>
+
+[.include file="ourphp_foot.html".]
+</body>
+</html>

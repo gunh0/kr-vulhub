@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>我的资料_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">我的资料</dd>
+		<div class="pos-a back"><a href="?cn-usercenter.html"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a></div>
+	</div>
+	<div class="pages">
+        <div class="content2" style="margin:60px 0; background:#FFF;">
+            [.*修改资料表单开始*.]
+      			<style type="text/css">
+        			td {height:30px; border-bottom:1px #f5f5f5 solid;}
+        			.input {width:75%; height:30px; color:#333; text-align:right; }
+        			.input3 {width:30%; height:30px; color:#333}
+      			</style>
+            <form id="form1" name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=edit&type=wap&lang=cn" class="registerform">
+            <table width="100%" border="0" class="table">
+				  <tr style="background:#f7f7f7;">
+					<td><h6>实名信息</h6></td>
+				  </tr>
+                  <tr>
+                    <td>
+                        <span class="fromleft f-l">账号</span>
+                        <span class="fromright mt-10 f-l text-r">[.$user.email.]([.$user.class.])</span>
+                      </td>
+          			</tr>
+          		  <tr>
+                    <td>
+                        <span class="fromleft"><font color="#FF0000">*</font>姓名</span>
+						<span class="fromright f-l text-r"><input type="text" name="OP_Username" class="input" datatype="*" value="[.$user.name.]" placeholder="输入姓名" /></span>
+					</td>
+                  </tr>
+				  <tr>
+                    <td>
+                        <span class="fromleft"><font color="#FF0000">*</font>电话</span>
+						<span class="fromright f-l text-r"><input type="text" name="OP_Usertel" class="input" datatype="n" value="[.$user.tel.]" placeholder="输入电话" /></span>
+                    </td>
+                  </tr>
+				  <tr>
+                    <td>
+                        <span class="fromleft"><font color="#FF0000">*</font>身份证号</span>
+						<span class="fromright f-l text-r"><input type="text" name="OP_Useradd" class="input" value="[.$user.add.]"  placeholder="输入身份证号" datatype="*" /></span>
+                    </td>
+                  </tr>
+				  <tr style="background:#f7f7f7;">
+					<td><h6>提现信息</h6></td>
+				  </tr>
+				  <tr>
+                    <td>
+                        <span class="fromleft">收款类型</span>
+						<span class="fromright f-l text-r"><input type="text" name="OP_Userskype" class="input" value="[.$user.skype.]"  placeholder="如：支付宝或工商银行" /></span>
+					</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <span class="fromleft">收款账号</span>
+						<span class="fromright f-l text-r"><input type="text" name="OP_Useraliww" class="input" value="[.$user.aliww.]"  placeholder="输入收款账号" /></span>
+					</td>
+                  </tr>
+				  <tr style="background:#f7f7f7;">
+					<td><h6>基本信息</h6></td>
+				  </tr>
+                  <tr>
+                    <td>
+                        <span class="fromleft"><font color="#FF0000">*</font>新密码</span>
+						<span class="fromright f-l text-r"><input type="password" name="OP_Userpass" class="input" placeholder="新密码(不修改保持为空！)"  /></span>
+					</td>
+        		</tr>
+        		<tr>
+        			<td>
+                        <span class="fromleft"><font color="#FF0000">*</font>确认密码</span>
+						<span class="fromright f-l text-r"><input type="password" name="OP_Userpass2" class="input" placeholder="确认密码(不修改保持为空！)" /></span>
+					</td>
+        		</tr>
+                  <tr>
+                    <td>
+                        <span class="fromleft">微信/QQ</span>
+						<span class="fromright f-l text-r"><input type="text" name="OP_Userqq" class="input" value="[.$user.qq.]"  placeholder="输入微信/QQ" /></span>
+					</td>
+				  </tr>  
+                  <tr>
+                    <td>
+                        <span class="fromleft">
+                          <font color="#FF0000">*</font>设置问题
+                        </span>
+						<span class="fromright f-l text-r">
+							<select name="OP_Userproblem" class="userinput2 mt-5">
+							[.foreach $problem as $op.]
+								<option value="[.$op.title.]" [.if $op.title == $user.problem.]selected[./if.]>[.$op.title.]</option>
+							[./foreach.]
+							</select>
+						</span>
+          			</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <span class="fromleft"><font color="#FF0000">*</font>问题答案</span>
+						<span class="fromright f-l text-r"><input type="text" name="OP_Useranswer" class="input" datatype="*" value="[.$user.answer.]"  placeholder="输入问题答案" /></span>
+					</td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <span class="fromleft">个人签名</span>
+						<textarea name="OP_Usertext" style=" width:100%; height:80px; margin-top:10px;" placeholder="输入个人签名">[.$user.text.]</textarea>
+					</td>
+                  </tr>
+                  <tr>
+                    <td style="border-bottom:none;">
+                    <input type="hidden" name="usercode" value="[.$user.code.]" />
+                    <input type="hidden" name="lang" value="[.$ip.lang.]" />
+                    <input type="hidden" name="password" value="[.$user.password.]" />
+                    <input type="submit" name="Submit" value="提交" class="btn pt-10 pb-10 btn-danger radius-20" style="width:80%; margin-left:10%;" />
+				   </td>
+                  </tr>
+            </table>
+            </form>
+            <link rel="stylesheet" href="../../function/plugs/Validform/style.css" type="text/css" />
+            <script type="text/javascript" src="../../function/plugs/Validform/Validform_v5.3.2.js"></script>
+            <script type="text/javascript">
+            $(function(){
+                $(".registerform").Validform();  //就这一行代码！;
+            })
+            </script>
+            [.*修改资料表单结束*.]
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

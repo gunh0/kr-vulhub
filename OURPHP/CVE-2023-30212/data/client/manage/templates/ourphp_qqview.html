@@ -1,0 +1,82 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li><a  href="ourphp_qq.php?id=ourphp"><font color="#000000">返回</font></a></li>
+  <li class="hover">编辑</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=[.$ourphp_qq.id.]" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		  <tr>
+		  	<td><div align="right">客服姓名</div></td>
+			<td><input name="OP_QQname" type="text" class="win" value="[.$ourphp_qq.OP_QQname.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="姓名是必填项!"/><font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">账号</div></td>
+			<td><input name="OP_QQnumber" type="text" class="win" value="[.$ourphp_qq.OP_QQnumber.]" [.$ourphp_bgcolor.]  datatype="*" nullmsg="账号是必填项!" /><font color=red> (*)</font>									
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">类型</div></td>
+			<td>
+			
+			<p style="width:100px; float:left; text-align:center;"><label><img src="../../skin/qq.png" border="0"  width="60" /><br />
+			  <input name="OP_QQclass" type="radio" value="qq" [.if $ourphp_qq.OP_QQclass == 'qq'.]checked="checked"[./if.] /></label>
+			</p>
+			
+			<p style="width:100px; float:left; text-align:center;"><label><img src="../../skin/aliww.png" border="0"  width="60" /><br />
+			  <input name="OP_QQclass" type="radio" value="aliww" [.if $ourphp_qq.OP_QQclass == 'aliww'.]checked="checked"[./if.] /></label>
+			</p>
+			
+			<p style="width:100px; float:left; text-align:center;"><label><img src="../../skin/skype.png" border="0"  width="60" /><br />
+			  <input name="OP_QQclass" type="radio" value="skype" [.if $ourphp_qq.OP_QQclass == 'skype'.]checked="checked"[./if.] /></label>
+			</p>
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">排序</div></td>
+			<td><input name="OP_QQsorting" type="text" class="win2" value="[.$ourphp_qq.OP_QQsorting.]" [.$ourphp_bgcolor.] /> 数字越小，越靠前								
+			</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+		</form>
+	  </li>
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

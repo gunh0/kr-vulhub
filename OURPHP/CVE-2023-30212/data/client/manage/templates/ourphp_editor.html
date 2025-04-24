@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="../../function/editor/themes/default/default.css" />
+<script charset="utf-8" src="../../function/editor/kindeditor.js"></script>
+<script language="javascript" src="../../function/editor/webuploader/webuploader.js"></script>
+<script charset="utf-8" src="../../function/editor/lang/zh_CN.js"></script>
+<script>
+	KindEditor.ready(function(K) {
+		KindEditor.options.filterMode = false;
+		K.create('.editor', {
+			allowFileManager : true,
+			autoHeightMode : true,
+			afterCreate : function() {
+				this.loadPlugin('autoheight');
+			}
+		});
+	});
+</script>

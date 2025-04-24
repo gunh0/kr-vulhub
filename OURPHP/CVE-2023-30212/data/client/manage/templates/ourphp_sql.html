@@ -1,0 +1,75 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script src="../../function/plugs/layer/layer.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li class="hover">执行SQL语句</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+	    <form id="form1" name="form1" method="post" action="?ourphp_cms=add">
+        <table width="98%" border="0" cellpadding="10">
+                <tr>
+                  <td width="12%"><div align="right">说明：</div></td>
+                  <td width="88%" valign="top"><p>&nbsp;</p>
+                  <p style="font-size:14px; height:25px;">这里仅仅是一个辅助功能，可以完成插入，删除，修改等SQL操作。不要把它当成一个常用操作。</p>
+                  <p style="font-size:14px; height:25px;">严重警告：除非您对我们的数据库结构或SQL很熟悉的情况下，在使用本功能。否则不要使用该功能，如有意外会导致数据库崩溃！</p></td>
+                </tr>
+                <tr>
+                  <td valign="top"><div align="right">SQL语句</div></td>
+                  <td><textarea name="sql" class="wtextarea" style="width:720px;"></textarea><br /><br />
+				  
+				  
+				  <div style="clear:both;"></div>
+					<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+						<p>
+						sql写法 如：INSERT INTO ourphp_userleve VALUES('1','普通会员','0');<br />
+						支持多条sql执行，请用 ;  分开
+						</p>
+					</div>
+					
+			
+				  </td>
+                </tr>
+                <tr>
+                  <td><div align="right">口令码</div></td>
+                  <td><input type="password" name="kl" class="win" /></td>
+                </tr>
+                <tr>
+                  <td>&nbsp;</td>
+                  <td><input type="submit" name="Submit" value="提交" class="ourphp-anniu" /></td>
+                </tr>
+         </table>
+        </form>
+	  </li>
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

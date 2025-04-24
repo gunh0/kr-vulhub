@@ -1,0 +1,179 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li class="hover">编 辑</li>
+  <li><a href="javascript:history.go(-1)"><font color="#000000">返 回</font></a></li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=[.$ourphp_user.id.]" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse; margin-top:20px;" align="center">
+		<tr>
+		  	<td><div align="right">会员级别</div></td>
+			<td>
+			
+				<select name="OP_Userclass" class="win3" >
+				  [.section loop=$Userleve name=op.]
+					<option value="[.$Userleve[op].id.]" [.if $Userleve[op].id == $ourphp_user.OP_Userclass.]selected="selected"[./if.]>[.$Userleve[op].name.]</option>
+				  [./section.]
+				</select>
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">状态</div></td>
+			<td>
+			<label><input name="OP_Userstatus" type="radio" value="1" [.if $ourphp_user.OP_Userstatus == 1.]checked="checked"[./if.] />开启</label>&nbsp;&nbsp;
+			<label><input name="OP_Userstatus" type="radio" value="2" [.if $ourphp_user.OP_Userstatus == 2.]checked="checked"[./if.] />锁定</label>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">会员账号</div></td>
+			<td>{[.$ourphp_user.OP_Useremail.]}
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">账户余额</div></td>
+			<td>
+				<!--<input name="OP_Usermoney" type="text" class="win3" value="[.$ourphp_user.OP_Usermoney.]" [.$ourphp_bgcolor.] /> 元-->
+				[.$ourphp_user.OP_Usermoney.] 元
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">账户积分</div></td>
+			<td>
+				<!--<input name="OP_Userintegral" type="text" class="win3" value="[.$ourphp_user.OP_Userintegral.]" [.$ourphp_bgcolor.] /> 分-->
+				[.$ourphp_user.OP_Userintegral.] 分
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">账户虚拟币</div></td>
+			<td>
+				<!--<input name="OP_Userintegral" type="text" class="win3" value="[.$ourphp_user.OP_Userintegral.]" [.$ourphp_bgcolor.] /> 分-->
+				[.$ourphp_user.OP_Usercoin.] 枚
+			</td>
+		  </tr>
+		  <tr>
+				<td><div align="right"><h5>实名信息</h5></div></td>
+				<td></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">会员姓名</div></td>
+			<td><input name="OP_Username" type="text" class="win" value="[.$ourphp_user.OP_Username.]" [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">手机号码</div></td>
+			<td><input name="OP_Usertel" type="text" class="win" value="[.$ourphp_user.OP_Usertel.]" [.$ourphp_bgcolor.] /> (可能与账号同步,无需求不需要修改)</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">身份证号</div></td>
+			<td><input name="OP_Useradd" type="text" class="win" value="[.$ourphp_user.OP_Useradd.]" [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  <tr>
+				<td><div align="right"><h5>提现信息</h5></div></td>
+				<td></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">收款类型</div></td>
+			<td><input name="OP_Userskype" type="text" class="win" value="[.$ourphp_user.OP_Userskype.]" [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">收款账号</div></td>
+			<td><input name="OP_Useraliww" type="text" class="win" value="[.$ourphp_user.OP_Useraliww.]" [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  <tr>
+				<td><div align="right"><h5>基本信息</h5></div></td>
+				<td></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">推广码</div></td>
+			<td>[.$ourphp_user.OP_Userregcode.]</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">登录密码</div></td>
+			<td><input name="OP_Userpass" type="text" class="win" [.$ourphp_bgcolor.] /><font color=red> (*)</font>不修改则为空</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">确认密码</div></td>
+			<td><input name="OP_Userpassto" type="text" class="win" [.$ourphp_bgcolor.]  /><font color=red> (*)</font>不修改则为空</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">微信/QQ</div></td>
+			<td><input name="OP_Userqq" type="text" class="win" value="[.$ourphp_user.OP_Userqq.]" [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">推荐人账号</div></td>
+			<td><input name="OP_Usersource" type="text" class="win" value="[.$ourphp_user.OP_Usersource.]"  [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">头像地址</div></td>
+			<td>
+				<input name="OP_Userhead" type="text" class="win" value="[.$ourphp_user.OP_Userhead.]" [.$ourphp_bgcolor.] />
+				[.if $ourphp_user.OP_Userhead != ''.]<img src="[.$ourphp_user.OP_Userhead.]" width="37" height="37" style="float:left; margin-top:0px;">[./if.]
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">IP</div></td>
+			<td><input name="OP_Userip" type="text" class="win" value="[.$ourphp_user.OP_Userip.]" [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">安全问题</div></td>
+			<td>
+			
+				<select name="OP_Userproblem" class="win3" >
+				  [.section loop=$Userproblem name=op.]
+					<option value="[.$Userproblem[op].name.]" [.if $Userproblem[op].name == $ourphp_user.OP_Userproblem.]selected="selected"[./if.]>[.$Userproblem[op].name.]</option>
+				  [./section.]
+				</select>
+				
+			<font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">答案</div></td>
+			<td><input name="OP_Useranswer" type="text" class="win" value="[.$ourphp_user.OP_Useranswer.]" [.$ourphp_bgcolor.]  datatype="*" nullmsg="答案是必填项!"  /><font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">人生宣言</div></td>
+			<td><textarea name="OP_Usertext" class="win" [.$ourphp_bgcolor.] class="wtextarea" style="width:350px; height:100px; border:1px #D7EBFF solid;" >[.$ourphp_user.OP_Usertext.]</textarea></td>
+		  </tr>
+		  
+		   <tr>
+		   	<td><input type="hidden" name="password" value="[.$ourphp_user.OP_Userpass.]" /></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+		</form>
+	  </li>
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

@@ -1,0 +1,198 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit" class="registerform">
+<!--第一种形式-->
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">会员功能选项</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block"><li style=" padding-top:30px;">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse; " align="center">
+		  <tr>
+		  	<td width="170" valign="top"><div align="right">开启注册？</div></td>
+			<td>
+			
+			<label><input name="OP_Userreg" type="radio" value="1" [.if $ourphp_usercontrol.OP_Userreg == 1.]checked="checked"[./if.] />开启</label>&nbsp;&nbsp;
+			<label><input type="radio" name="OP_Userreg" value="2" [.if $ourphp_usercontrol.OP_Userreg == 2.]checked="checked"[./if.] />关闭</label>
+			
+			<div style="clear:both;"></div>
+			<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+				<p>后台添加会员不受此影响</p>
+			</div>
+			
+			</td>
+		    <td>&nbsp;</td>
+		  </tr>
+		  
+		  <tr>
+		  	<td width="170"><div align="right">注册类型</div></td>
+			<td>
+			
+			<label><input name="OP_Regtyle" type="radio" value="email" [.if $ourphp_usercontrol.OP_Regtyle == 'email'.]checked="checked"[./if.] />用Email做账号</label>&nbsp;&nbsp;
+			<label><input type="radio" name="OP_Regtyle" value="tel" [.if $ourphp_usercontrol.OP_Regtyle == 'tel'.]checked="checked"[./if.] />用手机号做账号</label></td>
+		    <td>&nbsp;</td>
+		  </tr>
+		  
+		  <tr>
+		  	<td width="170" valign="top"><div align="right">是否开启注册验证码？</div></td>
+			<td>
+			
+			<label><input name="OP_Regcode" type="radio" value="0" [.if $ourphp_usercontrol.OP_Regcode == 0.]checked="checked"[./if.] />不开启</label>&nbsp;&nbsp;
+			<label><input type="radio" name="OP_Regcode" value="1" [.if $ourphp_usercontrol.OP_Regcode == 1.]checked="checked"[./if.] />开启</label>
+			
+			<div style="clear:both;"></div>
+			<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+				<p>如果您使用手机号为注册账号的话，开启验证码功能后，请联系管理员购买接收短信验证码服务。（email账号验证不需要）</p>
+			</div>
+			
+			</td>
+		    <td>&nbsp;</td>
+		  </tr>
+		  
+		  <tr>
+		  	<td valign="top"><div align="right">开启登录？</div></td>
+			<td>
+			
+			<label><input name="OP_Userlogin" type="radio" value="1" [.if $ourphp_usercontrol.OP_Userlogin == 1.]checked="checked"[./if.] />开启</label>&nbsp;&nbsp;
+			<label><input type="radio" name="OP_Userlogin" value="2" [.if $ourphp_usercontrol.OP_Userlogin == 2.]checked="checked"[./if.] />关闭</label>
+			</td>
+		    <td>&nbsp;</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">找回密码方式：</div></td>
+			<td>
+			
+			<label><input name="OP_Userpassgo" type="radio" value="0" [.if $ourphp_usercontrol.OP_Userpassgo == 0.]checked="checked"[./if.] />问题</label>&nbsp;&nbsp;
+			<label><input type="radio" name="OP_Userpassgo" value="1" [.if $ourphp_usercontrol.OP_Userpassgo == 1.]checked="checked"[./if.] />手机短信</label>
+			</td>
+		    <td>&nbsp;</td>
+		  </tr>
+		  <tr>
+		 
+		  	<td><div align="right">用户协议与隐私条款</div></td>
+			<td>
+			
+			<textarea name="OP_Userprotocol" class="wtextarea editor" style="width:90%; height:300px; padding:10px; line-height:25px;">[.$ourphp_usercontrol.OP_Userprotocol.]</textarea>
+			
+			</td>
+		    <td>
+				[.include file="ourphp_editor.html".]
+			</td>
+		 	
+		  </tr>
+		  <tr>
+		  	<td><div align="right">默认用户组</div></td>
+			<td>
+			
+			
+			<select name="OP_Usergroup" class="win3">
+			[.section loop=$userleve name=op.]
+			<option value="[.$userleve[op].id.]" [.if $userleve[op].id == $ourphp_usercontrol.OP_Usergroup.]selected="selected"[./if.]>[.$userleve[op].name.]</option>
+			[./section.]
+			</select>
+			
+			&nbsp;&nbsp;&nbsp;会员注册成功后，默认的用户组。			</td>
+		    <td>&nbsp;</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">注册赠送</div></td>
+			<td>
+			
+			现金：<input type="text" name="OP_Usermoney[]" class="win2" value="[.$ourphp_Usermoney[0].]" datatype="*" nullmsg="现金和积分是必填项!" />&nbsp;&nbsp;积分：<input type="text" name="OP_Usermoney[]" class="win2" value="[.$ourphp_Usermoney[1].]" datatype="*" nullmsg="现金和积分是必填项!" />
+			&nbsp;&nbsp;&nbsp;不能为空，0 表示不赠送。
+			</td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">会员自助推广赠送</div></td>
+			<td>
+			
+			现金：<input type="text" name="OP_Usermoney[]" class="win2" value="[.$ourphp_Usermoney[2].]" datatype="*" nullmsg="现金和积分是必填项!" />&nbsp;&nbsp;积分：<input type="text" name="OP_Usermoney[]" class="win2" value="[.$ourphp_Usermoney[3].]" datatype="*" nullmsg="现金和积分是必填项!" />
+			&nbsp;&nbsp;&nbsp;不能为空，0 表示不赠送。(当会员推荐其它网友来注册，奖励现金或积分)
+			</td>
+		    <td></td>
+		  </tr>
+		  <tr>
+			<td><div align="right">现金和积分用途</div></td>
+			<td style="color:#FF3300;">
+			
+			<div style="clear:both;"></div>
+			<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+				<p>
+				现金是用来购买网站上商品的，支付宝等充值都是现金。积分是用还换置的，不做为购物使用。<br />
+				1现金 = 1人民币</p>
+			</div>
+			
+			</td>
+			<td></td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">IP限制？</div></td>
+			<td>
+			
+			<label><input name="OP_Useripoff" type="radio" value="1" [.if $ourphp_usercontrol.OP_Useripoff == 1.]checked="checked"[./if.] />开启</label>&nbsp;&nbsp;
+			<label><input type="radio" name="OP_Useripoff" value="2" [.if $ourphp_usercontrol.OP_Useripoff == 2.]checked="checked"[./if.] />关闭</label>&nbsp;&nbsp;&nbsp;
+			
+			<div style="clear:both;"></div>
+			<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+				<p>开启后一个IP只能注册一位会员</p>
+			</div>
+			
+			</td>
+		    <td>&nbsp;</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">虚拟币比例</div></td>
+			<td>
+			
+			<input type="text" name="OP_Coinset" class="win2" value="[.$ourphp_usercontrol.OP_Coinset.]" datatype="*" nullmsg="虚拟币比例是必填项!" /> 1现金 ：1虚拟币
+			</td>
+		    <td></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">提现手续费</div></td>
+			<td>
+			
+			<input type="text" name="OP_Withdrawal" class="win2" value="[.$ourphp_usercontrol.OP_Withdrawal.]" datatype="*" nullmsg="提现手续费是必填项!" /> 会员每笔提现手续费,可以是固定数字或百分比。必须数字，如：10 或 10%
+			</td>
+		    <td></td>
+		  </tr>
+		  <tr>
+			<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+			<td></td>
+		  </tr>
+		</table>
+  </li></ul>
+ </div>
+</div>
+</form>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

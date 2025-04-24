@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>[.$ourphp_web.website.]</title>
+		<meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+		<meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+		<link href="[.$webpath.]favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	
+	[.include file="cn/cn_head.html".]
+</head>
+<body>
+
+[.include file="cn/cn_top.html".]
+
+		<div class="banner">
+			<div class="banner-box">
+				<div class="bd">
+					<ul>
+					
+						[.banner lang="cn" row="5" name="banner" id="0" type="0".]
+						<li><a href="[.$banner.url.]" target="_self" title="[.$banner.title.]"><img src="[.$banner.img.]" alt="" /></a></li>
+						[./banner.]
+
+					</ul>
+				</div>
+				<div class="hd">
+					<ul>
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	[.include file="cn/cn_banner.html".]	
+		
+		<!--产品-->
+				<div class="ghdgcpb wow animated animated"><span>产品展示</span></div>
+		<div class="yzswnz">一站式专业服务，让您省时，省力，又省心</div>
+		<div class="xigtnjd"><img src="[.$templatepath.]images/down.png" /></div>
+		<div class="totalwidth">
+			<div id="tabs">
+				
+				[.callcolumn id="2" row="6" lang="cn" type="td" name="callcolumn".]
+				<li [.if $callcolumn.i == 1.]class="currents"[./if.] > <a href="[.$callcolumn.url.]" title="[.$callcolumn.title.]">[.$callcolumn.title.]</a></li>
+				[./callcolumn.]				
+								
+				<div class="clear"></div>
+			</div>
+			<div id="contents">
+			<ul style="display:block;" > <div class="prod_row2">
+					<div class='divproduct_new_div'>
+					
+					[.ourphp form="product" row="8" lang="cn" id="0" type="op" name="ourphp".]
+						<div class="divproduct_new_div_item">
+							<div class="divproduct_new_div_item_date"></div>
+							<div class="divproduct_new_div_item_content">
+								<div class="divproduct_new_div_item_title"><a class="divproduct_new_div_item_a" href="[.$ourphp.url.]" title="[.$ourphp.title.]">[.$ourphp.title.]</a></div>
+							</div>
+							<div class="product_div_item_pic"> <a href="[.$ourphp.url.]" title="[.$ourphp.title.]"> <img src="[.$ourphp.minimg.]" alt="[.$ourphp.title.]" class="product_div_item_image"> </a> </div>
+						</div>
+					[./ourphp.]
+						
+					</div>
+			</div>
+			</ul>
+			<ul> 
+			<div class="prod_row2">
+				<div class='divproduct_new_div'>
+
+			
+				</div>
+			</div>
+			</ul>
+			<ul>
+			<div class="prod_row2">
+				<div class='divproduct_new_div'>
+
+				</div>
+			</div>
+			</ul>
+			<ul>
+			<div class="prod_row2">
+				<div class='divproduct_new_div'>
+
+				</div>
+			</div>
+			</ul>
+			<ul>
+			<div class="prod_row2">
+				<div class='divproduct_new_div'>
+					
+				</div>
+			</div>
+			</ul>
+			<ul>
+			<div class="prod_row2">
+				<div class='divproduct_new_div'>
+					
+				</div>
+			</div>
+			</ul>
+			
+		</div>
+		<script>
+			$(function() {
+				window.onload = function() {
+					var $li = $('#tabs li');
+					var $ul = $('#contents ul');
+
+					$li.mouseover(function() {
+						var $this = $(this);
+						var $t = $this.index();
+						$li.removeClass();
+						$this.addClass('currents');
+						$ul.css('display', 'none');
+						$ul.eq($t).css('display', 'block');
+					})
+				}
+			});
+		</script>
+		</div>
+				<!--优势/-->
+		<div class="top50"></div>
+		<div id="youshi_bg">
+			<div class="totalwidth">
+								<div id="youshi_t">
+					<div class="youshi_t1">四大优势</div>
+					<div class="youshi_t2">专业开发定制，满足各种需求，一站式服务，帮您省钱省心</div>
+				</div>
+								<div class="xigtnjd"><img src="[.$templatepath.]images/d.png" /></div>
+				<div class="top20"></div>
+				<div id="youshi_fl">
+					<div class="youshi_c">
+						<div class="youshi_h1">软件开发服务商</div>
+						<div class="youshi_h2">Software development service provider</div>
+						<div class="youshi_h3">专业服务，让您省时，省力，又省心</div>
+						<div class="youshi_h4">
+							<div class="v1"><img src="[.$templatepath.]images/z.png" /></div>
+							顶级源头
+						</div>
+						<div class="youshi_h4">
+							<div class="v1"><img src="[.$templatepath.]images/a.png" /></div>
+							价格优惠
+						</div>
+						<div class="youshi_h4">
+							<div class="v1"><img src="[.$templatepath.]images/s.png" /></div>
+							售后保障
+						</div>
+						<div class="clear"></div>
+						<div class="youshi_ted"><span>服务热线：</span><strong>[.$ourphp_web.webtel.]</strong></div>
+					</div>
+				</div>
+				<div id="youshi_r">
+										<div class="youshi_p">
+						<div class="youshi_v1">01</div>
+						<div class="youshi_v2">10于年的开发经验</div>
+						<div class="youshi_v3"></div>
+						<div class="youshi_v4">公司成立至今10于年，服务企业上万家。为国内以及国外客户提供全站式解决方案。</div>
+					</div>
+										<div class="youshi_p">
+						<div class="youshi_v1">02</div>
+						<div class="youshi_v2">多项国家专利</div>
+						<div class="youshi_v3"></div>
+						<div class="youshi_v4">我们拥有多项国家著作权专利，我们给客户提供自已的建站系统。保证从源头就安全，也不存在侵权行为。让二次开发也变的更加简化。</div>
+					</div>
+					<div class="clear"></div>					<div class="youshi_p">
+						<div class="youshi_v1">03</div>
+						<div class="youshi_v2">专业技术团队，高性价比</div>
+						<div class="youshi_v3"></div>
+						<div class="youshi_v4">拥有丰富的互联网从业经验，所有开发工程师都是业内大咖，参与多项大型及央企项目。</div>
+					</div>
+										<div class="youshi_p">
+						<div class="youshi_v1">04</div>
+						<div class="youshi_v2">为您提供完善的售后服务体系</div>
+						<div class="youshi_v3"></div>
+						<div class="youshi_v4">我们拥有专业的销售和服务团队为您提供诸多贴心服务，专业的售后服务团队，定期客户回访，及时为您解决问题。</div>
+					</div>
+										
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<!--简介-->
+				<div class="top50"></div>
+		<div class="aygnwydj">
+			<div class="gyxtjhw"><font>关于我们</font>
+			</div>
+		</div>
+		<div class="top40"></div>
+		<div class="totalwidth">
+			<div class="shgbbtl"></div>
+			<div class="hsgbjtzb">
+				<div class="ngjlswbz">[.$ourphp_web.webname.]</div>
+				<div class="gjgnjsld">[.info type="about" id="9" html="1" size="150".]...</div>
+				<div class="srhlsnkd"><a href="?cn-about-9.html">+关于我们</a></div>
+				[.callcolumn id="7,8,10" row="3" lang="cn" type="dq" name="callcolumn".]
+				<div class="srhlsnkd"><a href="[.$callcolumn.url.]" title="[.$callcolumn.title.]">+[.$callcolumn.title.]</a></div>
+				[./callcolumn.]
+				<div class="clear"></div>
+			</div>
+			<div class="jjbtyz"><img src="[.$templatepath.]images/about.jpg" /></div>
+			<div class="clear"></div>
+		</div>
+		
+		<!--新闻 news-->
+				<div class="news">
+			<div class="news_tline">
+				<div class="news_tline_i">
+					<div class="news_tline_il"> </div>
+				</div>
+			</div>
+			<div class="news_m"> 新闻中心 </div>
+			<div class="news_s">  </div>
+			<div class="news_line">
+				<div class="news_line_t"> </div>
+				<div class="news_line_d"> </div>
+			</div>
+			<div class="lanrenzhijia">
+				<div class="news_dt">
+				
+				
+					[.callcolumn id="0" row="3" lang="cn" type="article" name="callcolumn".]
+					<a href="[.$callcolumn.url.]" title="[.$callcolumn.title.]" [.if $callcolumn.i == 1.]class="on"[./if.]>
+						<div class="news_dt_rm"> [.$callcolumn.title.] </div>
+						<div class="news_dt_ren">  </div>
+					</a>
+					[./callcolumn.]
+					
+					
+				</div>
+				<div class="content">
+					<ul class="ul">
+						<li class="li">
+							<div class="news_div">
+							
+								[.ourphp form="article" row="4" lang="cn" id="0" type="op" name="ourphp".]
+								<div class="news_div_item">
+									<div class="news_div_item_date">
+										<div class="news_div_item_year">[.$ourphp.time|date_format:"%Y".]-</div>
+										<div class="news_div_item_month">[.$ourphp.time|date_format:"%m".]-</div>
+										<div class="news_div_item_day">[.$ourphp.time|date_format:"%d".]</div>
+									</div>
+									<div class="news_div_item_content">
+										<div class="news_div_item_title"><a class="news_div_item_a" href="[.$ourphp.url.]" title="[.$ourphp.title.]">[.$ourphp.title.]</a></div>
+										<div class="news_div_item_body">[.$ourphp.description|truncate:33:"...".]</div>
+									</div>
+									<div class="news_div_item_pic"> <a href="[.$ourphp.url.]" title="[.$ourphp.title.]"> <img src="[.$ourphp.minimg.]"
+											 alt="[.$ourphp.title.]" class="news_div_item_image"> </a> </div>
+								</div>
+								[./ourphp.]
+								
+							</div>
+						</li>
+						<li class="li">
+							<div class="news_div">
+
+								[.ourphp form="article" row="4" lang="cn" id="0" type="op" name="ourphp".]
+								<div class="news_div_item">
+									<div class="news_div_item_date">
+										<div class="news_div_item_year">[.$ourphp.time|date_format:"%Y".]-</div>
+										<div class="news_div_item_month">[.$ourphp.time|date_format:"%m".]-</div>
+										<div class="news_div_item_day">[.$ourphp.time|date_format:"%d".]</div>
+									</div>
+									<div class="news_div_item_content">
+										<div class="news_div_item_title"><a class="news_div_item_a" href="[.$ourphp.url.]" title="[.$ourphp.title.]">[.$ourphp.title.]</a></div>
+										<div class="news_div_item_body">[.$ourphp.description|truncate:33:"...".]</div>
+									</div>
+									<div class="news_div_item_pic"> <a href="[.$ourphp.url.]" title="[.$ourphp.title.]"> <img src="[.$ourphp.minimg.]"
+											 alt="[.$ourphp.title.]" class="news_div_item_image"> </a> </div>
+								</div>
+								[./ourphp.]
+								
+								
+							</div>
+						</li>
+						<li class="li">
+							<div class="news_div">
+								[.ourphp form="article" row="4" lang="cn" id="0" type="op" name="ourphp".]
+								<div class="news_div_item">
+									<div class="news_div_item_date">
+										<div class="news_div_item_year">[.$ourphp.time|date_format:"%Y".]-</div>
+										<div class="news_div_item_month">[.$ourphp.time|date_format:"%m".]-</div>
+										<div class="news_div_item_day">[.$ourphp.time|date_format:"%d".]</div>
+									</div>
+									<div class="news_div_item_content">
+										<div class="news_div_item_title"><a class="news_div_item_a" href="[.$ourphp.url.]" title="[.$ourphp.title.]">[.$ourphp.title.]</a></div>
+										<div class="news_div_item_body">[.$ourphp.description|truncate:33:"...".]</div>
+									</div>
+									<div class="news_div_item_pic"> <a href="[.$ourphp.url.]" title="[.$ourphp.title.]"> <img src="[.$ourphp.minimg.]"
+											 alt="[.$ourphp.title.]" class="news_div_item_image"> </a> </div>
+								</div>
+								[./ourphp.]
+							</div>
+						</li>
+												
+					</ul>
+				</div>
+				<script>
+					$(function() {
+						$('.lanrenzhijia .content .ul').width(1200 * $('.lanrenzhijia .content li').length + 'px');
+						$(".lanrenzhijia .news_dt a").mouseover(function() {
+							$(this).addClass('on').siblings().removeClass('on');
+							var index = $(this).index();
+							number = index;
+							var distance = -1200 * index;
+							$('.lanrenzhijia .content .ul').stop().animate({
+								left: distance
+							});
+						});
+						var auto = 0; //等于1则自动切换，其他任意数字则不自动切换
+						if (auto == 1) {
+							var number = 0;
+							var maxNumber = $('.lanrenzhijia .news_dt a').length;
+
+							function autotab() {
+								number++;
+								number == maxNumber ? number = 0 : number;
+								$('.lanrenzhijia .news_dt a:eq(' + number + ')').addClass('on').siblings().removeClass('on');
+								var distance = -1200 * number;
+								$('.lanrenzhijia .content .ul').stop().animate({
+									left: distance
+								});
+							}
+							var tabChange = setInterval(autotab, 3000);
+							//鼠标悬停暂停切换
+							$('.lanrenzhijia').mouseover(function() {
+								clearInterval(tabChange);
+							});
+							$('.lanrenzhijia').mouseout(function() {
+								tabChange = setInterval(autotab, 3000);
+							});
+						}
+					});
+				</script>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+	
+[.include file="cn/cn_foot.html".]
+
+	</body>
+</html>

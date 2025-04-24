@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>我的拼团_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+<script src="[.$webpath.]function/plugs/YIQI-UI/icheck/YIQI-UI-icheck.min.js"></script>
+<link href="[.$webpath.]function/plugs/YIQI-UI/icheck/YIQI-UI-icheck.css" rel="stylesheet">
+<script>
+$(function(){
+	$('.skin-minimal input').iCheck({
+	checkboxClass: 'icheckbox-blue',
+	radioClass: 'iradio-blue',
+	increaseArea: '20%'
+	});
+});
+</script>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">我的团员</dd>
+		<div class="pos-a back"><a href="javascript:history.go(-1);"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a></div>
+	</div>
+	<div class="pages">
+      <div class="content2" style="margin:60px auto;">
+		[.*订单模板开始*.]
+        
+          <table class="table" style="margin:2% 1%; border-top:none; width: 98%;">
+           <tbody>
+			[.assign var="tuanid" value=intval($smarty.get.tuanid).]
+            [.sql mysql="select * from ourphp_tuanuserlist where OP_Tuanid = $tuanid ORDER BY time ASC" font="未找到数据!" name="sql".]
+			
+				[.assign var="OP_Tuanuser" value=$sql.OP_Tuanuser.]
+				[.sql mysql="select OP_Username,OP_Userhead from ourphp_user where OP_Useremail = '$OP_Tuanuser'" font="" name="sql2".]
+					[.assign var="username" value=$sql2.OP_Username.]
+					[.assign var="userimg" value=$sql2.OP_Userhead.]
+				[./sql.]
+				
+            <tr>
+              <td width="70%">
+					<div class="f-l">
+						<img src="[.$userimg.]" width="50" height="50">
+					</div>
+					<div class="f-l ml-10" style="width:160px; overflow: hidden; white-space: nowrap; text-overflow:ellipsis;">
+						<span>[.$sql.OP_Tuanuser.]</span>
+						<p>[.$username.]</p>
+					</div>
+              </td>
+			  <td class="text-r" width="26%">
+					[.$sql.time|date_format:"%Y-%m-%d %H:%M:%S".]
+              </td>
+            </tr>
+			
+				[.assign var="usercode" value=$usercode + $sql.tuancode.]
+				
+				
+            [./sql.]
+			
+           </tbody>
+          </table>  
+          [.*订单模板结束*.]
+        </div>
+    </div>
+	
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

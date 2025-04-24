@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>拼团_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+<script>
+function rightnavlist(){
+	$(".rightnav").toggle(500);
+}
+$(function(){
+	$("#YIQI-UI").click(function(){
+		$(".rightnav").hide(500);
+	});
+})
+</script>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="pages">
+		[.include file="cn/cn_shoptop.html".]
+        <div class="">
+
+        <div class="topinfo">
+        	<div class="f-l">
+        			<img src="[.$listname.minimg.]" width="100" height="100">
+        	</div>
+        	<div class="f-l ml-20">
+        			<h5>[.$listname.title.]</h5>
+        			<p>
+        				[.$listname.titleto.]
+        			</p>
+        	</div>
+        </div>
+
+
+        	<div class="clear"></div>
+        	<div class="listnav">
+            	<li [.if isset($smarty.get.type)=="".]class="xz"[./if.]><a href="?[.$ip.lang.]-[.$ip.type.]-[.$ip.listid.].html">默认</a></li>
+                <li [.if isset($smarty.get.type) == "".][.elseif $smarty.get.type == "OP_Webmarket".]class="xz"[./if.]><a href="?[.$ip.lang.]-[.$ip.type.]-[.$ip.listid.].html=&type=OP_Webmarket">按价格</a></li>
+				<li [.if isset($smarty.get.type) == "".][.elseif $smarty.get.type == "OP_Buynum".]class="xz"[./if.]><a href="?[.$ip.lang.]-[.$ip.type.]-[.$ip.listid.].html=&type=OP_Buynum">按销量</a></li>
+                <li style="border-right:0;" [.if isset($smarty.get.type) == "".][.elseif $smarty.get.type == "OP_Click".]class="xz"[./if.]><a href="?[.$ip.lang.]-[.$ip.type.]-[.$ip.listid.].html=&type=OP_Click" >按人气</a></li> 
+				<li>
+                	<a href="javascript:rightnavlist();"><i class="icon YIQI-UI-iconfont YIQI-UI-iconfont-fenlei"></i>分类</a>
+                </li>
+            </div>
+        	<div class="clear"></div>
+        	<div class="prlist pt-10">
+                    [.if isset($smarty.get.type).]
+                        [.if $smarty.get.type == "OP_Webmarket".]
+                        [.assign var="listtype" value="OP_Webmarket".]
+						[.elseif $smarty.get.type == "OP_Buynum".]
+						[.assign var="listtype" value="OP_Buynum".]
+                        [.else.]
+                        [.assign var="listtype" value="OP_Click".]
+                        [./if.]
+                    [.else.]
+                    [.assign var="listtype" value="id".]
+                    [./if.]
+					<script type="text/javascript">
+						$(function(){
+							$(".noacc").hide();
+						});
+						var op_page = 2; //从第2页开始加载
+						var op_limit = 0; //0=按后台设置否侧按这里设置
+						var op_model = 'listtuan'; //获取栏目类型
+						var op_classid = [.$ip.listid.]; //获取栏目ID
+						var op_lang = 'cn'; //设置语言
+						var op_typeclass = '[.$listtype.]'; //产品附加属性
+						
+						var d = true;
+						window.addEventListener('scroll', function () {
+						   if(window.pageYOffset + window.innerHeight + 200 >= document.documentElement.scrollHeight){
+
+							if(d){
+									$.post("[.$webpath.]function/ourphp_ajax.class.php",{page:op_page,model:op_model,id:op_classid,limit:op_limit,lang:op_lang,typeclass:op_typeclass},function(result){
+										if(result == 0){
+											$(".noacc").show();
+										}else{
+											$("#op_ajax_page").append(result);
+											$(".noacc").hide();
+											op_page += 1;
+										}
+									},'json');
+							}
+
+								d = false;
+
+						   }
+						});
+					</script>
+            	<ul id="op_ajax_page">
+                    [.list id="$listid" form="product" type=$listtype name="list".] 
+                    <li [.if $list.i % 2 == 0.]class="mr0"[./if.]>
+						<a href="[.$list.wapurl.]" title="[.$list.title.]"><img src="[.$webpath.]skin/noimage.png" data-original="[.$list.minimg.]" />
+							<p class="prtitle">[.$list.title|truncate:37:"...".]</p>
+							<p class="jg">团价 ￥[.$list.webmarket.]<del class="f-r f-999 f-12">￥[.$list.market.]</del></p>
+						</a>
+                        <div class="tuanico">[.$list.tuanusernum.] 人团</div>
+					</li>
+                    [./list.]
+                </ul>
+                <div class="clear"></div>
+				<ul class="text-c f-999 noacc">
+					数据已全部加载完!
+				</ul>
+            </div>
+            <div class="clear"></div>
+            <div class="copy">
+                <p class="f-12">(C) [.$ourphp_web.webname.]</p>
+                <p class="f-12 pt-5">[.$ourphp_web.by|replace:"2019,&nbsp;&nbsp;哈尔滨伟成科技有限公司":date("Y").]</p>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="rightnav">
+        	<ul>
+                [.callcolumn id="2" row="8" lang="cn" type="td" name="callcolumn".]
+                <li><a href="[.$callcolumn.wapurl.]" title="[.$callcolumn.title.]">[.$callcolumn.title.]</a></li>
+                [./callcolumn.]
+			</ul>
+        </div>
+    </div>
+	[.include file="cn/cn_shopfoot.html".]
+</div>
+</body>
+</html>

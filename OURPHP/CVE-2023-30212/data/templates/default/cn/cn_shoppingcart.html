@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>购物车 - [.$ourphp_web.website.]</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+        <meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+        <meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+        <link rel="stylesheet" href="[.$templatepath.]shop/css/common.css">
+        <link rel="stylesheet" href="[.$templatepath.]shop/css/home_header.css">
+        <script src="[.$templatepath.]shop/js/jquery-2.1.4.min.js"></script>
+        <script src="[.$templatepath.]shop/js/common.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery-ui.min.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery.ui.datepicker-zh-CN.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery.validate.min.js"></script>
+        <script src="[.$templatepath.]shop/js/layer.js"></script>
+        <script src="[.$templatepath.]shop/js/dialog.js" id="dialog_js" charset="utf-8"></script>
+    </head>
+    <body>
+	
+[.include file="cn/cn_shoptop.html".]
+
+
+<!--面包屑导航 BEGIN-->
+<div class="dsh-breadcrumb-layout">
+    <div class="dsh-breadcrumb w1200"><i class="iconfont">&#xe6ff;</i>
+                <span><a href="[.$webpath.]?cn_shop.html">首页</a></span>
+				<span class="arrow">></span><span>购物车</span>
+    </div>
+</div>
+<!--面包屑导航 END-->
+
+
+<script>
+    $(function() {
+	//首页左侧分类菜单
+	$(".all_categorys ul.menu").find("li").each(
+		function() {
+			$(this).hover(
+				function() {
+				    var cat_id = $(this).attr("cat_id");
+					var menu = $(this).find("div[cat_menu_id='"+cat_id+"']");
+					menu.show();
+					$(this).addClass("hover");					
+					var menu_height = menu.height();
+					if (menu_height < 60) menu.height(80);
+					menu_height = menu.height();
+					var li_top = $(this).position().top;
+					$(menu).css("top",-li_top + 40);
+				},
+				function() {
+					$(this).removeClass("hover");
+				    var cat_id = $(this).attr("cat_id");
+					$(this).find("div[cat_menu_id='"+cat_id+"']").hide();
+				}
+			);
+		}
+	);
+
+        $(".user_menu dl").hover(function() {
+            $(this).addClass("hover");
+        }, function() {
+            $(this).removeClass("hover");
+        });
+
+    });
+    
+</script>
+
+
+<script src="[.$templatepath.]shop/js/search_goods.js"></script>
+<div class="dsh-container wrapper" >
+  <div class="left">
+        <div class="dsh-module dsh-module-style02">
+      <div class="title">
+        <h3>分类筛选</h3>
+      </div>
+      <div class="content">
+        <ul id="files" class="tree">
+		[.foreach from=$column item=op.]
+		[.if $op.id == 2.]
+		[.if isset($op.child).]
+			 [.foreach from=$op.child item=opop.]
+                    <li><i class="tree-parent tree-parent-collapsed"></i><a href="[.$opop.url.]" class="selected">[.$opop.title.]</a>
+                        <ul>
+						[.if isset($opop.child).]
+						 [.foreach from=$opop.child item=opopop.]
+                            <li><i class="tree-parent tree-parent-collapsed"></i><a href="[.$opopop.url.]" >[.$opopop.title.]</a>
+                                <ul>
+								[.foreach from=$opopop.child item=opopopop.]
+                                    <li class="tree-parent tree-parent-collapsed"><i></i><a href="[.$opopopop.url.]" >[.$opopopop.title.]</a></li>
+								[./foreach.] 	
+                                  </ul>
+                              </li>
+						  [./foreach.] 
+						[./if.]
+                          </ul>
+                      </li>
+			 [./foreach.]  
+		[./if.] 
+        [./if.]  
+        [./foreach.]       
+        </ul>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="right">
+    <div id="gc_goods_recommend_div" style="width:980px;"></div>
+
+	
+		[.*购物车模板开始，如果更换模板请从这里复制*.]
+		<script> 
+		$(function(){ 
+			var _url = $('#siteurl').val();
+			$('.delete').click(function(){
+			  setTotal();
+			  t.hide();
+			});
+		
+			$(".add").click(function(){ 
+				var t=$(this).parent('li').find('input[class*=text_box]');
+				var carid = $(this).prop("name");
+					carid = carid.split("@");
+				t.val(parseInt(t.val())+1); 
+				setTotal();
+				carnum(carid[0],1,carid[1]);
+			}); 
+		
+			$(".min").click(function(){ 
+				var t=$(this).parent('li').find('input[class*=text_box]');
+				var carid = $(this).prop("name");
+					carid = carid.split("@");
+				t.val(parseInt(t.val())-1) 
+				if(parseInt(t.val())<1){ 
+					t.val(1);
+					return false;
+				}
+				setTotal();
+				carnum(carid[0],2,carid[1]);
+			});
+		
+		  $('.text_box').keyup(function(){
+			setTotal();
+		  });
+		  
+		  function setTotal(){ 
+			var s=0; 
+			$("#tab dt").each(function(){ 
+			  var numbers = parseInt($(this).find('input[class*=text_box]').val());
+			  if($.isNumeric(numbers)){
+					numbers = parseInt(numbers);
+						}else{
+					numbers = 0;
+			  }
+			  $(this).find('input[class*=text_box]').val(numbers);
+			  s += numbers*parseFloat($(this).find('span[class*=price]').text());
+			}); 
+			$("#total").html(s.toFixed(2)); 
+		  } 
+		});
+		
+		function carnum(id,typec,md){
+			$.ajax({
+				url:"[.$webpath.]function/ourphp_shopcarajax.class.php",
+				type: 'post',
+				data:{id:id, type:2, typec:typec, md:md},
+				success: function(data){ 
+					// 回应    
+				}
+			}); 
+		}
+		
+		function add(id){
+			$("#addli li").removeClass("gb");
+			$("#add"+id).addClass("gb");
+			$("#shopaddid").val(id);
+		}
+		</script> 
+		<style type="text/css">
+			td { padding:5px;}
+			.min{ width:20px; height:30px; border:0px; float:left;}
+			.text_box { width:50px; height:28px; border:1px #CCCCCC solid; line-height:28px; float:left; text-align:center}
+			.add{ width:20px; height:30px; border:0px; float:left;}
+			.price {color:#cc0000;}
+			.input{width:300px; height:20px; line-height:20px; border:1px #CCCCCC solid; padding:5px;}
+			.spzj { font-size:14px;}
+			.spzj #total {color:#CC0000; font-weight:bold; font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;}
+			
+			.btn-success {width:150px; height:40px; float:right; border:none; border-radius:10px 0 0 10px; background:#5eb95e; color:#fff;}
+			.btn-danger {width:150px; height:40px; float:right; border:none; border-radius:0 10px 10px 0; background:#dd514c; color:#fff;}
+		</style>
+		[.if $ordersarray == 1.]
+			<form id="form1" name="form1" method="post" action="[.$webpath.]?cn-shoppingorders.html-&ourphp_cms=buy" class="registerform">
+			<table width="100%" border="0" cellpadding="10" bordercolor="#CCCCCC" bgcolor="#FFFFFF" style=" border-collapse:collapse;" id="tab">
+			<tr>
+				<td colspan="6"><img src="[.$webpath.]skin/shoppingcart.png" width="250" /></td>
+			  </tr>
+			  <tr style="background:url([.$webpath.]skin/clubgb.png) repeat-x;">
+				<td width="150"></td>
+				<td>购物信息</td>
+				<td width="80">网站价格</td>
+				<td width="80">您的价格</td>
+				<td width="120">购买数量</td>
+				<td width="40">&nbsp;</td>
+			  </tr>
+			  
+			  [.foreach $shoppingcart as $op.]
+			  <tr>
+				<td rowspan="2"><div align="center"><img src="[.$op.img.]" width="130" height="130" /></div></td>
+				<td><p style="font-size:14px; color:#000000;">[.$op.title.] [.$op.quota.]</p>
+				<p style="color: #999999; font-size:12px; margin-top:10px;">[.$op.attribute2.]</p>
+				<input type="hidden" name="ourphp_opcms[]" value="[.$op.id.]" />
+				<input type="hidden" name="ourphp_opcms[]" value="[.$op.title.]" />
+				<input type="hidden" name="ourphp_opcms[]" value="[.$op.attribute.]" />
+				<input type="hidden" name="ourphp_opcms[]" value="[.$op.weight.]" />
+				<input type="hidden" name="ourphp_opcms[]" value="[.$op.freight.]" />
+				</td>
+				<td rowspan="2"><del>[.$op.webmarket.]&nbsp;元</del>
+				<input type="hidden" name="ourphp_opcms[]" value="[.$op.webmarket.]" /></td>
+
+				<td colspan="2" rowspan="2" style="font-size:16px;">
+					<dt>
+					  <table width="100%" border="0" cellpadding="10">
+						<tr>
+						  <td style="width:70px;font-size:16px;"><span class="price">[.$op.usermarket.]</span>&nbsp;元
+						  <input type="hidden" name="ourphp_opcms[]" value="[.$op.usermarket.]" /></td>
+						  <td>
+								  <li>
+								  <input class="min" name="[.$op.cartid.]@[.token info=$op.cartid.]" type="button" value="-" /> 
+								  <input class="text_box" name="ourphp_opcms[]" type="text" value="[.$op.number.]" readonly="readonly" /> 
+								  <input class="add" name="[.$op.cartid.]@[.token info=$op.cartid.]" type="button" value="+" />
+								  </li>
+						  </td>
+						</tr>
+					  </table> 
+					</dt> 
+				</td>
+
+				<td rowspan="2" style="font-size:16px;"><div align="center"><a href="[.$webpath.]function/ourphp_play.class.php?ourphp_shopping=[.$op.cartid.]&lang=cn" onclick="javascript:return confirm('确认删除吗?')"><img src="[.$webpath.]skin/Trash.png" alt="删除" title="删除" /></a></div></td>
+			  </tr>
+			  <tr>
+				<td>商品备注：
+				<input type="text" name="ourphp_opcms[]" class="input"/>
+				<input type="hidden" name="ourphp_opcms[]" value="[.$op.barcode.]" />
+				[.*隐藏的表单元素，非常重要。更新模板时这里要保留不可以删除！ --开始*.]
+				<input type="hidden" name="ourphp_opcms[]" value="|" />
+				[.*隐藏的表单元素，非常重要。更新模板时这里要保留不可以删除！ --结束*.]
+				</td>
+			  </tr>
+              <tr>
+              	<td colspan="6" style="height:5px; border-bottom:1px #ebebeb solid;"></td>
+              </tr>
+			  [./foreach.]
+			</table>
+			<table width="100%">
+			  <tr>
+				<td valign="top" class="spzj">商品总价：<label id="total">[.$op.total.]</label>&nbsp;元</td>
+				<td>
+					<div>
+						<div>
+							<input type="submit" name="Submit" value="结账付款" class="btn-danger" />
+							<input name="button" type="button" class="btn-success" onclick=window.open("[.$webpath.]","_self") value="继续购物" />
+						</div>
+					</div>
+				</td>
+				</tr>
+			</table>
+            <div class="clear"></div>
+			</form>
+			[.else.]
+			<table width="100%" border="0" align="center" cellpadding="10">
+				<tr>
+				  <td>
+					<div align="center">
+					<img src="[.$webpath.]skin/ordersno.png" style="margin-top:50px;">
+					</div>
+				  </td>
+				</tr>
+			</table>
+			[./if.]
+		[.*购物车模板结束*.]
+
+
+  </div>
+  <div class="clear"></div>
+</div>
+<script src="[.$templatepath.]shop/js/waypoints.js"></script>
+<script src="[.$templatepath.]shop/js/search_category_menu.js"></script>
+<script type="text/javascript">
+var defaultSmallGoodsImage = 'home/common/default_goods_image.jpg';
+var defaultTinyGoodsImage = 'home/common/default_goods_image.jpg';
+
+$(function(){
+    $('#files').tree({
+        expanded: 'li:lt(2)'
+    });
+	//品牌索引过长滚条
+    $('#dsBrandlist').perfectScrollbar({suppressScrollX:true});
+    //浮动导航  waypoints.js
+    $('#main-nav-holder').waypoint(function(event, direction) {
+        $(this).parent().toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+    });
+	// 单行显示更多
+	$('span[ds_type="show"]').click(function(){
+		s = $(this).parents('dd').prev().find('li[ds_type="none"]');
+		if(s.css('display') == 'none'){
+			s.show();
+			$(this).html('<i class="iconfont">&#xe688;</i>收起');
+		}else{
+			s.hide();
+			$(this).html('<i class="iconfont">&#xe689;</i>更多');
+		}
+	});
+
+
+    $('#priceBtn').click(function(){
+        var priceMin = $('#priceMin').val();
+        var priceMax = $('#priceMax').val();
+        var url = window.location.href;
+        var url = url + (url.indexOf("?")!=-1?'&':'?') + "priceMin=" + priceMin + "&priceMax=" + priceMax;
+        window.location.href = url;
+    });
+});
+</script>
+
+[.include file="cn/cn_shopfoot.html".]

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>会员中心_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+<script src="../../function/plugs/layer3.1.0/layer.js"></script>
+<script type="text/javascript">
+
+</script>
+<style type="text/css">
+#YIQI-UI .table th, #YIQI-UI .table td {
+    padding: 5px;
+    line-height: 20px;
+    word-break: break-all;
+}
+.layui-layer-setwin .layui-layer-close2 {
+    right: -10px;
+    top: -10px;
+}
+</style>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="pages">
+        <div class="content2">
+        	<div class="usertop">
+			
+				<div class="userimg">
+				  [.if $user.img == ''.]
+						<img src="[.$templatepath.]shop/images/userimg.png" width="60" class="radius-80">
+					  [.else.]
+						<img src="[.$user.img.]" width="60" class="radius-80">
+				  [./if.]
+				</div>
+				<div class="userinfo">
+				[.if isset($smarty.session.userid).]
+					<a href="?cn-useredit.html">
+						<div class="userinfo2">
+							<h6>[.$user.name.]</h6>
+						</div>
+						<div class="userinfo3">
+							<i class="icon YIQI-UI-iconfont f-16">&#xe6d7;</i>
+						</div>
+					</a>
+				[.else.]
+					<a href="?cn-userlogin.html">
+						<div class="userinfo2">
+							<h6>登录/注册</h6>
+						</div>
+						<div class="userinfo3">
+							<i class="icon YIQI-UI-iconfont f-16">&#xe6d7;</i>
+						</div>
+					</a>
+				[./if.]
+					<div class="clear"></div>
+					<div class="userinfo2">
+						<p class="userclasszu"><span><img src="[.$templatepath.]shop/images/v.png" width="14"> [.$user.class.]</span></p>
+					</div>
+				</div>
+				<div class="clear"></div>
+				
+				<div class="usernav mt-25 pt-20">
+					<div class="usernavlist">
+						<div>
+							<a href="?cn-tixian.html" class="f-000">
+								[.if $user.money == 0.]0[.else.][.$user.money.][./if.]<br />
+								余额<span class="f-12"> /提</span>
+							</a>
+						</div>
+						<div>
+							[.if $user.integral == 0.]0[.else.][.$user.integral.][./if.]<br />
+							积分
+						</div>
+						<div>
+							[.if $user.coupon == 0.]0[.else.][.$user.coupon.][./if.]<br />
+							优惠券
+						</div>
+						<div>
+							[.if $user.coin == 0.]0[.else.][.$user.coin.][./if.]<br />
+							虚拟币
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				
+			
+            </div>
+			<div class="clear"></div>
+			
+			
+            <div class="usernav mt-15 pt-10">
+                <div class="usernavlist">
+					<h6 class="ml-25 mb-20 f-l pos-r">我的订单<small class="f-r f-14"><a href="[.$webpath.]client/wap/?[.$ip.lang.]-usershopping-op.html" >查看全部订单 <span class="icon YIQI-UI-iconfont YIQI-UI-iconfont-arrow2-right"></span></a></small></h6>
+					<div class="clear"></div>
+                    <div>
+						<a href="?cn-usershopping-op.html-&tag=dfk">
+							<i class="icon YIQI-UI-iconfont f-24">&#xe6b7;</i>
+							<p>待付款
+							</p>
+						</a>
+                    </div>
+                    <div>
+						<a href="?cn-usershopping-op.html-&tag=dfh">
+							<i class="icon YIQI-UI-iconfont f-24">&#xe669;</i>
+							<p>
+							待发货
+							</p>
+						</a>
+                    </div>
+                    <div>
+						<a href="?cn-usershopping-op.html-&tag=dqs">
+							<i class="icon YIQI-UI-iconfont f-24">&#xe70c;</i>
+							<p>
+							待签收
+							</p>
+						</a>
+                    </div>
+					<div>
+						<a href="?cn-usershopping-op.html-&tag=dqs">
+							<i class="icon YIQI-UI-iconfont f-24">&#xe686;</i>
+							<p>
+							待评价
+							</p>
+						</a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+			
+			<div class="userleftnav mt-15 f-l">
+            	[.include file="cn/cn_leftnav.html".]
+			</div>
+			
+        </div>
+    </div>
+	[.include file="cn/cn_shopfoot.html".]
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

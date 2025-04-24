@@ -1,0 +1,51 @@
+<!--欢迎进入-->
+[.$ad.head.]
+<div class="hyjr_dkkd">
+  <div class="hyjr_kz">
+    <div class="hyjr_zt1"> 您好！欢迎光临[.$ourphp_web.webname.]官方网站！ </div>
+    <div class="hyjr_zt"><a href="[.$webpath.]">返回首页</a> - <a href="[.$webpath.]?cn-club.html">在线留言</a></div>
+  </div>
+</div>
+<div class="clear"></div>
+<!--导航-->
+
+<div class="top">
+  <div class="top_in">
+    <div class="totalwidth">
+      <div class="fl logo" data-scroll-reveal="enter left and move 10px over 0.5s"><a href="[.$webpath.]"><img src="[.$ourphp_web.weblogo.]" alt="[.$ourphp_web.webname.]" /></a></div>
+      <div class="nav menu fr">
+        <ul class="NavCeshi">
+		
+			[.sql mysql="select `OP_Uid` from ourphp_column where id = $listid" name="sql" font="".]
+					[.assign var="name" value=$sql.0.]
+			[./sql.]
+
+			[.callcolumn id="0" row="7" lang="cn" type="td" name="callcolumn".]
+			<li [.if $ip.listid == 0.] [.if $callcolumn.id == 1.]class="navcurrent"[./if.] [.elseif $ip.listid == $callcolumn.id.] class="navcurrent" [.else.][.if $callcolumn.id == $name.]class="navcurrent"[./if.][./if.]><a href="[.$callcolumn.url.]" title="[.$callcolumn.title.]">[.$callcolumn.title.]</a></li>
+			[./callcolumn.]
+			  
+        </ul>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+
+<div class="topnavlist">
+	<ul>
+		[.function name=menu.]
+				[.foreach $data as $op.]
+				[.if $op.id != 1.]
+					<li class="a"><a href="[.$op.url.]">[.$op.title.]</a>
+					[.if !empty($op.child).]
+					<dd>
+						[.call name=menu data=$op.child.]
+					</dd>
+					[./if.]
+					</li>
+				[./if.]
+				[./foreach.]
+		[./function.]
+		[.call name=menu data=$column.]
+	</ul>
+</div>

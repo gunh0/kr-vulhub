@@ -1,0 +1,183 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css?1" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script src="../../function/plugs/layer/layer.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+
+<div id="tabs0" class="mt-50">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" [.if $smarty.get.id == 'ourphp'.]class="hover"[./if.]>查看留言</li>
+  <li onclick="setTab(0,1)" [.if $smarty.get.id == 'ourphps'.]class="hover"[./if.]>版块管理</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul [.if $smarty.get.id == 'ourphp'.]class="block"[./if.]>
+	  <li>
+		<div class="ourphp_newslist">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="12%" bgcolor="#EBEBEB"><div align="center">版块</div></td>
+                    <td width="40%" bgcolor="#EBEBEB">留言内容</td>
+					<td width="8%" bgcolor="#EBEBEB">姓名</td>
+					<td width="10%" bgcolor="#EBEBEB">联系方式</td>
+					<td width="10%" bgcolor="#EBEBEB">IP</td>
+                    <td width="15%" bgcolor="#EBEBEB">发布时间</td>
+                    <td width="5%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+				  [.section loop=$Booklist name=op.]
+                  <tr>
+				  	<td><div align="center">
+					<font class="la">[.$Booklist[op].lang.]</font>
+					<font class="lb">[.$Booklist[op].class.]</font></div></td>
+                    <td>
+					[.$Booklist[op].content.]&nbsp;&nbsp;{<a href="javascript:dialog([.$Booklist[op].id.])" ><font color="#0099CC">回复这条留言</font></a>}
+					[.if $Booklist[op].reply != ''.]&nbsp;&nbsp;<font class="lc">您回复:&nbsp;&nbsp;[.$Booklist[op].reply.]</font>[./if.]
+					</td>
+					<td>[.$Booklist[op].name.]</td>
+					<td>[.$Booklist[op].tel.]</td>
+					<td><a href="http://ip138.com/ips138.asp?ip=[.$Booklist[op].ip.]&action=2" target="_blank">[.$Booklist[op].ip.]</a></td>
+                    <td>[.$Booklist[op].time.]</td>
+                    <td><a href="?ourphp_cms=bookdel&id=[.$Booklist[op].id.]" onclick="javascript:return confirm('确认删除吗?')">删除</a></td>
+                  </tr>
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="7">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+                  <tr>
+                    <td colspan="7">[.$ourphppage.]</td>
+                  </tr>
+                </table>
+		</div>
+	  </li>
+  </ul>
+  
+  <ul [.if $smarty.get.id == 'ourphps'.]class="block"[./if.]>
+	  <li>
+	  
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="10%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+                    <td width="60%" bgcolor="#EBEBEB">版块名称</td>
+                    <td width="20%" bgcolor="#EBEBEB">发布时间</td>
+                    <td width="10%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+				  [.section loop=$Booksection name=op.]
+                  <tr>
+				  	<td><div align="center"><font class="la">[.$Booksection[op].id.]</font></div></td>
+                    <td>
+					<font class="lb">[.$Booksection[op].lang.]</font>
+					&nbsp;&nbsp;[.$Booksection[op].title.]&nbsp;&nbsp;{[.$Booksection[op].content.]}<br /><br />
+					<font class="ld">地址</font>&nbsp;&nbsp;[.$webpath.]?[.$Booksection[op].lang.]-clubview-[.$Booksection[op].id.].html
+					</td>
+					<td>[.$Booksection[op].time.]</td>
+                    <td><a href="?id=ourphps&our=edit&uid=[.$Booksection[op].id.]">编辑</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="?ourphp_cms=del&id=[.$Booksection[op].id.]" onclick="javascript:return confirm('确认删除吗?')">删除</a></td>
+                  </tr>
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="4">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+                </table>
+					  
+	  <div style="clear:both; height:50px;"></div>
+	  [.if !isset($smarty.get.our).]
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=add" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse; margin-top:20px;" align="center">
+		<tr>
+		  	<td><div align="right">语言</div></td>
+			<td>
+			
+			[.section loop=$langlist name=op.]
+			<label><input name="OP_Booksectionlanguage" type="radio" value="[.$langlist[op].lang.]" [.if $langlist[op].default.] checked="checked" [./if.] />[.$langlist[op].font.]</label>&nbsp;&nbsp;
+			[./section.]
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">版块名称</div></td>
+			<td><input name="OP_Booksectiontitle" type="text" class="win" [.$ourphp_bgcolor.] datatype="*" nullmsg="版块名称是必填项!"/><font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">版块简介</div></td>
+			<td><textarea name="OP_Booksectioncontent" class="wtextarea" id="container" style="width:80%; height:200px;"></textarea></font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">排序</div></td>
+			<td><input name="OP_Booksectionsorting" type="text" class="win2" value="99" [.$ourphp_bgcolor.] datatype="*" nullmsg="排序是必填项!"/> 数字越小越靠前！</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+		</form>
+		[.else.]
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=[.$ourphp_booksection.id.]" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse; margin-top:20px;" align="center">
+		<tr>
+		  	<td><div align="right">语言</div></td>
+			<td>{[.$ourphp_booksection.OP_Booksectionlanguage.]}
+			<input type="hidden" name="OP_Booksectionlanguage" value="[.$ourphp_booksection.OP_Booksectionlanguage.]" />
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">版块名称</div></td>
+			<td><input name="OP_Booksectiontitle" type="text" class="win" value="[.$ourphp_booksection.OP_Booksectiontitle.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="版块名称是必填项!"/><font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">版块简介</div></td>
+			<td><textarea name="OP_Booksectioncontent" class="wtextarea" id="container" style="width:80%; height:200px;">[.$ourphp_booksection.OP_Booksectioncontent.]</textarea></font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">排序</div></td>
+			<td><input name="OP_Booksectionsorting" type="text" class="win2" value="[.$ourphp_booksection.OP_Booksectionsorting.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="排序是必填项!"/> 数字越小越靠前！</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+		</form>
+		[./if.]
+	  </li>
+  </ul>
+ </div>
+</div>
+<script>
+//弹出一个页面层
+function dialog(id){
+    $.layer({
+        type: 1,
+        title: '留言回复ID:'+id,
+        shade: [0],
+		border: [5, 0.3, '#000'],
+        area: ['300px', '300px'],
+        page: {html: '<form id="form1" name="form1" method="POST" action="?ourphp_cms=reply&id='+id+'" class="registerform"><textarea name="OP_Bookreply" style="width:250px; border:0px; height:160px; padding:20px;" placeholder="输入你要回复的文字"></textarea>&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="回复" class="ourphp-anniu"/></form>'}
+    });
+};
+</script>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>设置收件信息_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">创建新的物流信息</dd>
+		<div class="pos-a back"><a href="javascript:history.go(-1);"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a></div>
+	</div>
+	<div class="pages">
+        <div class="content2" style="margin:60px auto; background:#fff; padding:15px 0;">
+            [.*表单开始*.]
+            <form id="form1" name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=shopadd&lang=cn&type=wap" class="registerform">
+            <table width="100%" border="0" class="table">
+                <tbody>
+                  <tr>
+                    <td>
+                        <span class="fromleft">收件姓名</span>
+						<span class="fromright f-l text-r">
+						<input type="text" name="OP_Addname" class="userinput text-r" datatype="*" placeholder="输入姓名..." />
+						</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                        <span class="fromleft">收件电话</span>
+                        <span class="fromright f-l text-r">
+						<input type="text" name="OP_Addtel" class="userinput text-r" datatype="m" placeholder="输入电话..." />
+						</span>
+                     </td>
+                  </tr>
+                  <tr>
+                    <td>
+
+                        <span class="fromleft" style="line-height: 30px;">收件地址</span>
+						<div id="city_2">
+										<select class="prov" name="OP_Add[]"></select> 
+										<select class="city" disabled="disabled" name="OP_Add[]"></select>
+										<select class="dist" disabled="disabled" name="OP_Add[]"></select>
+						</div>
+						<div class="clear ml-50 pl-25">
+							<input type="text" name="OP_Add[]" class="userinput" placeholder="详细到门牌号..." datatype="*" />
+						</div>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                    
+                      <div class="mt-20">
+                        <input type="submit" name="Submit" value="创建" class="btn btn-danger pt-10 pb-10 f-l radius-20" style="width:80%; margin-left:10%;">
+                      </div>
+
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+            </form>
+            <link rel="stylesheet" href="../../function/plugs/Validform/style.css" type="text/css" />
+            <script type="text/javascript" src="../../function/plugs/Validform/Validform_v5.3.2.js?111"></script>
+            <script type="text/javascript" src="../../function/plugs/city/jquery.cityselect.js"></script>
+            <script type="text/javascript">
+            $(function(){
+                $(".registerform").Validform();  //就这一行代码！;
+				$("#city_2").citySelect({
+					prov: "黑龙江省",
+					city: "哈尔滨",
+					nodata: ""
+				});
+            })
+            </script>
+            [.*表单结束*.]
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

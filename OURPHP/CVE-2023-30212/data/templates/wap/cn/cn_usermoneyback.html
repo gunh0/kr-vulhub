@@ -1,0 +1,100 @@
+[.assign var="id" value=md5($smarty.get.id+1000).]
+[.if $id != $smarty.get.md.]
+<script language=javascript> alert('参数出错');history.go(-1);</script>
+[./if.]
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>申请退款_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+<script src="../../function/plugs/layer/layer.min.js"></script>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">申请退货退款</dd>
+		<div class="pos-a back"><a href="javascript:history.go(-1);"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a></div>
+	</div>
+	<div class="pages">
+        <div class="content2" style="margin:60px auto; background:#fff; padding:15px 0;">
+		[.*开始*.]
+		<form id="form1" name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=moneyback&lang=cn&type=wap" class="registerform">
+		
+		  <table class="table table-border f-l" style="border-top:none; background:#fff;">
+			<tr>
+			  <td><b>卖家收件信息</b></td>
+			</tr>
+              <tr>
+                <td>
+					<span class="fromleft f-l">收件人</span>
+					<span class="fromright mt-10 f-l text-r">[.$sendout[0].]</span>
+				</td>
+              </tr>
+              <tr>
+                <td>
+					<span class="fromleft f-l">电话</span>
+					<span class="fromright mt-10 f-l text-r">[.$sendout[1].]</span>
+				</td>
+              </tr>
+              <tr>
+                <td>
+					<span class="fromleft f-l">收件地址</span>
+					<span class="fromright mt-10 f-l text-r">[.$sendout[2].]</span>
+				</td>
+              </tr>
+			</table>
+			
+			<table class="table table-border mt-10 f-l" style="border-top:none; background:#fff;">
+			<tr>
+			  <td><b>寄件快递单号</b></td>
+			</tr>
+			<tr>
+			  <td><input type="number" name="posnum" placeholder="输入快递单号" class="pl-10 pt-5 pb-5" style="width:90%;"></td>
+			</tr>
+			<tr>
+			  <td><input type="text" name="posname" placeholder="输入快递公司名称" class="pl-10 pt-5 pb-5" style="width:90%;"></td>
+			</tr>
+			<tr>
+			  <td class="text-c" style="border-bottom:none;">
+			  		<input class="btn btn-danger pl-50 pr-50 pt-5 pb-5 f-16 radius-20" type="submit" value="申请退款">
+			  		<p>未发货商品快递信息不用填</p>
+			  		<input type="hidden" name="id" value="[.$smarty.get.id.]">
+			  		<input type="hidden" name="md" value="[.$smarty.get.md.]">
+			  </td>
+			</tr>
+		  </table>
+		  
+		  </form>
+		  [.*结束*.]
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

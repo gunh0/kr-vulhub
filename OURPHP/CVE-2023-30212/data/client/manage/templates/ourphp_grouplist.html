@@ -1,0 +1,119 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script charset="utf-8" src="templates/images/ourphp.js"></script>
+    <script type="text/javascript">
+			function GetRTime(s,i){
+
+				var a = s;
+				var b = a.split(" ");
+				var c = b[0].split("-");
+				var e = b[1].split(":");
+
+				var startTime = new Date();
+				startTime.setFullYear(c[0],(c[1] - 1),c[2]);
+				startTime.setHours(e[0]);
+				startTime.setMinutes(e[1]);
+				startTime.setSeconds(e[2]);
+				var EndTime=startTime.getTime();
+
+				var NowTime = new Date();
+				var nMS = EndTime - NowTime.getTime();
+				var nD = Math.floor(nMS/(1000 * 60 * 60 * 24));
+				var nH = Math.floor(nMS/(1000*60*60)) % 24;
+				var nM = Math.floor(nMS/(1000*60)) % 60;
+				var nS = Math.floor(nMS/1000) % 60;
+				if (nMS < 0){
+					$("#dao"+i).hide();
+					$("#daoend"+i).show();
+				}else{
+				   $("#dao"+i).show();
+				   $("#daoend"+i).hide();
+				   $("#RemainD"+i).text(nD);
+				   $("#RemainH"+i).text(nH);
+				   $("#RemainM"+i).text(nM);
+				   $("#RemainS"+i).text(nS); 
+				}
+
+			}
+    </script>
+</head>
+
+<body>
+
+<div id="tabs0" class="mt-50">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">团购列表</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<div class="ourphp_newslist">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="6%" bgcolor="#EBEBEB"><div align="center">团购ID</div></td>
+					<td width="10%" bgcolor="#EBEBEB"><div align="center">产品图</div></td>
+                    <td width="28%" bgcolor="#EBEBEB">团购信息</td>
+                    <td width="14%" bgcolor="#EBEBEB">结束时间</td>
+					<td width="12%" bgcolor="#EBEBEB">团购人数</td>
+					<td width="6%" bgcolor="#EBEBEB">状态</td>
+                    <td width="12%" bgcolor="#EBEBEB">开团时间</td>
+                    <td width="12%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+				  [.section loop=$product name=op.]
+                  <tr>
+				  	<td><div align="center"><font class="la">第[.$product[op].id.]团</font></div></td>
+					<td><div align="center"><img src="[.if !$product[op].productimg.]../../skin/noimage.png[.else.][.if strstr($product[op].productimg,'http://') || strstr($product[op].productimg,'https://').][.$product[op].productimg.][.else.][.$webpath.][.$product[op].productimg.][./if.][./if.]" border="0" width="80" height="80" /></div></td>
+                    <td>
+					
+					<p>产品分类 : [.$product[op].productclass.]</p>
+					<p>产品价格 : ￥[.$product[op].productmoney.] </p>
+					<p>产品标题 : [.$product[op].producttitle.]</p>
+					<p>&nbsp;</p>
+					<p>团长 : [.$product[op].tuanuser.] 姓名 : [.$product[op].username.]</p>
+					
+					</td>
+					<td>
+		            	<p>
+		            		<script>$(function(){ var timer_rt[.$product[op].id.] = window.setInterval("GetRTime('[.$product[op].producttuantime.]',[.$product[op].id.])", 1000); });</script>
+
+		            		<div id="daoend[.$product[op].id.]" style="display:none;" class="a">本次活动已结束。</div>
+							<div id="dao[.$product[op].id.]" class="a">剩余<strong id="RemainD[.$product[op].id.]"></strong>天<strong id="RemainH[.$product[op].id.]"></strong>时<strong id="RemainM[.$product[op].id.]"></strong>分<strong id="RemainS[.$product[op].id.]"></strong>秒</div>
+		            	</p>
+					</td>
+					<td>
+						[.$product[op].tuannum.] 人团，还差 [.$product[op].tuannum - $product[op].tuannumall.] 人
+					</td>
+					<td>
+							[.if $product[op].tuannum == $product[op].tuannumall.]
+							<font style="background:#ff0000; color:#FFFFFF; padding:2px; text-align:center;">已完成</font>
+							[.else.]
+							<font style="background:#009933; color:#FFFFFF; padding:2px; text-align:center;">未完成</font>
+							[./if.]
+					</td>
+                    <td>[.$product[op].time.]</td>
+                    <td><a href="ourphp_groupview.php?id=[.$product[op].id.]&page=[.$page.]" class="la">查看本团信息</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="?ourphp_cms=del&id=[.$product[op].id.]&c=[.$product[op].class2.]" onclick="javascript:return confirm('确认删除吗?')">删除</a></td>
+                  </tr>
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="10">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+                  <tr>
+                    <td colspan="10">[.$ourphppage.]</td>
+                  </tr>
+                </table>
+		</div>
+	  </li>
+  </ul>
+ </div>
+</div>
+
+[.include file="ourphp_foot.html".]
+</body>
+</html>

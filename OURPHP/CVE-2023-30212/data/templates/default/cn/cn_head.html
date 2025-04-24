@@ -1,0 +1,36 @@
+		<meta name="Author" content="www.ourphp.net" />
+		<link rel="stylesheet" type="text/css" href="[.$templatepath.]css/indexcss.css?[.$smarty.now.]" />
+		<link rel="stylesheet" type="text/css" href="[.$templatepath.]css/allbag.css?[.$smarty.now.]" />
+		<link rel="stylesheet" type="text/css" href="[.$templatepath.]css/animate.css?[.$smarty.now.]" />
+		<script type="text/javascript" src="[.$templatepath.]js/jquery-1.7.2.min.js"></script>
+		<script type="text/javascript" src="[.$templatepath.]js/indexjs.js"></script>
+		<script type="text/javascript" src="[.$templatepath.]js/zyqxt_index.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".banner-box").slide({
+					titCell: ".hd ul",
+					mainCell: ".bd ul",
+					effect: "fold",
+					interTime: 3500,
+					delayTime: 500,
+					autoPlay: true,
+					autoPage: true,
+					trigger: "mouseover"
+				});
+				
+				
+				$(".NavCeshi").hover(function(){
+					$(".topnavlist").show();
+				},function(){
+					$(".topnavlist").hide();
+			    });
+				
+				$(".topnavlist").hover(function(){
+					$(".topnavlist").show();
+				},function(){
+					$(".topnavlist").hide();
+			    });
+				
+			});
+		</script>
+		[.$mobile.]

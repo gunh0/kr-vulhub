@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员中心 - [.$ourphp_web.website.]</title>
+<link rel="stylesheet" href="[.$templatepath.]css/style.css" type="text/css" />
+<script type="text/javascript" src="[.$webpath.]function/plugs/YIQI-UI/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="[.$webpath.]function/plugs/YIQI-UI/YIQI-UI.min.css" type="text/css" />
+<link href="[.$webpath.]function/plugs/YIQI-UI/font/YIQI-UI-iconfont.min.css" rel="stylesheet">
+</head>
+<body class="bodygb">
+<div id="YIQI-UI">
+    [.include file="cn_top.html".] 
+	<div class="nav">
+		<div class="ourphp_center">
+				<li class="on"><a href="[.$webpath.]client/user/">会员中心</a></li>
+				<li><a href="[.$webpath.]?cn-shop.html">商城首页</a></li>
+				<li><a href="[.$webpath.]">企业官网</a></li>
+				<li><a href="[.$webpath.]?cn-product-11.html">积分中心</a></li>
+				<li><a href="[.$webpath.]?cn-product-12.html">团购</a></li>
+				<li><a href="[.$webpath.]?cn-brand-1.html">品牌商城</a></li>
+		</div>
+	</div>
+    <div class="clear"></div>
+    <div class="ourphp_center">
+    <div class="clear"></div>
+    
+        <div class="ourphp_login">
+            <div class="ourphp_user_left">
+                [.include file="cn_leftnav.html".] 
+            </div>
+            <div class="ourphp_user_right">
+            [.*表单开始*.]
+            <form id="form1" name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=moneyout&lang=cn" class="registerform">
+            <table width="100%" border="0" class="table table-border table-hover table-bg" style="border-top:none;background:#fff;">
+            	<thead>
+            	  <tr>
+                    <th >申请提现</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="pl-10 pr-10 pt-5 pb-5 ">
+                        <span class="fromleft f-l">
+                        账户余额</span> <span class="f-14 f-l ml-10">￥[.$user.money.]</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="pl-10 pr-10 pt-5 pb-5 ">
+                        <span class="fromleft">
+                        提现金额</span>
+                        <input type="text" name="tixianjine" class="userinput" datatype="*" placeholder="输入要提现的金额" />
+                        </div>
+                        </td>
+                  </tr>
+                  <tr>
+                    <td>
+						<input type="submit" name="Submit" value="申请提现" class="btn-danger radius-5 pd-15 f-r" />
+						<span class="f-r pt-20 mr-20">
+						(每笔提现手续费 : [.$usercontrol.withdrawal.])
+						</span>
+					</td>
+                  </tr>
+                </tbody>
+            </table>
+            </form>
+            <link rel="stylesheet" href="../../function/plugs/Validform/style.css" type="text/css" />
+            <script type="text/javascript" src="../../function/plugs/Validform/Validform_v5.3.2.js"></script>
+            <script type="text/javascript" src="../../function/plugs/city/jquery.cityselect.js"></script>
+            <script type="text/javascript">
+            $(function(){
+                $(".registerform").Validform();  //就这一行代码！;
+				$("#city_2").citySelect({
+					prov: "黑龙江省",
+					city: "哈尔滨",
+					nodata: ""
+				});
+            })
+            </script>
+            [.*表单结束*.]
+			<style type="text/css">
+				.radio {
+					font-family: inherit;
+					font-size: inherit;
+					font-style: inherit;
+					font-weight: inherit;
+					-webkit-appearance: radio; 
+				}
+			</style>
+                <table width="100%" border="0" class="table table-hover table-bg mt-20" style="background:#fff;">
+                    <tbody>
+                        <tr>
+                              <td>金额</td>
+                              <td width="15%">状态</td>
+                              <td width="25%" class="text-r">时间</td>
+                        </tr>
+                        [.foreach $moneyout as $op.]
+                          <tr>
+                            <td>
+                                ￥[.$op.money.]
+                            </td>
+                            <td>
+                                [.if $op.type == 1.]处理中...[.else.]提交成功[./if.]
+                            </td>
+                            <td class="text-r">
+                                [.$op.time.]
+                            </td>
+                          </tr>
+                        [./foreach.]
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+[.include file="cn_foot.html".]
+</div> 
+</body>
+</html>
