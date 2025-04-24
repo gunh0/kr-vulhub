@@ -1,0 +1,219 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../../function/plugs/laydate/laydate.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li class="hover">编 辑</li>
+  <li><a href="javascript:history.go(-1)"><font color="#000000">返 回</font></a></li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=[.$ourphp_video.id.]&page=[.$page.]&aid=[.$aid.]" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+		  	<td><div align="right">栏目</div><input type="hidden" value="[.$ourphp_video.OP_Class.]" name="c"></td>
+			<td>
+
+<select name="OP_Videoclass"  datatype="zoo" class="win3">
+	<option value="0" >请选择</option>
+	[.assign var="level" value=0.]
+	[.function name=menu.]
+			[.foreach $data as $op.]
+				<option value="[.$op.id.]|[.$op.lang.]" [.if $op.model != 'video'.]disabled="true" style="color:#FF0000;"[.else.] style="color:#009900"[./if.] [.if $op.id == $ourphp_video.OP_Class.]selected="selected"[./if.]>
+				[.if $op.uid != 0.]
+					[.for $foo=1 to $level.]
+					&nbsp;&nbsp;
+					[./for.]
+					└
+				[./if.]
+				[.$op.title.]
+				</option>
+				
+				[.if isset($op.child).]
+					[.call name=menu data=$op.child level=$level+1.]
+				[./if.]
+			[./foreach.]
+	[./function.]
+	[.call name=menu data=$videolist.]
+</select>
+			<font color="#009900">绿色</font>表示可录入项，<font color="#FF0000">红色</font>禁止录入项.			
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">标题</div></td>
+			<td><input name="OP_Videotitle" type="text" class="win" value="[.$ourphp_video.OP_Videotitle.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="标题是必填项!"/><font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">视频封面图片</div></td>
+			<td><input name="OP_Videoimg" type="text" class="win" value="[.$ourphp_video.OP_Videoimg.]" [.$ourphp_bgcolor.] id="upload"/>&nbsp;
+			<input type="button" id="image3" value="上传图片" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			[.include file="ourphp_editor.html".]
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">视频地址</div></td>
+			<td><input name="OP_Videovurl" type="text" class="win" id="videourl" value="[.$ourphp_video.OP_Videovurl.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="视频地址是必填项!"/>
+
+		    <input type="button" id="image4" value="上传视频" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image4').click(function() {
+					editor.loadPlugin('mp4', function() {
+						editor.plugin.mp4Dialog({
+							showRemote : false,
+							imageUrl : K('#videourl').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#videourl').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+			</script>
+
+			</td>
+		  </tr>
+		  <tr>
+		  		<td>
+		  		<div align="right">视频格式</div>
+		  		</td>
+		  		<td>
+
+			
+					<select name="OP_Videoformat" class="win3">
+					  <option value="MP4" [.if $ourphp_video.OP_Videoformat == 'MP4'.]selected="selected"[./if.]>MP4格式</option>
+					  <option value="SWF" [.if $ourphp_video.OP_Videoformat == 'SWF'.]selected="selected"[./if.]>SWF格式</option>
+					  <option value="FLV" [.if $ourphp_video.OP_Videoformat == 'FLV'.]selected="selected"[./if.]>FLV格式</option>
+				    </select>
+					<font color=red> (*)</font> 推荐使用mp4视频格式，可以兼容移动设备。
+
+		  		</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">播放器尺寸</div></td>
+			<td><input name="OP_Videowidth" type="text" class="win2" value="[.$ourphp_video.OP_Videowidth.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="播放器尺寸是必填项!"/>&nbsp;宽度&nbsp;&nbsp;,&nbsp;&nbsp;<input name="OP_Videoheight" type="text" class="win2" value="[.$ourphp_video.OP_Videoheight.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="播放器尺寸是必填项!"/>&nbsp;高度&nbsp;<font color=red> (*)</font> 默认px,用百分比请加%</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">发布时间</div></td>
+			<td>
+			<input name="time" type="text" id="time" class="win" value="[.$ourphp_video.time.]" [.$ourphp_bgcolor.] />
+			<script>
+				laydate.render({
+				  elem: '#time',
+				  type: 'datetime'
+				});
+			</script>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top">
+		  	<div align="right">电脑端正文</div></td>
+			<td><textarea name="OP_Videocontent" class="wtextarea editor" style="width:95%; height:400px;">[.$ourphp_video.OP_Videocontent.]</textarea><font color=red> (*)</font>
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">手机端正文</div></td>
+			<td>
+				<div class="newsleft">
+					<textarea name="OP_Videocontent_wap" class="wtextarea editor waplook" style="width:100%; height:400px;">[.$ourphp_video.OP_Videocontent_wap.]</textarea>
+					<font color=red> (*)</font>
+				</div>
+				<div class="newsright">
+					[.include file="ourphp_contentwap.html".]
+				</div>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">排序</div></td>
+			<td><input name="OP_Videosorting" type="text" class="win2" value="[.$ourphp_video.OP_Sorting.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="排序是必填项!"/> 数字越小越靠前！</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">属性</div></td>
+			<td>
+				[.html_checkboxes name="OP_Videoattribute" options=$ourphph_qx selected=$selected separator="&nbsp;&nbsp;".]
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">跳转</div></td>
+			<td><input name="OP_Videourl" type="text" class="win" value="[.$ourphp_video.OP_Url.]" [.$ourphp_bgcolor.] /> 如果为空，则不跳转！</td>
+		  </tr>
+		  <tr>
+			<td></td>
+		  	<td><strong>--------------- SEO设置 ---------------</strong></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">关键词</div></td>
+			<td><input name="OP_Videotag" type="text" class="win" value="[.$ourphp_video.OP_Tag.]" [.$ourphp_bgcolor.] />&nbsp;请用英文中的 , 格开</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">描述</div></td>
+			<td><textarea name="OP_Videodescription" class="wtextarea" >[.$ourphp_video.OP_Description.]</textarea> 如果为空，自动截取正文前200个字</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		   <tr>
+		   	<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		  </tr>
+		</table>
+		</form>
+	  </li>
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

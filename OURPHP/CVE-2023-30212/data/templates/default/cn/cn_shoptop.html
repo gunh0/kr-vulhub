@@ -1,0 +1,324 @@
+[.$mobile.]
+        <div id="append_parent"></div>
+        <div id="ajaxwaitid"></div>
+                <div class="public-top">
+            <div class="w1200">
+                <span class="top-link">
+                    您好，欢迎来到 <em>[.$ourphp_web.webname.]商城</em>
+                </span>
+                <ul class="login-regin">
+				
+				[.if isset($smarty.session.username).]
+                    <li class="line"> 嗨! 欢迎回家,<a href="client/user/">[.$smarty.session.username.]</a></li>
+				[.else.]
+                    <li class="line"> <a href="[.$webpath.]client/user/?cn-login.html">请登录</a></li>
+                    <li> <a href="[.$webpath.]client/user/?cn-reg.html">免费注册</a></li>
+				[./if.]
+					
+                </ul>
+                <ul class="quick_list">
+                    <li>
+                        <span class="outline"></span>
+                        <span class="blank"></span>
+                        <a href="[.$webpath.]client/user/">用户中心<b></b></a>
+                        <div class="dropdown-menu">
+                            <ol>
+                                <li><a href="?cn-shoppingcart.html">我的购物车</a></li>
+                                <li><a href="[.$webpath.]client/user/?cn-usershopping-op.html">已买到的商品</a></li>
+                            </ol>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="outline"></span>
+                        <span class="blank"></span>
+                        <a href="javascript:void(0)">快捷导航<b></b></a>
+                        <div class="dropdown-menu">
+                            <ol>
+								[.callcolumn id="0" row="10" lang="cn" type="td" name="callcolumn".]
+								<li><a href="[.$callcolumn.url.]" title="[.$callcolumn.title.]">[.$callcolumn.title.]</a></li>
+								[./callcolumn.]
+							</ol>
+                        </div>
+                    </li>
+                    <li class="moblie-qrcode">
+                        <span class="outline"></span>
+                        <span class="blank"></span>
+                        <a href="javascript:void(0)">移动商城</a>
+                        <div class="dropdown-menu">
+                            <img src="[.$templatepath.]images/erweima.png" width="90" height="90" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        
+        
+        <!--左侧导航栏-->
+<div class="ds-appbar">
+    <div class="ds-appbar-tabs" id="appBarTabs">
+        <div class="user TA_delay" dstype="a-barLoginBox">
+            <div class="avatar TA"><img src="[.$templatepath.]shop/images/default_user_portrait.gif?1603503574"/></div>
+            <p class="TA">会员</p>
+        </div>
+        <ul class="tools">
+            <li><a href="?cn-shoppingcart.html" onclick="toglle_bar('rtoolbar_cart')" id="rtoolbar_cart" class="cart TA_delay"><span class="iconfont">&#xe69a;</span><span class="tit">购物车</span><i id="rtoobar_cart_count" class="new_msg" style="display:none;"></i></a></li>
+			
+            <li>
+                <a href="javascript:void(0);" id="qrcode" class="qrcode TA_delay">
+                    <span class="iconfont">&#xe72d;</span>
+                    <span class="tit-box">
+                        手机购物更优惠<br>
+                        <img src="[.$templatepath.]images/erweima.png" width="110" height="110" />
+                        <em class="tips_arrow"></em>
+                    </span>
+                </a>
+            </li>
+			
+            <li><a href="javascript:void(0);" onclick="$('html,body').animate({scrollTop: '0px'}, 500)" id="gotop" class="gotop TA_delay" style="position: fixed;bottom: 0"><span class="iconfont">&#xe724;</span><span class="tit">顶部</span></a></li>
+                        <li>
+                <a href="javascript:void(0);" id="customer" class="customer TA_delay">
+                    <span class="iconfont">&#xe750;</span>
+                    <span class="customer-box">
+                        <img onclick="window.open('https://wpa.qq.com/msgrd?v=3&uin=[.$ourphp_web.webqq.]&site=qq&menu=yes','_blank')" border="0" src="https://wpa.qq.com/pa?p=2:[.$ourphp_web.webqq.]:51" alt="点击这里给我发消息" title="点击这里给我发消息"/>                        <em class="tips_arrow"></em>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+        
+<script type="text/javascript">
+
+    //动画显示边条内容区域
+    $(function() {
+        $(".close").click(function(){
+            close_bar();
+        });
+        // 右侧bar用户信息
+        $('div[dstype="a-barUserInfo"]').click(function(){
+            $('div[dstype="barUserInfo"]').toggle();
+        });
+        // 右侧bar登录
+        $('div[dstype="a-barLoginBox"]').click(function(){
+            login_dialog();
+        });
+
+            });
+    function toglle_bar(item){
+           var member_id = "";
+              if(member_id == ''){
+                   login_dialog();
+                  return;
+              }
+        //判断侧边栏是否已拉出
+        if(parseInt($('.ds-appbar').css('width')) == 36){
+            $('.ds-appbar').css('width','306px');
+        }
+        //判断选中项是否已显示
+        if(!$("#"+item).hasClass('active')){
+            $('.tools li > a').removeClass('active');
+            $("#"+item).addClass('active');
+            $('.content-box').removeClass('active');
+            
+            switch(item){
+                case 'rtoolbar_cart':
+                    $("#rtoolbar_cartlist").load("/index.php/home/Cart/ajax_load.html?type=html");
+                    $("#content-cart").addClass('active');
+                    break;
+                case 'compare':   
+                    loadCompare(false);
+                    $("#content-compare").addClass('active');
+                    break;
+            }
+        }else{
+            //关闭
+            close_bar();
+            $(".chat-list").css("display",'none');
+        }
+        
+    }
+    function close_bar(){
+        $('.tools li > a').removeClass('active');
+        $('.content-box').removeClass('active');
+        $('.ds-appbar').css('width','36px');
+    }
+</script> 
+
+<link rel="stylesheet" href="[.$templatepath.]shop/css/home.css">
+<div class="header clearfix">
+    <div class="w1200">
+        <div class="logo">
+            <a href="[.$webpath.]?cn-shop.html"><img src="[.$ourphp_web.weblogo.]"/></a>
+        </div>
+        <div class="top_search">
+            <div class="top_search_box">
+                <div id="search">
+                    <ul class="tab" dstype="Index">
+                        <li class="current"><span>商品</span></li>
+                    </ul>
+                </div>
+                <div class="form_fields">
+                    <form class="search-form" id="search-form" method="post" action="[.$webpath.]search.php?temp=search">
+                        <input placeholder="请输入您要搜索的商品关键字" name="content" id="keyword" type="text" class="keyword" value="" maxlength="60" />
+						<input type="hidden" name="lang" value="cn" />
+                        <input type="hidden" name="sid" value="product" />
+                        <input type="hidden" name="type" value="pc" />
+                        <input type="submit" id="button" value="搜索" class="submit">
+                    </form>
+                </div>
+            </div>
+            <ul class="top_search_keywords">
+				[.sql mysql="SELECT * FROM `ourphp_search` where `OP_Searchclick` > 20 order by OP_Searchclick desc limit 0,5" name="sql" font="".]
+				<li class="first"><a href="search.php?cn-&content=[.$sql.OP_Searchtext.]&lang=cn&sid=product">[.$sql.OP_Searchtext.]</a> </li>
+				[./sql.]
+            </ul>
+        </div>
+        <div class="user_menu">
+            <dl class="my-mall">
+                <dt><span class="ico iconfont">&#xe702;</span>用户中心<i class="arrow"></i></dt>
+                <dd>
+                    <div class="sub-title">
+                        <h4></h4>
+                        <a href="[.$webpath.]client/user/" class="arrow">我的用户中心<i></i></a>
+                    </div>
+                    <div class="user-centent-menu">
+                        <ul>
+                            <li><a href="[.$webpath.]client/user/?cn-usermail-op.html">站内消息</a></li>
+                            <li><a href="[.$webpath.]client/user/?cn-usershopping-op.html" class="arrow">我的订单<i></i></a></li>
+                            <li><a href="[.$webpath.]client/user/?cn-usershopadd.html">收件地址</a></li>
+                            <li><a href="[.$webpath.]client/user/?cn-userintegral-op.html" class="arrow">领取积分<i></i></a></li>
+                            <li><a href="[.$webpath.]client/user/?cn-usercoupon.html">优惠券</a></li>
+                            <li><a href="[.$webpath.]client/user/?cn-useredit.html" class="arrow">完善资料<i></i></a></li>
+                        </ul>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="my-cart">
+                <dt><span class="ico iconfont">&#xe69a;</span>购物车结算<i class="arrow"></i></dt>
+                <dd>
+                    <div class="incart-goods-box">
+                        <div class="incart-goods"><div class="no-order"><a href="?cn-shoppingcart.html"><span>进入购物车</span></a></div></div>
+                    </div>
+                </dd>
+                <!--div class="addcart-goods-num">0</div-->
+            </dl>
+        </div>
+    </div>
+</div>
+
+
+<div class="mall_nav">
+    <div class="w1200">
+        <div class="all_categorys">
+            <div class="mt">
+                <i></i>
+                <h3><a href="?cn-shop.html">所有商品分类</a></h3>
+            </div>
+            <div class="mc">
+                <ul class="menu">
+				[.assign var="i" value="1".]
+				[.foreach from=$column item=op.]
+				[.if $op.id == 2.]
+				[.if isset($op.child).]
+				
+				[.foreach from=$op.child item=opop.]
+                    <li cat_id="[.$i.]" >
+                        <div class="class">
+                            <span class="arrow"></span>
+							<span class="iconfont category-ico-[.$i.]"></span>
+							<h4><a href="[.$opop.url.]">[.$opop.title.]</a></h4>
+                        </div>
+                        <div class="sub-class" cat_menu_id="[.$i.]">
+						[.if isset($opop.child).]
+						[.foreach from=$opop.child item=opopop.]
+                        <div class="sub-class-content">
+							<div class="recommend-class">
+							</div>
+							<dl>
+								
+									
+                                    <dt>
+                                    <h3><a href="[.$opopop.url.]">[.$opopop.title.]</a></h3>
+                                    </dt>
+                                    <dd class="goods-class">
+									
+											[.foreach from=$opopop.child item=opopopop.]
+											<a href="[.$opopopop.url.]">[.$opopopop.title.]</a>
+											[./foreach.]
+									
+                                    </dd>
+									
+								
+                             </dl>
+                                                               
+                        </div>
+						[./foreach.]
+						[./if.]
+						
+                        </div>
+                    </li>
+					[.assign var="i" value=$i+1.]
+					[./foreach.]
+					[./if.]
+					[./if.]
+                    [./foreach.]
+                </ul>
+            </div>
+        </div>
+        <div class="nav_list">
+            <ul class="site_menu">
+                <li><a href="[.$webpath.]?cn-shop.html" class="current">首页</a></li>
+                <li><a href="[.$webpath.]" target="_blank">企业官网</a></li>
+                <li><a href="[.$webpath.]?cn-product-11.html" target="_blank">积分中心</a></li>
+                <li><a href="[.$webpath.]?cn-product-12.html" target="_blank">团购</a></li>
+                <li><a href="[.$webpath.]?cn-brand-1.html" target="_blank">品牌商城</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--面包屑导航 BEGIN-->
+<!--面包屑导航 END-->
+
+
+<script>
+    $(function() {
+	//首页左侧分类菜单
+	$(".all_categorys ul.menu").find("li").each(
+		function() {
+			$(this).hover(
+				function() {
+				    var cat_id = $(this).attr("cat_id");
+					var menu = $(this).find("div[cat_menu_id='"+cat_id+"']");
+					menu.show();
+					$(this).addClass("hover");					
+					var menu_height = menu.height();
+					if (menu_height < 60) menu.height(80);
+					menu_height = menu.height();
+					var li_top = $(this).position().top;
+					$(menu).css("top",-li_top + 40);
+				},
+				function() {
+					$(this).removeClass("hover");
+				    var cat_id = $(this).attr("cat_id");
+					$(this).find("div[cat_menu_id='"+cat_id+"']").hide();
+				}
+			);
+		}
+	);
+
+        $(".user_menu dl").hover(function() {
+            $(this).addClass("hover");
+        }, function() {
+            $(this).removeClass("hover");
+        });
+
+    });
+    
+</script>
+

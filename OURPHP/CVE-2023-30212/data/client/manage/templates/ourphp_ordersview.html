@@ -1,0 +1,192 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+
+ function showandhide(v){
+  //alert(v);
+  for(i=1;i<3;i++){
+   document.getElementById(i).style.display = 'none';
+   if(i==v){
+    document.getElementById(v).style.display = 'block';
+   }
+  }
+ }
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">处理订单</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<div class="ourphp_newslist">
+		        <form id="form2" name="form2" method="post" action="?ourphp_cms=edit&id=[.$ourphp_orders.id.]">
+                  <table width="100%" border="0" cellpadding="10">
+                    <tr>
+                      <td width="20%"><div align="right">订单号：</div></td>
+                      <td width="80%">[.$ourphp_orders.OP_Ordersnumber.]
+					  <input type="hidden" name="OP_Ordersnumber" value="[.$ourphp_orders.OP_Ordersnumber.]" />
+					  </td>
+                    </tr>
+                    <tr>
+                      <td bgcolor="#FFFFF0"><div align="right">订单时间：</div></td>
+                      <td bgcolor="#FFFFF0">[.$ourphp_orders.time.]</td>
+                    </tr>
+                    <tr>
+                      <td><div align="right">订购商品：</div></td>
+                      <td>[.$ourphp_orders.OP_Ordersname.]</td>
+                    </tr>
+					<tr>
+                      <td bgcolor="#FFFFF0"><div align="right" style="color:#FF3300;">用户要求：</div></td>
+                      <td bgcolor="#FFFFF0">[.$ourphp_buyatt.]</td>
+                    </tr>
+					<tr>
+                      <td><div align="right" style="color:#FF3300;">备注：</div></td>
+                      <td>[.$ourphp_orders.OP_Ordersusetext.]</td>
+                    </tr>
+                    <tr>
+                      <td bgcolor="#FFFFF0"><div align="right">网站价格：</div></td>
+                      <td bgcolor="#FFFFF0">[.$ourphp_orders.OP_Orderswebmarket.]&nbsp;&nbsp;元</td>
+                    </tr>
+                    <tr>
+                      <td><div align="right">TA的价格(成交价)：</div></td>
+                      <td><input type="text" name="OP_Ordersusermarket" class="win3" value="[.$ourphp_orders.OP_Ordersusermarket.]" />&nbsp;&nbsp;元</td>
+                    </tr>
+                    <tr>
+                      <td bgcolor="#FFFFF0"><div align="right">购买数量：</div></td>
+                      <td bgcolor="#FFFFF0">[.$ourphp_orders.OP_Ordersnum.]</td>
+                    </tr>
+					<tr>
+                      <td bgcolor="#FFFFF0"><div align="right">商品总价：</div></td>
+                      <td bgcolor="#FFFFF0">[.$ourphp_orders.OP_Ordersnum * $ourphp_orders.OP_Ordersusermarket.] &nbsp;&nbsp;元</td>
+                    </tr>
+					<tr>
+                      <td bgcolor="#FFFFF0"><div align="right">商品重量：</div></td>
+                      <td bgcolor="#FFFFF0">[.$ourphp_orders.OP_Ordersweight.]</td>
+                    </tr>
+					<tr>
+                      <td bgcolor="#FFFFF0"><div align="right">快递运费：</div></td>
+                      <td bgcolor="#FFFFF0"><input type="text" name="OP_Ordersfreight" class="win3" value="[.$ourphp_orders.OP_Ordersfreight.]" />&nbsp;&nbsp;元</td>
+                    </tr>
+                    <tr>
+                      <td><div align="right">购买人账号：</div></td>
+                      <td>[.$ourphp_orders.OP_Ordersemail.]
+				      <input type="hidden" name="OP_Useremail" value="[.$ourphp_orders.OP_Ordersemail.]" />
+					  </td>
+                    </tr>
+                    <tr>
+                      <td bgcolor="#FFFFF0"><div align="right">购买人姓名：</div></td>
+                      <td bgcolor="#FFFFF0">[.$ourphp_orders.OP_Ordersusername.]</td>
+                    </tr>
+                    <tr>
+                      <td><div align="right">购买人电话：</div></td>
+                      <td>[.$ourphp_orders.OP_Ordersusertel.]
+					  <input type="hidden" name="OP_Ordersusertel" value="[.$ourphp_orders.OP_Ordersusertel.]" />
+					  </td>
+                    </tr>
+                    <tr>
+                      <td bgcolor="#FFFFF0"><div align="right">发货地址：</div></td>
+                      <td bgcolor="#FFFFF0">[.$ourphp_orders.OP_Ordersuseradd.]</td>
+                    </tr>
+                    <tr>
+                      <td><div align="right">是否付款？</div></td>
+                      <td>
+					   [.if $ourphp_orders.OP_Usermoneyback != 3.]
+						  [.if $ourphp_orders.OP_Integralok == 0.]
+						  [.if $ourphp_orders.OP_Orderspay == 1.]<img src="[.$webpath.]skin/weifukuan.gif" border="0" />[.elseif $ourphp_orders.OP_Orderspay == 2.]<img src="[.$webpath.]skin/yifukuan.gif" border="0" />[.elseif $ourphp_orders.OP_Orderspay == 3.]<img src="[.$webpath.]skin/hdfukuan.gif" border="0" />&nbsp;(货到付款，在发货前一定要与买家联系好！)[.elseif $ourphp_orders.OP_Orderspay == 4.]使用【虚拟币】支付[./if.]
+						  [.else.]
+						  <img src="[.$webpath.]skin/jfdh.gif" border="0" />
+						  [./if.]  
+					   [.else.]
+							已退款
+					   [./if.]
+					  </td>
+                    </tr>
+                    <tr>
+                      <td bgcolor="#FFFFF0"><div align="right">是否发货？</div></td>
+                      <td bgcolor="#FFFFF0">
+					  <label><input name="OP_Orderssend" type="radio" value="1" [.if $ourphp_orders.OP_Orderssend == 1.]checked="checked"[./if.] />
+                        不发货</label> 
+                        <label><input type="radio" name="OP_Orderssend" value="2" [.if $ourphp_orders.OP_Orderssend == 2.]checked="checked"[./if.] />
+                        发货</label></td>
+                    </tr>
+					<tr>
+                      <td bgcolor="#FFFFF0"><div align="right">用户是否签收？</div></td>
+                      <td bgcolor="#FFFFF0">
+					  <label><input name="OP_Sign" type="radio" value="0" [.if $ourphp_orders.OP_Sign == 0.]checked="checked"[./if.] />
+                        未签收</label>
+                        <label><input type="radio" name="OP_Sign" value="1" [.if $ourphp_orders.OP_Sign == 1.]checked="checked"[./if.] />
+                        已签收</label></td>
+                    </tr>
+                    <tr>
+                      <td><div align="right">快递名称：</div></td>
+                      <td>
+					  <div style="float:left;">
+							<select name="OP_Ordersexpress" onchange = "showandhide(this.value)" class="win3">
+								<option value="no" [.if $ourphp_orders.OP_Ordersexpress == 'no'.]selected="selected"[./if.]>不使用物流</option>
+								<option value="EMS" [.if $ourphp_orders.OP_Ordersexpress == 'EMS'.]selected="selected"[./if.]>EMS</option>
+								<option value="SFEXPRESS" [.if $ourphp_orders.OP_Ordersexpress == 'SFEXPRESS'.]selected="selected"[./if.]>顺丰速运</option>
+								<option value="JITU" [.if $ourphp_orders.OP_Ordersexpress == 'JITU'.]selected="selected"[./if.]>极兔速递</option>
+								<option value="STO" [.if $ourphp_orders.OP_Ordersexpress == 'STO'.]selected="selected"[./if.]>申通快递</option>
+								<option value="TTKDEX" [.if $ourphp_orders.OP_Ordersexpress == 'TTKDEX'.]selected="selected"[./if.]>天天快递</option>
+								<option value="YTO" [.if $ourphp_orders.OP_Ordersexpress == 'YTO'.]selected="selected"[./if.]>圆通速递</option>
+								<option value="YUNDA" [.if $ourphp_orders.OP_Ordersexpress == 'YUNDA'.]selected="selected"[./if.]>韵达快运</option>
+								<option value="ZTO" [.if $ourphp_orders.OP_Ordersexpress == 'ZTO'.]selected="selected"[./if.]>中通速递</option>
+								<option value="ZJS" [.if $ourphp_orders.OP_Ordersexpress == 'ZJS'.]selected="selected"[./if.]>宅急送</option>
+								<option value="FEDEX" [.if $ourphp_orders.OP_Ordersexpress == 'FEDEX'.]selected="selected"[./if.]>联邦快递（国内）</option>
+								<option value="FEDEX_GJ" [.if $ourphp_orders.OP_Ordersexpress == 'FEDEX_GJ'.]selected="selected"[./if.]>联邦快递（国际）</option>
+								<option value="QFKD" [.if $ourphp_orders.OP_Ordersexpress == 'QFKD'.]selected="selected"[./if.]>全峰快递</option>
+								<option value="CRE" [.if $ourphp_orders.OP_Ordersexpress == 'CRE'.]selected="selected"[./if.]>中铁快运</option>
+								<option value="1" [.if $ourphp_orders.OP_Ordersexpress == '1'.]selected="selected"[./if.] >===其它===</option>
+							</select>
+						</div>
+						<div id="1" style="float:left;display:none;">
+						&nbsp;&nbsp;其它快递代码：
+					  <input name="OP_Ordersexpress2" type="text" class="win3" value="[.$ourphp_orders.OP_Ordersexpress.]"  />
+					  (目前采用的接口不支持中文，如果是发顺发快递，请输入 SFEXPRESS &nbsp;&nbsp;&nbsp;<a href="https://www.ourphp.net/kuaidi_code.html" target="_blank"><font color="#0099FF">查看快递参考代码</font></a>)
+					  </div>
+					  <div id="2" style="float:left;display:none;"></div>
+					  </td>
+                    </tr>
+                    <tr>
+                      <td bgcolor="#FFFFF0"><div align="right">快递单号：</div></td>
+                      <td bgcolor="#FFFFF0"><input name="OP_Ordersexpressnum" type="text" class="win" value="[.$ourphp_orders.OP_Ordersexpressnum.]"  /></td>
+                    </tr>
+                    <tr>
+                      <td><div align="right"></div></td>
+                      <td><input type="submit" name="Submit" value="处理订单" class="ourphp-anniu"/></td>
+                    </tr>
+                  </table>
+                </form>
+        </div>
+	  </li>
+  </ul>
+  
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

@@ -1,0 +1,80 @@
+/*
+	会员中心CSS
+*/
+#YIQI-UI {}
+#YIQI-UI a{ color:#666;}
+.gb {background:#F44B5E;}
+.ourphp_center { width:1200px; margin:0 auto; height:auto; overflow:hidden;}
+.ourphp_head { width:100%; height:100px; line-height:100px; background:#fff;}
+.ourphp_logo { float:left; text-align:left; padding-top:20px;}
+.ourphp_logo img { max-height:80px;}
+.logo_font { float:left; font-size:16px;color:#666; background:url(../images/denglu.png) no-repeat; width:80px; height:40px; line-height:40px; color:#FFF; padding-left:5px;}
+.ourphp_login { width:1200px; min-height:500px; overflow:hidden; float:left; margin-top:60px;}
+.ourphp_left{ width:620px; height: auto; overflow:hidden; text-align:center}
+.ourphp_right{ float:left; width:450px; margin:0px 80px 0px 0px; background:#fff; height:430px; border-radius:10px; padding-top:20px; }
+.ourphp_right2{ float:left; width:570px; border-left:1px #ccc solid;}
+.ourphp_right h1 { font-size:16px; color:#666666; height:30px; line-height:30px; float:left;}
+.textarea { width:330px; height:260px; border:0; padding:10px; color:#666666}
+.regtologin { background:url(../../../skin/reg.gif) left no-repeat; width:240px; height:70px; float:left; line-height:70px; margin:20px 0px 0px 105px;}
+.regtologin a{ font-size:30px; color:#666666; margin-left:20px; display:block; }
+.input { width:280px; height:25px; line-height:15px; border:1px #CCCCCC solid; color:#333; padding:5px; border-radius:5px;}
+.input2 { width:300px; height:70px; line-height:15px; border:1px #CCCCCC solid; color:#333; padding:5px;}
+.input3 { width:90px; height:25px; line-height:15px; border:1px #CCCCCC solid; color:#333; padding:5px; border-radius:5px;}
+.input4 { width:291px; height:30px; border:1px #CCCCCC solid; color:#333; padding:5px;}
+
+
+
+.ourphp_user_left { width:150px; float:left; background:#fff; padding-bottom:30px;}
+.ourphp_user_left ul { padding:0px;}
+.ourphp_user_left ul li { width:100%; height:35px; line-height:35px; font-size:18px; position:relative;}
+.ourphp_user_left ul li a { color:#666666; display:block; font-size:14px; margin-left:15px;}
+.ourphp_user_left ul li a span { margin-right:10px;}
+.ourphp_user_left ul li:hover { background:#f4f4f4;}
+.ourphp_user_left ul li.on {height:40px; line-height:40px; margin-top:20px;}
+.ourphp_user_left ul li.on dd {margin-left:15px; font-size:16px;}
+.ourphp_user_left ul li.on dd i{color:#DD514C;}
+.shoppingcart { position:absolute; right:30px; top:2px; background:#DD514C; color:#fff; font-size:12px; padding:0 5px; border-radius:50%; height:16px; line-height:16px;}
+
+.ourphp_user_right { width:960px; height: auto; overflow:hidden; margin-left:50px; float:left; padding:20px; background:#fff; border-radius:10px;}
+#YIQI-UI .ourphp_user_right  table {border-top:none;}
+.ourphp_user_up { width:1000px; height:200px; background:#fff; border-radius:100px 0 0 100px;}
+
+.user_touxiang { width:160px; padding:20px; text-align:center; float:left;}
+.user_touxiang img { width:120px;}
+.ourphp_user_up .left { width:220px; float:left; margin:50px 0 0 20px;}
+.ourphp_user_up .left p { width:220px; height:20px; line-height:20px; font-size:14px; color:#666666; float:left;}
+.ourphp_user_up .left p span {border-left:3px #1784B1 solid; margin-right:10px;}
+.ourphp_user_up .right { width:480px; float:left; padding:20px; color:#666666;}
+.ourphp_user_up .right .xj { width:120px; font-size:14px; float:left; text-align:center; margin-top:25px;}
+.ourphp_user_up .right .jf { width:120px; font-size:14px; float:left; text-align:center; margin-top:25px;}
+.ourphp_user_up .right .yhq { width:120px; font-size:14px; float:left; text-align:center; margin-top:25px;}
+.ourphp_user_up .right .xnb { width:120px; font-size:14px; float:left; text-align:center; margin-top:25px;}
+
+.yhq dd { width:50px; height:50px; border-radius:50%; background:#0ecc6a; float:left; margin-left:34px;}
+.xj dd { width:50px; height:50px; border-radius:50%; background:#ff4040; float:left; margin-left:34px;}
+.jf dd { width:50px; height:50px; border-radius:50%; background:#0a6dee; float:left; margin-left:34px;}
+.xnb dd { width:50px; height:50px; border-radius:50%; background:#3BB4F2; float:left; margin-left:34px;}
+.yhq i,.xj i,.jf i,.xnb i {font-size:30px; line-height:50px; color:#fff }
+
+.ourphp_user_down { width:960px; float:left; padding:20px; background:#fff;}
+#YIQI-UI .ourphp_user_down h1{ font-size:14px; height:40px; line-height:40px; color:#666666; font-weight:500; border-bottom:1px #CCCCCC solid; margin-bottom:20px;}
+.ourphp_textarea { width:400px; height:100px; border:1px #CCCCCC solid;}
+.prov,.city,.dist{ padding:2px; border:1px #CCCCCC solid; margin-bottom:5px;}
+.add_xz { border:2px #CC0000 solid;}
+
+.shopnav a{ margin-right:30px;}
+
+.user_foot { width:100%; height:120px; padding-top:15px; background:#fff; float:left; margin-top:30px;}
+.user_foot p { width:1200; height:30px; line-height:30px; text-align:center; color:#666;}
+.user_foot p a { margin:0 10px;}
+
+.btn {width:295px; height:40px;}
+#YIQI-UI h5{color:#e3101e; border-bottom:2px #e3101e solid; width:100px; text-align:center; height:30px; font-weight:300;}
+.btn-success {width:120px; float:right; margin-right:15px;}
+.nav {width:100%; height:40px; line-height:40px; border-bottom: 2px solid #DD514C; background:#fff;}
+.nav li {width:100px; float:left; text-align:center;}
+.nav li.on {width:150px; background:#DD514C;}
+#YIQI-UI .nav li.on a {color:#fff; font-size:18px;}
+
+.bodygb {background:#f4f4f4;}
+

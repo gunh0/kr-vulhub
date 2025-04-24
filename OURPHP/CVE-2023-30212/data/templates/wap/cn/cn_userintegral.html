@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>我的积分_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">我的积分</dd>
+		<div class="pos-a back"><a href="?cn-usercenter.html"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a></div>
+	</div>
+	<div class="pages">
+        <div class="content2" style="margin:60px auto; background:#fff; padding:15px 0;">
+            [.*积分领取开始*.]
+              <table class="table">
+                <tr>
+                  <td colspan="3">
+                  	可用积分：<b>[.$user.integral.]</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>积分详情</td>
+                  <td width="25%"><div align="right">状态</div></td>
+                </tr>
+                [.foreach $integrallist as $op.]
+                <tr>
+                  <td>
+                      <p class="f-12 f-999">商品名称：[.$op.name.]</p>
+                      <p class="f-12 f-999">可领积分：[.$op.integral.]</p>
+                  </td>
+                  <td>
+					<div align="right">
+                      [.if $op.confirm == 0.]
+                          <p class="f-12 f-999">
+							<a href="../user/ourphp_play.class.php?ourphp_cms=integral&id=[.$op.id.]&lang=[.$ip.lang.]&type=wap">【待领取】</a></p>
+                          [.elseif $op.confirm == 1.]
+							<p class="f-12 f-999">已领取<br />([.$op.lqtime|date_format:"%Y,%m,%d".])</p>
+                      [./if.]
+					</div>
+				  </td>
+                </tr>
+                [./foreach.]
+              </table>
+              [.*领取积分结束*.]
+              
+        </div>
+    </div>
+	[.include file="cn/cn_shopfoot.html".]
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

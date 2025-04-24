@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">申请退款列表</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+    <li>
+    <div class="ourphp_newslist">
+    
+            <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+            <td width="5%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+                    <td bgcolor="#EBEBEB">申请会员</td>
+                    <td bgcolor="#EBEBEB">订单信息</td>
+                    <td bgcolor="#EBEBEB">退款金额</td>
+                    <td bgcolor="#EBEBEB">当前状态</td>
+                    <td bgcolor="#EBEBEB">寄件信息</td>
+                    <td bgcolor="#EBEBEB">处理人</td>
+                    <td bgcolor="#EBEBEB">处理时间</td>
+                    <td bgcolor="#EBEBEB">申请时间</td>
+                    <td width="10%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+                  [.section loop=$outmoney name=op.]
+                  <tr>
+                    <td>
+                    <div align="center">
+                      <input type="checkbox" name="op_b[]" value="[.$outmoney[op].id.]" />
+                      <font style="background:#009933; color:#FFFFFF; padding:2px; text-align:center;">[.$outmoney[op].id.]</font>
+                    </div>
+                  </td>
+                    <td>
+                      [.$outmoney[op].user.]
+                    </td>
+                    <td>
+                      <p>订单ID:[.$outmoney[op].buyid.]</p>
+                      <p>[.$outmoney[op].buytitle.]</p>
+                      <p>[.$outmoney[op].buyuser.]</p>
+                      <p>[.$outmoney[op].buyusertel.]</p>
+                    </td>
+                    <td>[.$outmoney[op].buymoney.]</td>
+                    <td>[.if $outmoney[op].buytype == 2.]等待处理退款[.elseif $outmoney[op].buytype == 3.]退款成功[./if.]</td>
+                    <td>
+                      <p>单号：[.$outmoney[op].posnum.]</p>
+                      <p>快递：[.$outmoney[op].posname.]</p>
+                    </td>
+                    <td>[.$outmoney[op].admin.]</td>
+                    <td>[.$outmoney[op].admintime.]</td>
+                    <td>[.$outmoney[op].time.]</td>
+                    <td>
+
+                   [.if $outmoney[op].buytype != 3.]
+                   <a href="ourphp_outmoney.php?id=[.$outmoney[op].buyid.]&type=ok&rid=[.$op.id.]" onclick="javascript:return confirm('确认退款吗？同意后退款金额返给用户，无法逆回。')">同意退款</a>
+                   [./if.]
+
+                    </td>
+                  </tr>
+                  [./section.]
+                 <tr>
+                    <td colspan="17">[.$ourphppage.]</td>
+                  </tr>
+                </table>
+      
+    </div>
+    </li>
+  </ul>
+  
+
+ </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,603 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script src="../../function/plugs/layer/layer.min.js"></script>
+<SCRIPT language=JavaScript>
+function ourphp_aa()
+{
+  var obj = document.form1.OP_Model.value;
+  if(obj == 'article')
+  {
+    about.style.display = 'none';
+    list.style.display = 'block';
+	view.style.display = 'block';
+	ourphpppp.style.display = 'none';
+	weburl.style.display = 'none';
+	document.form1.OP_Templist.value='{L}_article.html';
+	document.form1.OP_Tempview.value='{L}_articleview.html';
+  }
+  if(obj == 'product')
+  {
+    about.style.display = 'none';
+    list.style.display = 'block';
+	view.style.display = 'block';
+	ourphpppp.style.display = 'block';
+	weburl.style.display = 'none';
+	document.form1.OP_Templist.value='{L}_product.html';
+	document.form1.OP_Tempview.value='{L}_productview.html';
+  }
+  if(obj == 'photo')
+  {
+    about.style.display = 'none';
+    list.style.display = 'block';
+	view.style.display = 'block';
+	ourphpppp.style.display = 'none';
+	weburl.style.display = 'none';
+	document.form1.OP_Templist.value='{L}_photo.html';
+	document.form1.OP_Tempview.value='{L}_photoview.html';
+  }
+  if(obj == 'video')
+  {
+    about.style.display = 'none';
+    list.style.display = 'block';
+	view.style.display = 'block';
+	ourphpppp.style.display = 'none';
+	weburl.style.display = 'none';
+	document.form1.OP_Templist.value='{L}_video.html';
+	document.form1.OP_Tempview.value='{L}_videoview.html';
+  }
+  if(obj == 'down')
+  {
+    about.style.display = 'none';
+    list.style.display = 'block';
+	view.style.display = 'block';
+	ourphpppp.style.display = 'none';
+	weburl.style.display = 'none';
+	document.form1.OP_Templist.value='{L}_down.html';
+	document.form1.OP_Tempview.value='{L}_downview.html';
+  }
+  if(obj == 'job')
+  {
+    about.style.display = 'none';
+    list.style.display = 'block';
+	view.style.display = 'block';
+	ourphpppp.style.display = 'none';
+	weburl.style.display = 'none';
+	document.form1.OP_Templist.value='{L}_job.html';
+	document.form1.OP_Tempview.value='{L}_jobview.html';
+  }
+  if(obj == 'about')
+  {
+    about.style.display = 'block';
+    list.style.display = 'none';
+	view.style.display = 'block';
+	ourphpppp.style.display = 'none';
+	weburl.style.display = 'none';
+	document.form1.OP_Tempview.value='{L}_about.html';
+
+  }
+  if(obj == 'weburl')
+  {
+     weburl.style.display = 'block';
+     list.style.display = 'none';
+	 view.style.display = 'none';
+	 ourphpppp.style.display = 'none';
+	 about.style.display = 'none';
+	 document.form1.OP_Url.value='http://';
+  }
+
+}
+
+function ourphp_aaa()
+{
+  var obj = document.form1.ourphpa.value;
+  if(obj == 'product')
+  {
+	document.form1.OP_Templist.value='{L}_product.html';
+	document.form1.OP_Tempview.value='{L}_productview.html';
+  }
+  if(obj == 'shop')
+  {
+	document.form1.OP_Templist.value='{L}_shoplist.html';
+	document.form1.OP_Tempview.value='{L}_shopview.html';
+  }
+}
+
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+
+			//帮助
+			function weburlts(){
+					layer.alert('?cn-shop.html 商城首页地址(伪静态则为:/cn/shop/)<br>?cn-club.html 留言版块地址(伪静态则为:/cn/club/)<br>/client/user/?cn-reg.html会员注册地址<br>/client/user/?cn-login.html会员登录地址<br>/client/wap/手机访问地址', 0, !1);
+			}
+</script>
+
+</head>
+
+<body>
+
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li><a  href="ourphp_column.php"><font color="#000000">栏目列表</font></a></li>
+  <li class="hover">[.if !isset($smarty.get.ourphp_cms) || $smarty.get.ourphp_cms == 'oadd'.]创建栏目[.else.]编辑栏目[./if.]</li>
+  <li><a href="ourphp_columnback.php"><font color="#000000">找回栏目</font></a></li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+
+	[.if !isset($smarty.get.ourphp_cms) || $smarty.get.ourphp_cms == 'oadd'.]
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=add" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		  <tr>
+		  	<td width="170"><div align="right">语言分类</div></td>
+			<td>
+			
+			[.section loop=$langlist name=op.]
+			<label><input name="OP_Lang" type="radio" value="[.$langlist[op].lang.]" [.if $langlist[op].default.] checked="checked" [./if.] />[.$langlist[op].font.]&nbsp;&nbsp;</label>
+			[./section.]
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td width="170"><div align="right">栏目归属</div></td>
+			<td>
+			<select name="OP_Uid" class="win3">
+			<option value="0" [.if !isset($smarty.get.id).]selected="selected"[./if.] >一级栏目</option>
+			<optgroup label="----------------"></optgroup>
+			
+			[.function name=menu level=0.]
+					[.foreach $data as $k => $op.]
+						<option value="[.$op.id.]" [.if !isset($smarty.get.id).][.elseif $op.id == $smarty.get.id.]selected="selected"[./if.]>
+						{[.$op.lang.]}
+						[.if $op.model == 'weburl'.]-{外}[./if.]
+						[.if $op.model == 'about'.]-{单}[./if.]
+
+						[.if $op.uid != 0.]
+							[.for $foo=1 to $level.]
+							&nbsp;&nbsp;
+							[./for.]
+							└
+						[./if.]
+						
+						[.$op.title.]
+						</option>
+						[.if isset($op.child).]
+							[.call name=menu data=$op.child level=$level+1.]
+						[./if.]	
+					[./foreach.]
+			[./function.]
+			[.call name=menu data=$arr.]
+			
+			</select>
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">模型</div></td>
+			<td>
+			<select name="OP_Model" onchange="ourphp_aa(this.value)" datatype="*" nullmsg="请选择模型!" class="win3">
+			<option value="" selected="selected">=选择模型=</option>
+			  <option value="article">文章模型</option>
+			  [.if $webupdate == 7.]<option value="product">商品模型</option>[./if.]
+			  <option value="photo">图集模型</option>
+			  <option value="video">视频模型</option>
+			  <option value="down">下载模型</option>
+			  <option value="job">招聘模型</option>
+			  <option value="about">单页面</option>
+			  <option value="weburl">外部链接</option>
+			</select>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">栏目标题</div></td>
+			<td>
+			
+			<script>
+			window.onload=function()
+			{
+				var oCheckBox=document.getElementById('cb');
+				var oText=document.getElementById('text');
+				var oTextarea=document.getElementById('textarea1');
+				var oSpan=document.getElementById('span1');
+				oCheckBox.onclick=function(){
+					if(this.checked)
+					{
+						oTextarea.style.display='block';
+						oText.style.display='none';
+						oSpan.innerHTML='&nbsp;&nbsp;<font color=red>(多个标题请用 | 格开)</font>';
+					}
+					else
+					{
+						oText.style.display='block';
+						oTextarea.style.display='none';
+						oSpan.innerHTML='';
+					}
+				};
+			}
+			</script>
+			
+			<input name="OP_Columntitle" id="text" type="text" class="win" style="float:left;" [.$ourphp_bgcolor.] />
+			<font color=red> (*)</font>
+			<textarea name="OP_Columntitle_pl" id="textarea1" style="display:none; float:left;" class="wtextarea"></textarea>
+			&nbsp;&nbsp;
+			<input type="checkbox" id="cb" name="pl" value="1"/><label for="cb">批量添加</label><span id="span1"></span>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">栏目副标题</div></td>
+			<td><input name="OP_Columntitleto" type="text" class="win" [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  </table>
+		  
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" id="list" style="display:none;">
+		  <tr>
+		  	<td width="170"><div align="right">栏目列表模板</div></td>
+			<td><input name="OP_Templist" type="text" id="listtemp" class="win" value="{L}_article_list.html"/>&nbsp;{L}&nbsp;语言标识符 <font color=red> (*)</font></td>
+		  </tr>
+		  </table>
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" id="view" style="display:none;">
+		  <tr>
+		  	<td width="170"><div align="right">栏目内容模板</div></td>
+			<td><input name="OP_Tempview" type="text" id="viewtemp" class="win" value="{L}_article_view.html"/>&nbsp;{L}&nbsp;语言标识符 <font color=red> (*)</font></td>
+		  </tr>
+		  </table>
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" id="ourphpppp" style="display:none;">
+		  <tr>
+		  	<td width="170"></td>
+			<td>
+			<select name="ourphpa" onchange="ourphp_aaa(this.value)" class="win3">
+			  <option value="product">普通产品模板</option>
+			  <option value="shop">商城模式模板</option>
+			</select>
+			</td>
+		  </tr>
+		  </table>
+
+		  <table width="100%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" id="about" style="display:none;">
+		  <tr>
+		  	<td valign="top" width="170"><div align="right">电脑端内容</div></td>
+			<td>
+			<p>用[.literal.][.$opcms.content.] 标签来调用这里面的内容[./literal.]</p>
+			<p>&nbsp;</p>
+			<textarea name="OP_About" class="editor" style="width:1000px; height:400px;"></textarea>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">手机端内容</div></td>
+			<td>
+				<div class="newsleft" style="width:680px;">
+					<textarea name="OP_About_wap" class="editor waplook" style="width:100%; height:400px;"></textarea>
+					<font color=red> (*)</font>
+				</div>
+				<div class="newsright">
+					[.include file="ourphp_contentwap.html".]
+				</div>
+			</td>
+		  </tr>
+		  </table>
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" id="weburl" style="display:none;">
+		  <tr>
+		  	<td width="170"><div align="right">外部链接地址</div></td>
+			<td><input name="OP_Url" type="text" id="yidacms_adpic1" class="win" value="" /><font color=red> (*)</font> <a href="javascript:weburlts()">[OURPHP常用外部链接]</a></td>
+		  </tr>
+		  </table>
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center">
+		  <tr>
+		  	<td width="170"><div align="right">状态</div></td>
+			<td>
+			<select name="OP_Hide" class="win3">
+			  <option value="0" selected="selected">显示</option>
+			  <option value="1">隐藏</option>
+			</select>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td width="170"><div align="right">排序</div></td>
+			<td>
+				<input name="OP_Sorting" type="text" class="win2" value="0"  datatype="*" nullmsg="排序是必填项"/><font color=red> (*) 数字</font>
+			</td>
+		  </tr>
+		  
+		  <tr>
+		  	<td valign="top"><div align="right">栏目介绍</div></td>
+			<td><textarea name="OP_Briefing" class="wtextarea" style="width:80%; height:50px;" [.$ourphp_bgcolor.]></textarea></td>
+		  </tr>
+		  
+		  <tr>
+		  	<td><div align="right">栏目图片</div></td>
+			<td><input name="OP_Img" type="text" class="win" [.$ourphp_bgcolor.] id="upload"/>&nbsp;
+			<input type="button" id="image3" value="上传" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			
+			[.include file="ourphp_editor.html".]
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			</td>
+		  </tr>
+		  
+		  <tr>
+		  	<td><div align="right">访问权限</div></td>
+			<td>
+			<label><input name="OP_Userright[]" type="checkbox" value="0" checked="checked" />任何人</label>&nbsp;&nbsp;
+			[.section loop=$userleve name=op.]
+			<label><input name="OP_Userright[]" type="checkbox" value="[.$userleve[op].id.]" />[.$userleve[op].name.]</label>&nbsp;&nbsp;
+			[./section.]
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">管理权限</div></td>
+			<td>
+			<label><input name="OP_Adminopen[]" type="checkbox" value="00" checked="checked" />全部</label>&nbsp;&nbsp;
+			[.section loop=$adminleve name=op.]
+			<label><input name="OP_Adminopen[]" type="checkbox" value="0[.$adminleve[op].id.]" />[.$adminleve[op].name.]</label>&nbsp;&nbsp;
+			[./section.]
+			</td>
+		  </tr>
+		  <tr>
+		  	<td width="170"><div align="right">栏目权重</div></td>
+			<td>
+				<input name="OP_Weight" type="text" class="win2" value="0"  datatype="*" nullmsg="权重是必填项"/>数字
+			</td>
+		  </tr>
+		  
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+		</form>
+
+   [.elseif $smarty.get.ourphp_cms == 'oedit'.]
+   
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=[.$smarty.get.id.]" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		  <tr>
+		  	<td width="170"><div align="right">语言分类</div></td>
+			<td>
+			
+			[.section loop=$langlist name=op.]
+			<label><input name="OP_Lang" type="radio" value="[.$langlist[op].lang.]" [.if $langlist[op].lang == $columnedit.OP_Lang.] checked="checked" [./if.] />[.$langlist[op].font.]&nbsp;&nbsp;</label>
+			[./section.]
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td width="170"><div align="right">栏目归属</div></td>
+			<td>
+			<select name="OP_Uid" class="win3">
+			<option value="0" [.if  $columnedit.OP_Uid == 0.]selected="selected"[./if.] >一级栏目</option>
+			<optgroup label="----------------"></optgroup>
+			[.function name=menu level=0.]
+					[.foreach $data as $op.]
+						<option value="[.$op.id.]" [.if $columnedit.OP_Uid == 0.][.elseif $op.id == $columnedit.OP_Uid.]selected="selected"[./if.]>
+						{[.$op.lang.]}
+						[.if $op.model == 'weburl'.]-{外}[./if.]
+						[.if $op.model == 'about'.]-{单}[./if.]
+						
+						[.if $op.uid != 0.]
+							[.for $foo=1 to $level.]
+							&nbsp;&nbsp;
+							[./for.]
+							└
+						[./if.]
+						
+						[.$op.title.]
+						</option>
+						[.if isset($op.child).]
+							[.call name=menu data=$op.child level=$level+1.]
+						[./if.]	
+					[./foreach.]
+			[./function.]
+			[.call name=menu data=$arr.]
+			
+			</select>
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">模型</div></td>
+			<td>
+			{[.if $columnedit.OP_Model == 'article'.]文章模型
+			[.elseif $columnedit.OP_Model == 'product'.]产品模型
+			[.elseif $columnedit.OP_Model == 'photo'.]图集模型
+			[.elseif $columnedit.OP_Model == 'video'.]视频模型
+			[.elseif $columnedit.OP_Model == 'about'.]单页面
+			[.elseif $columnedit.OP_Model == 'weburl'.]外部链接
+			[.elseif $columnedit.OP_Model == 'down'.]下载模型
+			[.elseif $columnedit.OP_Model == 'job'.]招聘模型[./if.]}
+			<input type="hidden" name="OP_Model" value="[.$columnedit.OP_Model.]" />
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">栏目标题</div></td>
+			<td><input name="OP_Columntitle" type="text" class="win" value="[.$columnedit.OP_Columntitle.]" [.$ourphp_bgcolor.] datatype="*" nullmsg="标题是必填项!"/><font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">栏目副标题</div></td>
+			<td><input name="OP_Columntitleto" type="text" class="win" value="[.$columnedit.OP_Columntitleto.]" [.$ourphp_bgcolor.] /></td>
+		  </tr>
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" [.if $columnedit.OP_Model == 'about' || $columnedit.OP_Model == 'weburl'.]id="list" style="display:none;"[./if.]>
+		  <tr>
+		  	<td width="170"><div align="right">栏目列表模板</div></td>
+			<td><input name="OP_Templist" type="text" id="listtemp" class="win" value="[.$columnedit.OP_Templist.]"/>&nbsp;{L}&nbsp;语言标识符 <font color=red> (*)</font></td>
+		  </tr>
+		  </table>
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" [.if $columnedit.OP_Model == 'weburl'.]id="view" style="display:none;"[./if.]>
+		  <tr>
+		  	<td width="170"><div align="right">栏目内容模板</div></td>
+			<td><input name="OP_Tempview" type="text" id="viewtemp" class="win" value="[.$columnedit.OP_Tempview.]"/>&nbsp;{L}&nbsp;语言标识符 <font color=red> (*)</font></td>
+		  </tr>
+		  </table>
+		[.if $columnedit.OP_Model == 'product'.]
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center">
+		  <tr>
+		  	<td width="170"></td>
+			<td>
+			<select name="ourphpa" onchange="ourphp_aaa(this.value)" class="win3">
+			  <option value="product">普通产品模板</option>
+			  <option value="shop">商城模式模板</option>
+			</select>
+			</td>
+		  </tr>
+		  </table>
+		[./if.]
+		  <table width="100%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" [.if $columnedit.OP_Model == 'about'.][.else.]id="about" style="display:none;"[./if.]>
+		  <tr>
+		  	<td valign="top" width="170"><div align="right">电脑端内容</div></td>
+			<td>
+			<p>用[.literal.][.$opcms.content.] 标签来调用这里面的内容[./literal.]</p>
+			<p>&nbsp;</p>
+			<textarea name="OP_About" class="editor" style="width:1000px; height:400px;">[.$columnedit.OP_About.]</textarea>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">手机端内容</div></td>
+			<td>
+				<div class="newsleft" style="width:680px;">
+					<textarea name="OP_About_wap" class="editor waplook" style="width:100%; height:400px;">[.$columnedit.OP_About_wap.]</textarea>
+					<font color=red> (*)</font>
+				</div>
+				<div class="newsright">
+					[.include file="ourphp_contentwap.html".]
+				</div>
+			</td>
+		  </tr>
+		  </table>
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center" [.if $columnedit.OP_Model == 'weburl'.][.else.]id="weburl" style="display:none;"[./if.]>
+		  <tr>
+		  	<td width="170"><div align="right">外部链接地址</div></td>
+			<td><input name="OP_Url" type="text" id="yidacms_adpic1" class="win" value="[.$columnedit.OP_Url.]" /><font color=red> (*)</font> <a href="javascript:weburlts()">[OURPHP常用外部链接]</a></td>
+		  </tr>
+		  </table>
+		  
+		  <table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" align="center">
+		  <tr>
+		  	<td width="170"><div align="right">状态</div></td>
+			<td>
+			<select name="OP_Hide" class="win3">
+			  <option value="0" [.if $columnedit.OP_Hide == 0.]selected="selected"[./if.]>显示</option>
+			  <option value="1" [.if $columnedit.OP_Hide == 1.]selected="selected"[./if.]>隐藏</option>
+			</select>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td width="170"><div align="right">排序</div></td>
+			<td>
+				<input name="OP_Sorting" type="text" class="win2" value="[.$columnedit.OP_Sorting.]"  datatype="*" nullmsg="排序是必填项"/><font color=red> (*) 数字</font>
+			</td>
+		  </tr>
+		  
+		  <tr>
+		  	<td valign="top"><div align="right">栏目介绍</div></td>
+			<td><textarea name="OP_Briefing" class="wtextarea" style="width:80%; height:50px;" [.$ourphp_bgcolor.]>[.$columnedit.OP_Briefing.]</textarea></td>
+		  </tr>
+		  
+		  <tr>
+		  	<td><div align="right">栏目图片</div></td>
+			<td><input name="OP_Img" type="text" class="win" value="[.$columnedit.OP_Img.]" [.$ourphp_bgcolor.] id="upload"/>&nbsp;
+			<input type="button" id="image3" value="上传" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />
+			
+			[.include file="ourphp_editor.html".]
+			<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#image3').click(function() {
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							showRemote : false,
+							imageUrl : K('#upload').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								K('#upload').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script>
+			</td>
+		  </tr>
+		  
+		  <tr>
+		  	<td><div align="right">访问权限</div></td>
+			<td>
+			[.html_checkboxes name="OP_Userright" options=$ourphph_qx selected=$selected separator="&nbsp;&nbsp;".]
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">管理权限</div></td>
+			<td>
+			
+			<label><input name="OP_Adminopen[]" type="checkbox" value="00" [.if strstr($columnedit.OP_Adminopen,"00").]checked="checked"[./if.] />全部</label>&nbsp;&nbsp;
+			[.section loop=$adminleve name=op.]
+				<label><input name="OP_Adminopen[]" type="checkbox" value="0[.$adminleve[op].id.]" [.if strstr($columnedit.OP_Adminopen,$adminleve[op].id).]checked="checked"[./if.] />[.$adminleve[op].name.]</label>&nbsp;&nbsp;
+			[./section.]
+			</td>
+		  </tr>
+		  <tr>
+		  	<td width="170"><div align="right">栏目权重</div></td>
+			<td>
+				<input name="OP_Weight" type="text" class="win2" value="[.$columnedit.OP_Weight.]"  datatype="*" nullmsg="权重是必填项"/>数字
+			</td>
+		  </tr>
+		  
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+		</form>
+
+
+
+   [./if.]
+	  </li>
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

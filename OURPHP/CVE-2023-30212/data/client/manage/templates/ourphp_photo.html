@@ -1,0 +1,132 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script charset="utf-8" src="templates/images/ourphp.js"></script>
+
+<style type="text/css">
+.fl {width: 12%; max-height: 800px; overflow:auto; float: left;}
+.fr {width: 88%; float: right;}
+.treeview-red {padding-top:20px;}
+.treeview-red a {font-size: 14px;}
+.closed { padding:5px 0;}
+.on {background: #488fcd; color: #fff; padding: 2px 5px}
+.on:hover {color: #fff;}
+</style>
+</head>
+
+<body>
+
+<div id="tabs0" class="mt-50">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">信息列表</li>
+  <li><a href="ourphp_photoadd.php?ourphp_cms=oadd&aid=[.$smarty.get.aid.]"><font color="#000000">添加信息</font></a></li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+  <div class="fl">
+
+	<div id="black" class="treeview-red" style="max-height: 800px;">
+		[.function name=menu2.]
+				[.foreach $data as $op.]
+					<li class="closed" [.if $op.i % 2 == 0.]style="background:#f4f4f4;"[./if.]>
+						<span class="font">
+							[.if $op.uid != 0.]
+							<font style="font-size:12px; color:#999;">[.$op.uptitle.] -> </font>
+							[.else.]
+							<font style="font-size:12px; color:#999;">无上级栏目 -> </font>
+							[./if.]
+							<a href="?aid=[.$op.id.]" [.if $aid == $op.id.] class="on" [./if.]>
+							[.$op.title.]
+							</a>
+						</span>
+					</li>
+				[./foreach.]
+		[./function.]
+		[.call name=menu2 data=$photolist.]
+	</div>
+
+  </div>
+  <div class="fr">
+	  <li>
+		<div class="ourphp_newslist">
+		  <form id="form1" name="form1" method="post" action="?ourphp_cms=Batch">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="5%" bgcolor="#EBEBEB"><div align="center">批量?</div></td>
+				  	<td width="5%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+					<td width="10%" bgcolor="#EBEBEB"><div align="center">缩略图</div></td>
+                    <td bgcolor="#EBEBEB">标题</td>
+                    <td width="20%" bgcolor="#EBEBEB">属性</td>
+                    <td width="15%" bgcolor="#EBEBEB">发布时间</td>
+                    <td width="10%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+				  [.section loop=$photo name=op.]
+                  <tr>
+				  <td><div align="center"><input type="checkbox" name="op_b[]" value="[.$photo[op].id.]" />
+				 	 </div></td>
+				  	<td><div align="center"><font class="la">[.$photo[op].id.]</font></div></td>
+					<td><div align="center"><img src="[.if !$photo[op].img.]../../skin/noimage.png[.else.][.if strstr($photo[op].img,'http://') || strstr($photo[op].img,'https://').][.$photo[op].img.][.else.][.$webpath.][.$photo[op].img.][./if.][./if.]" border="0" width="80" height="80" /></div></td>
+                    <td>
+
+					<span style="font-size: 14px;">[.$photo[op].title.]</span>&nbsp;&nbsp;<a href="ourphp_copy.php?type=photo&id=[.$photo[op].id.]"><span style="color:#ff0000;">[复制]</span></a><br /><br />
+					<font class="lb">[.$photo[op].lang.]</font>
+					<font class="le">[.$photo[op].class.]</font>
+					<font class="ld">地址</font>&nbsp;&nbsp;
+					<a class="copyplus" data-clipboard-text="
+					[.$webpath.]?[.$photo[op].lang.]-photoview-[.$photo[op].class2.]-[.$photo[op].id.].html" href="javascript:;">
+					[.$webpath.]?[.$photo[op].lang.]-photoview-[.$photo[op].class2.]-[.$photo[op].id.].html
+					</a>
+					</td>
+                    <td>[.$photo[op].att.]<br /><font class="la">排序：[.$photo[op].sorting.]</font><font class="lb">浏览量：[.$photo[op].click.]</font></td>
+                    <td>[.$photo[op].time.]</td>
+                    <td><a href="ourphp_photoedit.php?id=[.$photo[op].id.]&page=[.$page.]&aid=[.$aid.]">编辑</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="?ourphp_cms=del&id=[.$photo[op].id.]&c=[.$photo[op].class2.]&aid=[.$aid.]" onclick="javascript:return confirm('确认删除吗?')">删除</a></td>
+                  </tr>
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="7">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+				  <tr>
+				  	<td><div align="center"><input onclick="selectAll()" type="checkbox" name="controlAll" style="controlAll" id="controlAll"/></div></td>
+					<td colspan="6"></td>
+				  </tr>
+				  <tr>
+                    <td colspan="7">
+					<label><input type="checkbox" name="OP_Photoattribute[]" value="0" />&nbsp;头条</label>&nbsp;&nbsp;
+					<label><input type="checkbox" name="OP_Photoattribute[]" value="1" />&nbsp;热门</label>&nbsp;&nbsp;
+					<label><input type="checkbox" name="OP_Photoattribute[]" value="2" />&nbsp;滚动</label>&nbsp;&nbsp;
+					<label><input type="checkbox" name="OP_Photoattribute[]" value="3" />&nbsp;推荐</label>&nbsp;&nbsp;[&nbsp;&nbsp;
+					<label><input type="radio" name="h" value="h" />&nbsp;回收站</label>&nbsp;&nbsp;
+					<label><input type="radio" name="h" value="y" />&nbsp;移动</label>&nbsp;&nbsp;
+					<label><input type="radio" name="h" value="s" />&nbsp;删除</label>&nbsp;&nbsp;
+					<label><input type="radio" name="h" value="w" checked="checked" />
+					&nbsp;无&nbsp;&nbsp;]&nbsp;&nbsp;</label>
+					<input type="submit" name="Submit" value="批量提交" class="ourphp_listan" />
+					</td>
+                  </tr>
+                  <tr>
+                    <td colspan="7">[.$ourphppage.]</td>
+                  </tr>
+                </table>
+          </form>
+		</div>
+	  </li>
+	</di>
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+<script src="../../function/plugs/copyplus/clipboard.min.js"></script>
+<script type="text/javascript">
+	var clipboard = new Clipboard('.copyplus');
+	clipboard.on('success', function(e) {
+		alert("复制成功!");
+	});
+</script>
+</body>
+</html>

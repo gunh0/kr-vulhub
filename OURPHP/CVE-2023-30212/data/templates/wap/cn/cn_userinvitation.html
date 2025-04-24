@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>我的团队_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+<script src="../../function/plugs/layer3.1.0/layer.js"></script>
+[.assign var="md" value=$ourphp_web.webhttp|cat:$ourphp_web.weburl|cat:"/client/wap/?cn-userreg.html-&introducer="|cat:$user.id.]
+<script>
+function touser()
+{
+
+	layer.open({
+	  type: 1, 
+	  title:false,
+	  area: ['90%', '90%'],
+	  content: '<div class="tousergb"><h3>加入我们</h3><div class="clear"></div><h6>我们不差钱,只差对钱有欲望的人才!</h6><p class="ppp"><img src="[.$webpath.]function/api/qrcode/?text=[.$ourphp_web.webhttp.][.$ourphp_web.weburl.]/client/wap/?cn-userreg.html-%26introducer=[.$user.id.]&md=[.token info=$md.]&l=L&s=4" /></p><h6>[.$user.regcode.]</h6></div>'
+	});
+
+}
+</script>
+<style type="text/css">
+.tousergb {
+	background:url([.$webpath.]skin/tousergb.jpg?ourphp) top center no-repeat; background-size:100% 100%; width:100%; height:100%; float:left; text-align:center;
+}
+h3 {color:#fff; padding-top:70%;}
+h6 {color:#fff; font-size:16px;}
+.ppp {padding-top:50px;}
+#YIQI-UI p{margin:0; font-size:12px; color:#999;}
+</style>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">我的团队</dd>
+		<div class="pos-a back"><a href="javascript:history.go(-1);"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a></div>
+	</div>
+	<div class="pages">
+	
+		<a onclick="touser();" style="margin:50px 0 0 0; float:left;"><img src="[.$templatepath.]shop/images/yaoqing.jpg" class="maximg" /></a>
+		<div class="clear"></div>
+        <div class="content2" style="margin:0px auto; background:#fff;">
+		[.*邀请列表开始*.]
+		<style type="text/css">
+		tr,td { padding:6px;}
+		</style>
+		  <table width="100%" border="0" style="border-collapse:collapse;">
+			<tr>
+			  <td>账号</td>
+			  <td width="80"><div align="right">时间</div></td>
+			</tr>
+			[.foreach $invitation as $op.]
+			<tr style="border-bottom:1px #f1f1f1 solid;">
+			  <td>
+				  <span class="f-20">[.$op.name.]</span>
+				  [.$op.money.]
+			  </td>
+			  <td>
+			  <div align="right">[.$op.time.]</div></td>
+			</tr>
+			[./foreach.]
+			<tr>
+			  <td colspan="6">[.$ourphppage.]</td>
+			</tr>
+		  </table>
+		  [.*邀请列表结束*.]
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

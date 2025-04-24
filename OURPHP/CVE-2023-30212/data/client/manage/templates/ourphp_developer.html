@@ -1,0 +1,349 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<link href="../../function/plugs/YIQI-UI/YIQI-UI.min.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script>
+var aa,bb,cc,dd,ee,ff,gg,hh,ii;
+aa = 'htt';
+bb = 'ps://';
+cc = 'ww';
+dd = 'w.ou';
+ee = 'rph';
+ff = 'p.n';
+gg = 'et/';
+hh = 'opc';
+ii = 'ms';
+
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+
+$(function(){
+	$("#mysqladd").hide();
+	$("#adminhtml").hide();
+})
+ 
+function mysqlset(i)
+{
+	if(i == 1)
+	{
+		$("#mysqladd").hide();
+	}
+	if(i == 2)
+	{
+		$("#mysqladd").show();
+	}
+}
+
+function adminlistset(i)
+{
+	if(i == 1)
+	{
+		$("#adminhtml").hide();
+	}
+	if(i == 2)
+	{
+		$("#adminhtml").show();
+	}
+}
+
+function mysqladd(i,del)
+{
+	var mysqllistnum = $("#mysqllistnum").val();
+	if(i == 1)
+	{
+		var html;
+		html = '<td id="del'+mysqllistnum+'"><p><input name="mysqltable[]" type="text" class="win inputxt" datatype="*" nullmsg="数据库名称必填项!" placeholder="数据库表名" /><font color=red> (*)</font></p><p><textarea name="mysqltablelist[]" cols="50" rows="3" class="wtextarea" placeholder="数据库字段名及类型"></textarea><font color=red> (*)</font></p><p><a href="javascript:mysqladd(2,'+mysqllistnum+')">删除这个</a></p></td>';
+		$(".mysqlhtml").append(html);
+		$("#mysqllistnum").val(parseInt(mysqllistnum) + 1);
+	}
+	if(i == 2)
+	{
+		$("#del"+del).remove();
+	}
+}
+
+function ourphp_plusid()
+{
+	var plusid = $('input[name="plusid"]').val();
+	if(plusid != '')
+	{
+		$.get(aa+bb+cc+dd+ee+ff+gg+hh+ii+'/ourphp.plus.php?classtype=plus&id='+plusid,function(res,status){
+			if(res.msg == 0)
+			{
+				$("#idnameajax").html("<i style='color:#00a600'>插件ID可用</i>");
+				$('input[name="plusidok"]').val(1);
+			}else{
+				$("#idnameajax").html("<i style='color:#ff0000'>插件ID不可用</i>");
+				$('input[name="plusidok"]').val(0);
+			}
+		},'json');
+	}else{
+
+		$("#idnameajax").html("等待测重");
+		$('input[name="plusidok"]').val(0);
+	
+	}
+}
+
+function ourphp_tempid()
+{
+	var tempid = $('input[name="tempid"]').val();
+	if(tempid != '')
+	{
+		$.get(aa+bb+cc+dd+ee+ff+gg+hh+ii+'/ourphp.plus.php?classtype=temp&id='+tempid,function(res,status){
+			if(res.msg == 0)
+			{
+				$("#tempidajax").html("<i style='color:#00a600'>模板ID可用</i>");
+				$('input[name="tempidok"]').val(1);
+			}else{
+				$("#tempidajax").html("<i style='color:#ff0000'>模板ID不可用</i>");
+				$('input[name="tempidok"]').val(0);
+			}
+		},'json');
+	}else{
+
+		$("#tempidajax").html("等待测重");
+		$('input[name="tempidok"]').val(0);
+	
+	}
+}
+</script>
+<style type="text/css">
+#YIQI-UI p {margin:0; font-size:12px;}
+#tabs0 {
+    height: auto;
+    width: 90%;
+    margin-left: 5%;
+}
+.menu0 {
+    padding-left: 10%;
+}
+.radio {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	-webkit-appearance: radio; 
+}
+</style>
+</head>
+<body id="YIQI-UI">
+<div style="height:50px;">
+</div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">创建新插件</li>
+  <li onclick="setTab(0,1)">创建新模板</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<div class="ourphp_newslist">
+		    <form id="form1" name="form1" method="post" action="?ourphp_cms=plusadd"  class="registerform">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+				  <tr>
+					<td width="170"><div align="right">插件ID</div></td>
+					<td>
+							<input name="plusid" type="text" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="插件ID必填项!" onblur="ourphp_plusid();" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')" />
+							<font color=red> (*)</font> <span id="idnameajax">等待测重</span>
+							
+						<div style="clear:both;"></div>
+						<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:25px 0px 0px 20px;">
+							<p>插件ID必须是英文字母,不能是中文和数字或符号</p>
+							<p>比如插件名称 << 傲派软件 >> 那么ID应为  << aopairuanjian >> </p>
+							<p>插件ID与ourphp应用商店数据库比对, 不能重复并且插件中的php文件都以插件ID命名</p>
+						</div>
+					</td>
+				  </tr>
+                  <tr>
+					<td width="170"><div align="right">插件名称</div></td>
+					<td><input name="plusname" type="text" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="插件名称必填项!"/><font color=red> (*)</font></td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">插件版本</div></td>
+					<td><input name="plusversion" type="text" value="v1.0.0" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="插件版本必填项!"/><font color=red> (*)</font></td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">插件更新日期</div></td>
+					<td><input name="plusdate" type="text" value="[.date(Ymd).]" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="插件更新日期必填项!"/><font color=red> (*)</font></td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">插件作者</div></td>
+					<td><input name="plusauthor" type="text" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="插件作者必填项!"/><font color=red> (*)</font></td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">插件简介</div></td>
+					<td><textarea name="pluscontent" cols="50" rows="3" class="wtextarea" [.$ourphp_bgcolor.]></textarea><font color=red> (*)</font></td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">调用函数类型</div></td>
+					<td>
+							<select name="plusclass" class="win3">
+								<option value="0">不使用</option>
+								<option value="function">function</option>
+								<option value="block">block</option>
+								<option value="modifier">modifier</option>
+								<option value="modifiercompiler">modifiercompiler</option>
+							</select>
+						<div style="clear:both;"></div>
+						<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:30px 0px 0px 20px;">
+							<p>函数的使用请参考 smarty 模板引擎中的使用方法</p>
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">插件包zip解压</div></td>
+					<td><input name="plusadminzip" type="text" class="win inputxt" [.$ourphp_bgcolor.] /> 不使用请默认为空
+					
+					<div style="clear:both;"></div>
+						<div style="background:url(../../skin/admintitlebg.gif) no-repeat; background-size:100% 180px; width:610px; height:160px; float:left; padding:35px 0px 0px 20px;">
+							<p>如果你的插件需要修改ourphp其它的文件</p>
+							<p>例:后台或模板文件等,可以把你的文件放到插件文件夹内并打包成zip</p>
+							<p>例:你的插件需要模板文件配合,且你修改了/templates/wap/cn/cn_foot.html模板文件</p>
+							<p>那么请在插件文件夹内创建目录/templates/wap/cn/并把你修改的模板文件cn_foot.html</p>
+							<p>放到/templates/wap/cn/目录内,并把这个最顶层目录打包成zip 例: abc.zip</p>
+							<p>然后把 abc.zip 填写到上面文本框里</p>
+							<p>用户安装插件时,系统自动向根目录解压abc.zip包并覆盖包内文件(卸载插件时已覆盖的文件不可逆)</p>
+						</div>
+					
+					</td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">插件后台管理地址</div></td>
+					<td><input name="plusadminurl" type="text" value="index.htm" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="插件后台管理地址必填项!"/><font color=red> (*)</font> 不使用请默认index.htm</td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">使用数据库</div></td>
+					<td>
+						<label><input name="plusmysql" class="radio" type="radio" value="0" checked="checked" onclick="mysqlset(1);" />不使用&nbsp;&nbsp;</label>
+						<label><input name="plusmysql" class="radio" type="radio" value="1" onclick="mysqlset(2);" />使用&nbsp;&nbsp;</label>
+						<div class="clear"></div>
+						<div id="mysqladd" class="f-l mt-20">
+							<a href="javascript:mysqladd(1,0);" class="btn-ash radius-5 pt-5 pb-5 pl-10 pr-10">添加数据库</a>
+							<div class="clear"></div>
+							<table width="100%" border="0" cellpadding="10" class="f-l">
+								<tr class="mysqlhtml">
+								</tr>
+							</table>
+							<div style="clear:both;"></div>
+							<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:25px 0px 0px 20px; margin-top:20px;">
+								<p>插件所需要的字段，字段名称|字段类型</p>
+								<p>例如：name|varchar(255) 字段类型: varchar(255)文本类型  text备注类型  int(10)数字类型 datetime时间类型</p>
+								<p>一行一个</p>
+							</div>
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td width="170"><div align="right">使用后台列表</div></td>
+					<td>
+						<label><input name="plusadminlist" class="radio" type="radio" value="0" checked="checked" onclick="adminlistset(1);" />不使用&nbsp;&nbsp;</label>
+						<label><input name="plusadminlist" class="radio" type="radio" value="1" onclick="adminlistset(2);" />使用&nbsp;&nbsp;</label> (不使用插件入口在扩展中进入 , 使用则在后台顶部菜单进入)
+						<div style="clear:both;"></div>
+						<div id="adminhtml" class="f-l mt-20">
+							<p><input name="adminfont" type="text" class="win inputxt"placeholder="主菜单名称" /><font color=red> (*)</font></p>
+							<p><textarea name="adminfontlist" cols="50" rows="3" class="wtextarea" placeholder="副菜单标题|副菜单链接|排序" ></textarea><font color=red> (*)</font></p>
+							
+							<div style="clear:both;"></div>
+							<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:25px 0px 0px 20px; margin-top:20px;">
+								<p>主菜单列表 一行一个</p>
+								<p>例如: 财务|/caiwu/caiwu.php?id=ourphp|1</p>
+								<p>后台副菜单链接地址一般为:  /plus/你的插件ID名称/文件.php</p>
+							</div>
+							
+						</div>
+					</td>
+				  </tr>
+				  <tr>
+					<td>
+						<input type="hidden" value="0" id="mysqllistnum">
+						<input type="hidden" value="0" name="plusidok">
+					</td>
+					<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+				  </tr>
+                </table>
+            </form>
+        </div>
+	  </li>
+  </ul>
+  <ul>
+	  <li>
+			<form id="form2" name="form2" method="post" action="?ourphp_cms=tempadd"  class="registerform">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+				  <tr>
+					<td width="170"><div align="right">模板ID</div></td>
+					<td>
+							<input name="tempid" type="text" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="模板ID必填项!" onblur="ourphp_tempid();" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')" />
+							<font color=red> (*)</font> <span id="tempidajax">等待测重</span>
+							
+						<div style="clear:both;"></div>
+						<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:25px 0px 0px 20px;">
+							<p>模板ID必须是英文字母,不能是中文和数字或符号</p>
+							<p>比如模板名称 << 傲派官方模板 >> 那么ID应为  << aopaiguanfangmoban >> </p>
+							<p>模板ID与ourphp应用商店数据库比对, 不能有重复</p>
+						</div>
+					</td>
+				  </tr>
+					<tr>
+						<td width="170"><div align="right">模板名称</div></td>
+						<td><input name="tempname" type="text" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="模板名称必填项!"/><font color=red> (*)</font></td>
+					</tr>
+					<tr>
+						<td width="170"><div align="right">模板作者</div></td>
+						<td><input name="tempauthor" type="text" class="win inputxt" [.$ourphp_bgcolor.] datatype="*" nullmsg="模板作者必填项!"/><font color=red> (*)</font></td>
+					</tr>
+				  <tr>
+					<td width="170"><div align="right">模板简介</div></td>
+					<td><textarea name="tempcontent" cols="50" rows="3" class="wtextarea" [.$ourphp_bgcolor.]></textarea><font color=red> (*)</font></td>
+				  </tr>
+				  <tr>
+						<td width="170"><div align="right">模板作者网站</div></td>
+						<td><input name="tempweburl" type="text" class="win inputxt" [.$ourphp_bgcolor.] /></td>
+					</tr>
+					<tr>
+						<td width="170"><div align="right">模板更新日期</div></td>
+						<td><input name="tempdate" type="text" value="[.date(Ymd).]" class="win inputxt" [.$ourphp_bgcolor.] /></td>
+					</tr>
+				  <tr>
+					<td>
+						<div align="right">模板缩略图</div>
+					</td>
+					<td>
+						模板创建成功后 , 请在生成的模板目录中创建一张 200PX*200PX 命名为 index.jpg 的模板模板缩略图片
+					</td>
+				  </tr>
+				  <tr>
+					<td>
+						<input type="hidden" value="0" name="tempidok">
+					</td>
+					<td>
+						<input type="submit" name="submit" value="提 交" class="ourphp-anniu"/>
+						<div style="clear:both;"></div>
+						<div style="background:url(../../skin/admintitlebg.gif) no-repeat; width:610px; height:60px; float:left; padding:25px 0px 0px 20px;">
+							<p>在此创建的模板为通用模板 , 无法单独创建移动端模板(Ourphp的PC模板和WAP是模板分开的)</p>
+							<p>但是可以做成H5自适应的 , 如果你的移动端模板也是单独的请替换 /templates/wap/ 目录</p>
+							<p>或者在新创建的模板目录中 , 做成H5自适应模板 (PC+WAP) 推荐!</p>
+						</div>
+					</td>
+				  </tr>
+                </table>
+			</form>
+	  </li>
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

@@ -1,0 +1,15 @@
+<div class="contentwap">
+	<h2>正文预览<img src="../../skin/plus_64px_1164644_easyicon2.png" class="gobackimg" /></h2>
+	<dl></dl>
+</div>
+<script>
+function contentwap(){
+	KindEditor.sync(".editor");
+	var OP_Articlecontent_wap = $('.waplook').val();
+	$(".contentwap dl").html(OP_Articlecontent_wap);
+}
+
+$(function(){
+	setInterval(contentwap,1000);
+});
+</script>

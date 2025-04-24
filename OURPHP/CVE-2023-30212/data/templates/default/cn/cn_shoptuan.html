@@ -1,0 +1,243 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>团购 - [.$ourphp_web.website.]</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+        <meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+        <meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+        <link rel="stylesheet" href="[.$templatepath.]shop/css/common.css">
+        <link rel="stylesheet" href="[.$templatepath.]shop/css/home_header.css">
+        <script src="[.$templatepath.]shop/js/jquery-2.1.4.min.js"></script>
+        <script src="[.$templatepath.]shop/js/common.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery-ui.min.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery.ui.datepicker-zh-CN.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery.validate.min.js"></script>
+        <script src="[.$templatepath.]shop/js/layer.js"></script>
+        <script src="[.$templatepath.]shop/js/dialog.js" id="dialog_js" charset="utf-8"></script>
+    </head>
+    <body>
+
+[.include file="cn/cn_shoptop.html".]
+
+
+<!--面包屑导航 BEGIN-->
+<div class="dsh-breadcrumb-layout">
+    <div class="dsh-breadcrumb w1200"><i class="iconfont">&#xe6ff;</i>
+                <span><a href="[.$webpath.]?cn-shop.html">首页</a></span>
+						
+				[.foreach $crumbs as $op.]
+				<span class="arrow">></span><span><a href="[.$op.url.]" title="[.$op.title.]">[.$op.title.]</a></span>
+				[./foreach.]
+    </div>
+</div>
+<!--面包屑导航 END-->
+
+
+<script>
+    $(function() {
+	//首页左侧分类菜单
+	$(".all_categorys ul.menu").find("li").each(
+		function() {
+			$(this).hover(
+				function() {
+				    var cat_id = $(this).attr("cat_id");
+					var menu = $(this).find("div[cat_menu_id='"+cat_id+"']");
+					menu.show();
+					$(this).addClass("hover");					
+					var menu_height = menu.height();
+					if (menu_height < 60) menu.height(80);
+					menu_height = menu.height();
+					var li_top = $(this).position().top;
+					$(menu).css("top",-li_top + 40);
+				},
+				function() {
+					$(this).removeClass("hover");
+				    var cat_id = $(this).attr("cat_id");
+					$(this).find("div[cat_menu_id='"+cat_id+"']").hide();
+				}
+			);
+		}
+	);
+
+        $(".user_menu dl").hover(function() {
+            $(this).addClass("hover");
+        }, function() {
+            $(this).removeClass("hover");
+        });
+        $('.user_menu .my-mall').mouseover(function() {
+            // 最近浏览的商品
+            load_history_information();
+            $(this).unbind('mouseover');
+        });
+        $('.user_menu .my-cart').mouseover(function() {
+            // 运行加载购物车
+            load_cart_information();
+            $(this).unbind('mouseover');
+        });
+    });
+    
+</script>
+
+
+
+
+<script src="[.$templatepath.]shop/js/search_goods.js"></script>
+<div class="dsh-container wrapper" >
+  <div class="left">
+        <div class="dsh-module dsh-module-style02">
+      <div class="title">
+        <h3>分类筛选</h3>
+      </div>
+      <div class="content">
+        <ul id="files" class="tree">
+		[.foreach from=$column item=op.]
+		[.if $op.id == 2.]
+		[.if isset($op.child).]
+			 [.foreach from=$op.child item=opop.]
+                    <li><i class="tree-parent tree-parent-collapsed"></i><a href="[.$opop.url.]" class="selected">[.$opop.title.]</a>
+                        <ul>
+						[.if isset($opop.child).]
+						 [.foreach from=$opop.child item=opopop.]
+                            <li><i class="tree-parent tree-parent-collapsed"></i><a href="[.$opopop.url.]" >[.$opopop.title.]</a>
+                                <ul>
+								[.foreach from=$opopop.child item=opopopop.]
+                                    <li class="tree-parent tree-parent-collapsed"><i></i><a href="[.$opopopop.url.]" >[.$opopopop.title.]</a></li>
+								[./foreach.] 	
+                                  </ul>
+                              </li>
+						  [./foreach.] 
+						[./if.]
+                          </ul>
+                      </li>
+			 [./foreach.]  
+		[./if.] 
+        [./if.]  
+        [./foreach.]       
+        </ul>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="right">
+    <div id="gc_goods_recommend_div" style="width:980px;"></div>
+
+    <div class="shop_con_list" id="main-nav-holder">
+      <nav class="sort-bar" id="main-nav">
+        <div class="pagination"></div>
+        <div class="dsh-sortbar-array"> 排序方式：
+          <ul>
+            <li ><a href="?[.$ip.lang.]-[.$ip.type.]-[.$ip.listid.].html"  title="默认排序">默认</a></li>
+            <li ><a href="?[.$ip.lang.]-[.$ip.type.]-[.$ip.listid.].html=&type=OP_Buynum"  >销量<i></i></a></li>
+            <li ><a href="?[.$ip.lang.]-[.$ip.type.]-[.$ip.listid.].html=&type=OP_Click"  >人气<i></i></a></li>
+            <li ><a href="?[.$ip.lang.]-[.$ip.type.]-[.$ip.listid.].html=&type=OP_Webmarket"  >价格<i></i></a></li>
+          </ul>
+        </div>
+
+      </nav>
+      <!-- 商品列表循环  -->
+
+      <div>
+          
+          <!--商品列表BEGIN-->     
+<style type="text/css">
+#box{background: #FFF;width: 238px;height: 410px;margin: -390px 0 0 0;display: block;border: solid 4px #D93600;position: absolute;z-index: 999;opacity: .5}
+.shopMenu{position: fixed;z-index: 1;right: 25%;top: 0;}
+</style>
+<div class="squares" ds_type="current_display_mode">
+    <input type="hidden" id="lockcompare" value="unlock" />
+    <ul class="list_pic">
+	[.if isset($smarty.get.type).]
+		[.if $smarty.get.type == "OP_Webmarket".]
+		[.assign var="listtype" value="OP_Webmarket".]
+		[.elseif $smarty.get.type == "OP_Buynum".]
+		[.assign var="listtype" value="OP_Buynum".]
+		[.else.]
+		[.assign var="listtype" value="OP_Click".]
+		[./if.]
+	[.else.]
+	[.assign var="listtype" value="id".]
+	[./if.]
+                    
+	[.list id="$listid" form="product" type=$listtype name="list".]
+    <li class="item">
+      <div class="goods-content" dstype_goods=" [.$list.id.]">
+        <div class="goods-pic"><a href="[.$list.url.]" title="[.$list.title.]"><img class="lazyload" data-original="[.$list.minimg.]" title="[.$list.title.]" src="[.$templatepath.]shop/images/loading.gif" alt="[.$list.title.]" /></a></div>
+                <div class="goods-info">
+          <div class="goods-pic-scroll-show">
+              <ul>
+                                    <li class="selected"><a href="javascript:void(0);"><img class="lazyload" data-original="[.$list.minimg.]" src="[.$templatepath.]shop/images/loading.gif" /></a></li>
+                                </ul>
+          </div>
+            <div class="goods-price"> <em class="sale-price">团价 ¥[.$list.webmarket.]</em>  <span class='goods-sales'>月销：[.$list.total.]</span></div>
+            <div class="goods-name">
+                 <a href="[.$list.url.]" title="[.$list.title.]">[.$list.title.]<em></em></a>
+            </div>
+          <div class="add-cart"></div>
+        </div>
+		<div class="tuanico">[.$list.tuanusernum.]人团</div>
+      </div>
+    </li>
+	[./list.]
+    <div class="clear"></div>
+	[.$ourphppage.]
+  </ul>
+  </div>
+
+<!--商品列表END-->     
+        
+        
+      </div>
+      <div class="tc mt20 mb20">
+        <div class="pagination"></div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="clear"></div>
+</div>
+<script src="[.$templatepath.]shop/js/waypoints.js"></script>
+<script src="[.$templatepath.]shop/js/search_category_menu.js"></script>
+<script type="text/javascript">
+var defaultSmallGoodsImage = 'home/common/default_goods_image.jpg';
+var defaultTinyGoodsImage = 'home/common/default_goods_image.jpg';
+
+$(function(){
+    $('#files').tree({
+        expanded: 'li:lt(2)'
+    });
+	//品牌索引过长滚条
+    $('#dsBrandlist').perfectScrollbar({suppressScrollX:true});
+    //浮动导航  waypoints.js
+    $('#main-nav-holder').waypoint(function(event, direction) {
+        $(this).parent().toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+    });
+	// 单行显示更多
+	$('span[ds_type="show"]').click(function(){
+		s = $(this).parents('dd').prev().find('li[ds_type="none"]');
+		if(s.css('display') == 'none'){
+			s.show();
+			$(this).html('<i class="iconfont">&#xe688;</i>收起');
+		}else{
+			s.hide();
+			$(this).html('<i class="iconfont">&#xe689;</i>更多');
+		}
+	});
+
+
+    $('#priceBtn').click(function(){
+        var priceMin = $('#priceMin').val();
+        var priceMax = $('#priceMax').val();
+        var url = window.location.href;
+        var url = url + (url.indexOf("?")!=-1?'&':'?') + "priceMin=" + priceMin + "&priceMax=" + priceMax;
+        window.location.href = url;
+    });
+});
+</script>
+
+[.include file="cn/cn_shopfoot.html".]
+
+

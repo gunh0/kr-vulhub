@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>我的拼团_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+<script src="[.$webpath.]function/plugs/YIQI-UI/icheck/YIQI-UI-icheck.min.js"></script>
+<link href="[.$webpath.]function/plugs/YIQI-UI/icheck/YIQI-UI-icheck.css" rel="stylesheet">
+<script>
+$(function(){
+	$('.skin-minimal input').iCheck({
+	checkboxClass: 'icheckbox-blue',
+	radioClass: 'iradio-blue',
+	increaseArea: '20%'
+	});
+});
+</script>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">拼团订单</dd>
+		<div class="pos-a back">
+		<a href="javascript:history.go(-1);"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a>
+		<a href="?cn-usercenter.html" class="ml-20">会员中心</a>
+		</div>
+	</div>
+	<div class="pages">
+      <div class="content2" style="margin:60px auto;">
+      [.*订单模板开始*.]
+	  <script src="../../function/plugs/layer/layer.min.js"></script>
+	  <script> 
+		function dialog(title,number){
+			$.layer({
+				type: 2,
+				title: '物流信息',
+				shade: [0],
+				border: [5, 0.3, '#000'],
+				area: ['90%', '340px'],
+				iframe:{src: '../../function/api/kuaidi100/index.php?title='+title+'&number='+number}
+			});
+		};
+		</script>
+		[.if isset($smarty.get.tag).]
+		<script type="text/javascript">$(document).ready(function(){$("#[.$smarty.get.tag.]").addClass("btn btn-primary radius-5 pt-5 pb-5 pl-10 pr-10");});</script>
+		[.else.]
+		<script type="text/javascript">$(document).ready(function(){$("#qb").addClass("btn btn-primary radius-5 pt-5 pb-5 pl-10 pr-10");});</script>
+		[./if.]
+        <style type="text/css">
+          #YIQI-UI .table td {
+              padding: 8px 0;
+              line-height: 20px;
+              word-break: break-all;
+          }
+        </style>
+        <form id="form2" name="form2" method="post" action="[.$webpath.]function/ourphp_play.class.php?ourphp_shoporders">
+          <table class="table" style="margin:2% 1%; border-top:none; width: 98%;">
+           <thead>
+        			<tr>
+        				<td colspan="7" style=" border-radius:7px; width:100%; background:#fff; ">
+        					<a href="?cn-usertuanlist-op.html" id="qb" class="mr-20 ml-20">全部订单</a>
+        					<a href="?cn-usertuanlist-op.html-&tag=dfk" id="dfk" class="mr-20">待付款</a>
+        					<a href="?cn-usertuanlist-op.html-&tag=dfh" id="dfh" class="mr-20">待发货</a>
+        					<a href="?cn-usertuanlist-op.html-&tag=dqs" id="dqs" class="mr-20">待签收/评价</a>
+        				</td>
+        			</tr>
+           </thead>
+           <tbody>
+            [.foreach $orderslist2 as $ourphpbuylist.]
+            <tr>
+              <td>
+              <div class="buylistdiv">
+              [.assign var="amoney" value="0".]
+              [.assign var="bmoney" value="0".]
+              [.assign var="cmoney" value="0".]
+              [.assign var="dmoney" value="0".]
+              [.foreach $ourphpbuylist['list'] as $op.]
+                <div class="userbuylist">
+				[.if $op.pay == 1.]
+					<span class="f-l text-c mb-5">
+						<div class="skin-minimal">
+							<div class="check-box" style="padding:0 5px;margin-top: 12px;">
+							  <input type="checkbox" id="checkbox-[.$op.id.]" name="id[]" value="[.$op.id.]">
+							</div>
+						</div>
+					</span>
+					<span class="f-r">
+						<label for="checkbox-[.$op.id.]">单选</label>
+					</span>
+				[./if.]
+                <div class="md-0 productordersinfocss">
+
+					<div class="f-l oimg"><img src="[.$op.minimg.]" width="80" height="80"></div>
+					<div class="f-r otitle">
+						<span class="f-l">
+							[.if $op.tuantype == 2.]<span class="btn-yellow pl-5 pr-5">团</span> [./if.][.$op.title|truncate:14:"...".]
+						</span>
+						<span class="f-r text-r">
+							￥[.$op.usermarket.]
+						</span>
+					</div>
+
+					<p class="mb-0">
+						<span class="f-999 f-12 f-l mt-5 ofont">[.$op.pratt2.]&nbsp;[.$op.text.]</span>
+						<span class="f-999 f-12 f-r mt-5 text-r">X[.$op.num.]</span>
+					</p>
+
+					<p class="mt-0">
+						<span class="f-999 f-12 f-l ofont">[.$op.number.]</span>
+						<span class="f-999 f-12 f-r text-r">￥[.$op.freight.] 运费</span>
+					</p>
+                          
+                </div>
+                <p class="clear text-r">
+					[.$op.quota.]
+				</p>
+				
+				<div class="clear"></div>
+				
+				[.if $op.pay != 1.]
+				  [.if $op.tuantype == 2.]
+					[.if $op.tuanznum >= $op.tuannum.]
+					<p class="pt-10 f-f00">[拼团成功]</p>
+					[.else.]
+					<p class="pt-10 f-f00">[差 [.$op.tuannum - $op.tuanznum.] 人] <a href="[.$webpath.]client/wap/?cn-productview-[.$op.prclass.]-[.$op.prid.].html-&tuan&tuanid=[.$op.tuanid.]&introducer=[.$user.id.]" target="_blank" >分享拼团链接和好友拼团!</a></p>
+					[./if.]
+				  [./if.]
+				[./if.]
+				
+				[.if $op.pay == 1.]
+					<div class="mt-30 mb-10 f-r text-r" >
+						<a href="[.$webpath.]client/wap/?cn-usershopping-op.html-&ourphp_cms=del&id=[.$op.id.]&dh=[.$op.number.]&type=wap" class="btn-r pt-5 pb-5 pl-20 pr-20 btn-rr-10 f-12 f-r">删除订单</a>
+						<a href="[.$webpath.]client/wap/?cn-shoppingorders.html-&id=[.$op.id.]&type=wap&tuan&tuanid=[.$op.tuanid.]" class="btn-l pt-5 pb-5 pl-20 pr-20 btn-lr-10 f-12 f-r">支付单订</a>
+					</div>
+                [.else.]
+                <div class="f-14 text-l f-r mt-40">
+						[.if $op.send == 1.]
+						<span class="obtn">待发货</span>
+						[.else.]
+						  <span class="obtn"><a href="javascript:dialog('[.$op.express.]','[.$op.expressnum.]')">查询物流</a></span>
+						  [.if $op.sign == 0.]
+							  <span class="obtn"><a href="[.$webpath.]client/wap/?cn-usershopping-op.html-&ourphp_cms=sign&id=[.$op.id.]&dh=[.$op.number.]" onclick="javascript:return confirm('确认签收吗?')">签收</a></span>
+							  [.else.]
+							  <span class="obtn"><a href="../../function/plugs/Comment/product-content.php?id=[.$op.prid.]&type=productview&row=10" target="_blank">评价</a></span>
+						  [./if.]
+						[./if.]
+                </div>
+                <div class="text-r f-r mt-40 mr-5">
+					[.if $op.moneyback == 1.]
+						<span class="obtn"><a href="?cn-usertuanview.html-&tuanid=[.$op.tuanid.]">查看团队</a></span>
+						<span class="obtn"><a href="[.$webpath.]client/wap/?cn-usermoneyback.html-&id=[.$op.id.]&md=[.md5($op.id+1000).]">申请退款</a></span>
+						[.elseif $op.moneyback == 2.]
+						<span class="obtn"><a href="#">退款处理</a></span>
+						[.elseif $op.moneyback == 3.]
+						<span class="obtn"><a href="#">退款成功</a></span>
+					[./if.]
+                </div>
+                [./if.]
+
+                </div>
+					  
+					  
+                <div class="clear"></div>
+                [.assign var="classid" value=$op.classid.]
+                [.assign var="amoney" value=$op.usermarket*$op.num.]
+                [.assign var="bmoney" value=$op.webmarket*$op.num.]
+                [.assign var="cmoney" value=$cmoney+$amoney.]
+                [.assign var="dmoney" value=$dmoney+$bmoney.]
+                [./foreach.]
+
+                  [.*获得是否使用了优惠券*.]
+                  [.sql mysql="select OP_Orderscouponmoney from ourphp_orderslist where id = $classid" font="" name="sql".]
+                      [.if $sql[0] < 1.]
+                        <div class="text-r pr-10" style="height: 40px; line-height:40px;">共计：￥[.$dmoney+$op.freight.]，实收：￥[.$cmoney+$op.freight.]</div>
+                      [.else.]
+                        <div class="text-r pr-10" style="height: 40px; line-height:40px;">共计：￥[.$dmoney+$op.freight.]，实收：￥[.$cmoney+$op.freight - $sql[0].] (使用优惠券)</div>
+                      [./if.]
+                  [./sql.]
+
+                </div>
+              </td>
+            </tr>
+            [./foreach.]
+           </tbody>
+          </table>
+          </form>
+            <div style=" clear:both; height:20px;"></div>
+            [.$ourphppage.]
+          [.*订单模板结束*.]
+        </div>
+    </div>
+	
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

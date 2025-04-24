@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>([.$opcms.tuanusernum.]人团[.if $opcms.tuannumber != 0.],还差[.$opcms.tuannumber.]人[./if.])[.$opcms.title.]_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+<script src="[.$webpath.]function/plugs/layer3.1.0/layer.js"></script>
+[.assign var="md" value=$ourphp_web.webhttp|cat:$ourphp_web.weburl|cat:"/client/wap/?cn-productview-"|cat:$ip.listid|cat:"-"|cat:$opcms.id|cat:".html-&tuan&tuanid="|cat:$smarty.get.tuanid|cat:"&introducer="|cat:$smarty.session.userid.]
+<script type="text/javascript">
+
+var startTime = new Date();
+startTime.setFullYear([.$opcms.tuantime2[0]|replace:"-":",".]);
+startTime.setHours([.$opcms.tuantime2[1].]);
+startTime.setMinutes([.$opcms.tuantime2[2].]);
+startTime.setSeconds([.$opcms.tuantime2[3].]);
+var EndTime=startTime.getTime();
+
+function GetRTime(){
+    var NowTime = new Date();
+    var nMS = EndTime - NowTime.getTime();
+    var nD = Math.floor(nMS/(1000 * 60 * 60 * 24));
+    var nH = Math.floor(nMS/(1000*60*60)) % 24;
+    var nM = Math.floor(nMS/(1000*60)) % 60;
+    var nS = Math.floor(nMS/1000) % 60;
+    if (nMS < 0){
+        $("#dao").hide();
+        $("#daoend").show();
+    }else{
+       $("#dao").show();
+       $("#daoend").hide();
+       $("#RemainD").text(nD);
+       $("#RemainH").text(nH);
+       $("#RemainM").text(nM);
+       $("#RemainS").text(nS); 
+    }
+}
+
+function pj(){
+    layer.open({
+      type: 2,
+      title: '[.$opcms.title|truncate:13:"...".]评价',
+      shadeClose: true,
+      shade: 0.5,
+      area: ['90%', '90%'],
+      content: '[.$webpath.]function/plugs/Comment/product-content.php?id=[.$opcms.id.]&type=productview&row=10'
+    }); 
+}
+
+function sx(type){
+	if(type == 1){
+		$(".classhidden").slideDown();	
+	}else{
+		$(".classhidden").slideUp();	
+	}
+}
+
+function fw(type){
+    if(type == 1){
+        $(".servicehidden").slideDown();  
+    }else{
+        $(".servicehidden").slideUp();    
+    }
+}
+
+function viewcode(){
+	[.if isset($smarty.session.userid).]
+    layer.open({
+      type: 1,
+      title:false,
+      shadeClose: true,
+      shade: 0.5,
+      area: ['70%', '50%'],
+      content: '<div style="background:url([.$opcms.maximg.]) top center no-repeat; background-size:100%; width:100%; height:100%;"><div style="position:absolute; z-index:999999; bottom:5px; left:0; text-align:left; width:100%;"><div style="width:30%; float:left;"><img src="[.$webpath.]function/api/qrcode/?text=[.$ourphp_web.webhttp.][.$ourphp_web.weburl.]/client/wap/?cn-productview-[.$ip.listid.]-[.$opcms.id.].html-%26tuan%26tuanid=[.$smarty.get.tuanid.]%26introducer%3D[.$smarty.session.userid.]&md=[.token info=$md.]&l=L&s=3" width="65" height="65" /></div><div style="width:65%; float:left; "><h6 style="font-size:16px;">[.$opcms.title|truncate:13:"...".]</h6>￥[.$opcms.webmarket.]</div></div></div>'
+    }); 
+	[.else.]
+	layer.msg('请先登录后在分享二维码链接给好友!', function(){});
+	[./if.]
+}
+
+$(document).ready(function () {
+    var timer_rt = window.setInterval("GetRTime()", 1000);
+})
+</script>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="pages">
+		[.include file="cn/cn_shoptop.html".]
+		[.if isset($smarty.get.tuanid).]
+			[.assign var="tuanid" value=intval($smarty.get.tuanid).]
+			[.assign var="btnfont" value="我要拼团".]
+		[.else.]
+			[.assign var="tuanid" value="0".]
+			[.assign var="btnfont" value="立即开团".]
+		[./if.]
+        <form id="form1" name="form1" method="post" action="[.$webpath.]client/wap/?cn-shoppingcart.html-&ourphp_cms=shopping&tuan&tuanid=[.$tuanid.]&type">
+        <div class="content2">
+            <div id="slideBox" class="slideBox2">
+                <div class="bd">
+                    <ul>
+                    [.if empty($opcms.img).]
+                    <li><a class="pic"><img src="[.$opcms.maximg.]" alt="[.$opcms.title.]"/></a></li>
+                    [.else.]
+                        [.foreach $opcms.img as $key => $op.]
+                        <li><a class="pic"><img src="[.$webpath.][.$op.img.]" alt="[.$opcms.title.]"/></a></li>
+                        [./foreach.]
+                    [./if.]
+                    </ul>
+                </div>
+                <div class="hd">
+                    <ul></ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+			
+				<div class="tuanviewtitle">
+					<div class="tuanviewtitle-left">
+						<p class="ml-5 mt-0 mb-0">
+							<span class="f-l f-fff">￥<font class="f-22">[.$opcms.webmarket.]</font></span>
+							<span class="f-l ml-10 f-fff mt-5"><del>原价￥[.$opcms.market.]</del></span>
+						</p>
+						<div class="clear"></div>
+						<p class="ml-5 mt-0 mb-0 f-fff t_font2">
+							[.$opcms.tuanusernum.]人团[.if $opcms.tuannumber != 0.],还差[.$opcms.tuannumber.]人[./if.]
+						</p>
+					</div>
+					<div class="tuanviewtitle-right">
+						<div class="class2 f-l">
+							<div id="daoend" style="display:none; text-align: center; font-size: 16px;">本次团购已结束</div>
+							<div id="dao">
+								<p><strong id="RemainD"></strong>天<strong id="RemainH"></strong>时<strong id="RemainM"></strong>分<strong id="RemainS"></strong>秒</p>
+								<p class="t_font">距离本次拼团结束还有</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			<div class="clear"></div>
+            <div class="title mt-10">
+				<div class="f-r"><a onclick="viewcode();"><img src="[.$webpath.]skin/erweimaico.png" height="35"></a></div>
+            	[.$opcms.title.] [.$opcms.quota.]
+                <div class="clear"></div>
+				<div class="f-l mt-10 mb-10" style="width:100%">
+					<p>
+                        <span class="f-14 f-999 f-l">[.$opcms.brand.title.]</span>
+                        <span class="f-14 f-999 f-r">
+                            [.assign var="tuanid" value=intval($smarty.get.tuanid).]
+                            [.sql mysql="select * from ourphp_tuan where id = $tuanid" font="" name="sql".]
+                                [.assign var="OP_Tuanuser" value=$sql.OP_Tuanuser.]
+                            	[.sql mysql="select OP_Username from ourphp_user where OP_Useremail = '$OP_Tuanuser'" font="" name="sql2".]
+        							在和<font class="f-f00">[.$sql2.OP_Username.]</font>一起拼单
+        						[./sql.]
+                            [./sql.]
+                        </span>
+                    </p>
+				</div>
+            </div>
+            <div class="clear"></div>
+
+			[.assign var="pid" value=intval($ip.viewid).]
+			
+			<div class="clear"></div>
+            <div class="class f-l mt-10 tuanuserinfolist">
+				<ul>
+					[.sql mysql="select * from ourphp_tuan where OP_Tuanpid = $pid && OP_Tuannum != OP_Tuanznum ORDER BY OP_Tuanznum DESC" font="<script>$(function(){$('.tuanuserinfolist').hide();})</script>" name="sql".]
+						[.assign var="OP_Tuanuser" value=$sql.OP_Tuanuser.]
+						[.sql mysql="select OP_Username,id from ourphp_user where OP_Useremail = '$OP_Tuanuser'" font="" name="sql2".]
+							[.assign var="username" value=$sql2.OP_Username.]
+							[.assign var="userid" value=$sql2.id.]
+						[./sql.]
+					<li><a href="?cn-productview-[.intval($ip.listid).]-[.intval($ip.viewid).].html-&tuan&tuanid=[.$sql.id.]&introducer=[.$userid.]"><span class="username">[.$username.]</span> 还差 <font class="f-f00">[.$sql.OP_Tuannum - $sql.OP_Tuanznum.]人</font>就拼成,快来 <span class="btn-yellow pl-5 pr-5">和TA拼单</span></a></li>
+					[./sql.]
+				</ul>
+            </div>
+			<div class="clear"></div>
+			
+            <div class="class f-l mt-10 pt-10">
+				<p>
+					<a onClick="sx(1);" id="wap_sx"><span class="f-r f-16 icon YIQI-UI-iconfont pt-5">&#xe6d7;</span>选择：<span class="f-14 f-000">商品规格/数量/快递</span></a>
+				</p>
+				<p class="mt-10">
+					<a onClick="fw(1);"><span class="f-r f-16 icon YIQI-UI-iconfont pt-5">&#xe6d7;</span>服务：<span class="f-14 f-000">参数</span></a>
+				</p>
+            </div>
+            <div class="servicehidden">
+				[.foreach from=$opcms.attribute item=aop.]
+				<p>[.$aop.name.]：[.$aop.key.]</p>
+				[./foreach.]
+                <div class="clear"></div>
+                <a onclick="fw(2);" class="btn btn-success-o radius-5 a pl-10 pr-10 f-l mt-15 mb-15">X</a>
+            </div>
+            <div class="classhidden">
+            	<p class="mt-10">
+            			<img src="[.$opcms.minimg.]" width="40" height="40">&nbsp;[.$opcms.title|truncate:17:"...".]
+            	</p>
+            	<div class="clear"></div>
+				[.ourphp_gg id=$opcms.specificationsid arr=$opcms.specifications mktprice=$opcms.market price=$opcms.webmarket stock="库存" stocks=$opcms.stock numberfont="货号" number=$opcms.goodsno amount="购买数量" freightfont="快递至" symbol="：" moneytype="￥" usermoney=$opcms.usermoney freight=$opcms.freight.]
+				<div class="clear"></div>
+				<a onclick="sx(2);" class="btn btn-success-o radius-5 a pl-10 pr-10 f-l mt-15 mb-15">X</a>
+            </div>
+
+            <div class="clear"></div>
+            <div class="shoptui gbf mt-10">
+                <ul class="content">
+                    <div id="scrollBox" class="scrollBox pt-10">
+                        <div class="bd">
+                        
+                                <ul>                        
+                                    [.ourphp form="product" row="8" lang="cn" id=$ip.listid type="op" name="ourphp".]
+                                    <li>
+                                        <div class="pic" style="background: url([.$ourphp.minimg.]) top center no-repeat;  background-size: 100%;">
+                                            <a href="[.$ourphp.wapurl.]" title="[.$ourphp.title.]">
+                                            </a>
+                                        </div>
+                                        <div class="info">
+                                            <a href="[.$ourphp.wapurl.]" title="[.$ourphp.title.]">
+                                                <p class="shoptitle overflow f-12">[.$ourphp.title|truncate:20:"...".]</p>
+                                                <p class="shopmoney overflow f-14 f-f00"><span class="f-r icon YIQI-UI-iconfont">&#xe6b9;</span>￥[.$ourphp.webmarket.]</p>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    [.if $ourphp.i % 3 == 0.]
+                                    </ul><ul>
+                                    [./if.]
+                                    [./ourphp.]                      
+                                </ul>
+                                
+                        </div>
+						<div class="clear"></div>
+                        <div class="hd">
+                                <span class="prev"></span>
+                                <ul></ul>
+                                <span class="next"></span>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+
+            <LINK href="[.$webpath.]function/plugs/product/base_wap.css" rel=stylesheet>
+            <div class="clear"></div>
+            <div class="shopfoot2">
+                <ul>
+                    <li>
+                        <a href="[.$webpath.]client/wap/?cn-shop.html">
+                            <span class="icon YIQI-UI-iconfont YIQI-UI-iconfont-home2"></span><p class="mt-0">首页</p>
+                        </a>
+                    </li>
+                    <li>
+						<a href="javascript:kefu();">
+							<span class="icon YIQI-UI-iconfont YIQI-UI-iconfont-kefu"></span><p class="mt-0">客服</p>
+						</a>
+					</li>
+                    <li>
+                        <a href="[.$webpath.]client/wap/?cn-shoppingcart.html">
+                            <span class="icon YIQI-UI-iconfont YIQI-UI-iconfont-cart2-selected"></span><p class="mt-0">购物车</p>
+                        </a>
+                    </li>
+                    <li class="br0">
+                        <input type="hidden" name="pid" value="[.$opcms.id.]" />
+                        <input type="submit" name="Submit" value="[.$btnfont.]" class="btn btn-danger radius-15 pt-5 pb-5 pl-50 pr-50 f-16" />
+                    </li>
+                </ul>
+            </div>
+            </form>
+            <div class="clear"></div>
+            <div class="content_2 maximg">
+          
+                    <div class="clear"></div>
+                    [.$opcms.content_wap|replace:'src="':'src="/skin/noimage.png" data-original="'.]
+                    
+            </div>
+            <div class="clear"></div>
+            <div class="copy">
+                <p class="f-12">(C) [.$ourphp_web.webname.]</p>
+                <p class="f-12 pt-5">[.$ourphp_web.by|replace:"2019,&nbsp;&nbsp;哈尔滨伟成科技有限公司":date("Y").]</p>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<style>
+.username {width:120px; float:left; white-space: nowrap; text-overflow:ellipsis; overflow: hidden;}
+.tuanuserinfolist { height: 30px; overflow: hidden;}
+.tuanuserinfolist ul li { height: 30px; line-height:30px; }
+</style>
+<script src="[.$templatepath.]shop/js/scroll.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.tuanuserinfolist').myScroll({
+		speed: 50,
+		rowHeight: 30
+	});
+});
+
+TouchSlide({ 
+	slideCell:"#slideBox",
+	titCell:".hd ul",
+	mainCell:".bd ul", 
+	effect:"leftLoop", 
+	autoPage:true,
+	autoPlay:true
+});
+TouchSlide({ 
+	slideCell:"#scrollBox",
+	titCell:".hd ul", 
+	effect:"leftLoop", 
+	autoPage:true 
+});
+function kefu()
+{
+	layer.open({
+	  type: 1, 
+	  title :'扫一扫添加微信客服',
+	  area: ['70%', '300px'],
+	  content: '<div id="YIQI-UI"><div class="maximg text-c" style="width:100%;"><img src="[.$ourphp_web.erweima.]" /></div></div>'
+	});
+}
+</script>
+</body>
+</html>

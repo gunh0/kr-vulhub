@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>商城 - [.$ourphp_web.website.]</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+        <meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+        <meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+        <link rel="stylesheet" href="[.$templatepath.]shop/css/common.css">
+        <link rel="stylesheet" href="[.$templatepath.]shop/css/home_header.css">
+        <script src="[.$templatepath.]shop/js/jquery-2.1.4.min.js"></script>
+        <script src="[.$templatepath.]shop/js/common.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery-ui.min.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery.ui.datepicker-zh-CN.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery.validate.min.js"></script>
+        <script src="[.$templatepath.]shop/js/layer.js"></script>
+        <script src="[.$templatepath.]shop/js/dialog.js" id="dialog_js" charset="utf-8"></script>
+    </head>
+    <body>
+
+[.include file="cn/cn_shoptop.html".]
+
+<link rel="stylesheet" href="[.$templatepath.]shop/css/index.css">
+<script src="[.$templatepath.]shop/js/jquery.SuperSlide.2.1.1.js"></script>
+<style>
+    .mall_nav{border-bottom:none;}
+    .mall_nav .all_categorys .mc{display: block;}
+</style>
+<div class="clear"></div>
+<!-- HomeFocusLayout Begin-->
+<div class="home-focus-layout">
+        <div class="bd">
+        <ul>
+		[.banner lang="cn" row="5" name="banner" id="0" type="0".]
+            <li style="background: url([.$banner.img.]) center top no-repeat rgb(35, 35, 35); display: none;background-color: " style="">
+                <a href="[.$banner.url.]" target="_blank" title="[.$banner.title.]">&nbsp;</a>
+            </li>
+		[./banner.]	
+        </ul>
+    </div>
+    <div class="hd">
+        <ul>
+                        <li class=""></li>
+                        <li class=""></li>
+                    </ul>
+    </div>
+    
+
+    <div class="right-sidebar">
+        <div class="mod_personal_center">
+                        <div class="avata_pic_wrap">
+                <a id="index_account_icon_unlogin" href="javascript:void(0)"><img class="lazyload"  src="[.$templatepath.]shop/images/default_user_portrait.gif?1603503574"></a>
+            </div>
+            <div class="info_wrap">
+                <div class="unlogin_box">
+                    <div class="title">Hi~你好!</div>
+                    <div class="tips">
+                    </div>
+                    <div class="btn_wrap">
+					 [.if isset($smarty.session.username).]
+						<a href="[.$webpath.]client/user/?cn-usershopping-op.html" class="login_btn">订单</a>
+						<a href="[.$webpath.]client/user/?cn-userintegral-op.html" class="login_btn">积分</a>
+					 [.else.]
+                        <a href="[.$webpath.]client/user/?cn-login.html" class="login_btn">登录</a>
+                        <a href="[.$webpath.]client/user/?cn-reg.html" class="regist_btn">注册</a>
+					[./if.]
+                    </div>
+                </div>
+            </div>
+                        <div class="top_line">
+                <div class="vip_list">
+                    <a href="javascript:void(0)">
+                        <i class="iconfont" style="background:#ff9b1b">&#xe673;</i>
+                        <p class="vip_item_text">买家保障</p>
+                    </a>
+                    <a href="javascript:void(0)">
+                        <i class="iconfont" style="background:#52a6ff">&#xe67e;</i>
+                        <p class="vip_item_text">商家认证</p>
+                    </a>
+                    <a href="javascript:void(0)">
+                        <i class="iconfont" style="background:#57c15b">&#xe74f;</i>
+                        <p class="vip_item_text">安全交易</p>
+                    </a>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="notice_list">
+			[.ourphp form="article" row="3" lang="cn" id="0" type="op" name="ourphp".]
+                <a href="[.$ourphp.url.]" title="[.$ourphp.title.]" target="_blank">
+                    <span>[.$ourphp.title.]</span>
+                </a>
+			[./ourphp.]
+            </div>
+        </div>
+    </div>
+</div>
+<!--HomeFocusLayout End-->
+<div class="home-scroll w1200 mt10">
+    <div class="bd">
+        <ul>
+            <li>
+			[.foreach $brandclass as $op.]
+                <a href="[.$op.url.]" title="[.$op.title.]" target="_blank" title="[.$op.title.]">
+                    <img class="lazyload" src="[.$op.minimg.]" style="[.$op.title.]">
+                </a>
+			[./foreach.]
+            </li>
+        </ul>
+        <a class="ctrl prev" href="javascript:void(0)"><</a>
+        <a class="ctrl next" href="javascript:void(0)">></a>
+    </div>
+</div>
+
+
+
+
+<div class="home-sale-layout w1200 mt20">
+    <div class="hd">
+        <ul class="tabs-nav">
+            <li class="tabs-selected on"><i class="arrow"></i><h3>商品推荐</h3></li>
+            <li class=""><i class="arrow"></i><h3>立即开团</h3></li>
+            <li class=""><i class="arrow"></i><h3>积分兑换</h3></li>
+        </ul>
+    </div>
+    <div class="bd tabs-panel">
+        <ul style="display: block;">
+		[.ourphp form="product" row="5" lang="cn" id="0" type="3" name="ourphp".]
+            <li>
+                <dl>
+                    <dd class="goods-thumb">
+                        <a target="_blank" href="[.$ourphp.url.]" title="[.$ourphp.title.]">
+                            <img class="lazyload" src="[.$ourphp.minimg.]" alt="[.$ourphp.title.]">
+                        </a>
+                    </dd>
+                    <dt class="goods-name"><a target="_blank" href="[.$ourphp.url.]" title="[.$ourphp.title.]">[.$ourphp.title.]</a></dt>
+                    <dd class="goods-price"><em>￥[.$ourphp.webmarket.]</em></dd>
+                </dl>
+            </li>
+		[./ourphp.]
+        </ul>
+        <ul style="display: none;">
+		[.ourphp form="product" row="5" lang="cn" id="12" type="op" name="ourphp".]
+            <li>
+                <dl>
+                    <dd class="goods-thumb">
+                        <a target="_blank" href="[.$ourphp.url.]" title="[.$ourphp.title.]">
+                            <img class="lazyload" src="[.$ourphp.minimg.]" alt="[.$ourphp.title.]">
+                        </a>
+                    </dd>
+                    <dt class="goods-name"><a target="_blank" href="[.$ourphp.url.]" title="[.$ourphp.title.]">[.$ourphp.title.]</a></dt>
+                    <dd class="goods-price"><em>团价 ￥[.$ourphp.webmarket.]</em></dd>
+                </dl>
+            </li>
+		[./ourphp.]
+        </ul>
+        <ul style="display: none;">
+		
+		[.ourphp form="product" row="5" lang="cn" id="11" type="op" name="ourphp".]
+            <li>
+                <dl>
+                    <dd class="goods-thumb">
+                        <a target="_blank" href="[.$ourphp.url.]" title="[.$ourphp.title.]">
+                            <img class="lazyload" src="[.$ourphp.minimg.]" alt="[.$ourphp.title.]">
+                        </a>
+                    </dd>
+                    <dt class="goods-name"><a target="_blank" href="[.$ourphp.url.]" title="[.$ourphp.title.]">[.$ourphp.title.]</a></dt>
+                    <dd class="goods-price"><em>[.$ourphp.webmarket.] 积分</em></dd>
+                </dl>
+            </li>
+		[./ourphp.]
+			
+        </ul>
+    </div>
+</div>
+<div class="floor_wrap">
+     <div class="floor floor0 w1200" style="height:0"></div>
+
+[.assign var="i" value="1".]
+[.callcolumn id="2" row="10" lang="cn" type="td" name="callcolumn".] 
+[.assign var="name" value=$callcolumn.id.]
+<div class=" floor floor[.$i.] w1200">
+    <div class="floor-left">
+        <div class="title">
+            <h2 title="[.$callcolumn.title.]"> [.$callcolumn.title.]</h2>
+        </div>
+                <div class="left-ads">
+                        <a href="[.$callcolumn.url.]" target="_blank" title="">
+                <img class="lazyload" data-original="[.$templatepath.]shop/images/5c07553eeca3a.jpg" style="">
+            </a>
+                    </div>
+            </div>
+    <div class="floor-right">
+        <ul class="tabs-nav hd">
+		<!--
+			<li class="on"><h3>热门推荐</h3></li>
+			<li ><h3>功能箱包</h3></li>
+			<li ><h3>礼品乐器</h3></li>
+			<li ><h3>时尚鞋靴</h3></li>
+			<li ><h3>珠宝饰品</h3></li>
+			<li ><h3>时尚皮包</h3></li>
+		-->
+        </ul>
+        <div class="goods-list bd">
+            <ul style="display:block">
+			[.ourphp form="product" row="8" lang="cn" id="0" type="op" sql="&&`OP_Class` = $name" name="ourphp".]
+                <li>
+                    <dl>
+                        <dd class="goods-thumb">
+                            <a target="_blank" href="[.$ourphp.url.]" title="[.$ourphp.title.]">
+                                <img class="lazyload" data-original="[.$ourphp.minimg.]" alt="[.$ourphp.title.]"/>
+                            </a>
+                        </dd>
+                        <dt class="goods-name"><a target="_blank" href="[.$ourphp.url.]" title="[.$ourphp.title.]">[.$ourphp.title.]</a></dt>
+                        <dd class="goods-price">
+                            <em>￥ [.$ourphp.webmarket.]</em>
+							<span class="original">￥ [.$ourphp.market.]</span>
+                        </dd>
+						<dd class="goods-price">月销：[.$ourphp.total.]</dd>
+                    </dl>
+                </li>
+			[./ourphp.]	
+            </ul>
+                       
+                       
+        </div>
+    </div>
+</div>
+<script>
+    jQuery(".floor[.$i.] .floor-right").slide({mainCell: ".bd", autoPlay: false, interTime: 5000});
+</script>
+[.assign var="i" value=$i+1.]
+[./callcolumn.]
+
+</div>
+
+<div class="wrapper mt10"></div>
+<div class="index-link wrapper">
+    <dl class="website">
+        <dt>合作伙伴 | 友情链接<b></b></dt>
+        <dd>
+			[.link row="15" type="1" name="link".]
+			<a href="[.$link.url.]" title="[.$link.title.]" target="_blank">[.$link.title.]</a>
+			[./link.]
+		</dd>
+    </dl>
+</div>
+<div class="footer-line"></div>
+<!--首页底部保障开始-->
+
+<!--首页底部保障结束-->
+<!--StandardLayout Begin-->
+
+<!--StandardLayout End-->
+<style>
+.fsFixedTopContent{display:none;overflow:visible;width:50px;height:auto;position:fixed;left:50%;top:40%;margin:-150px 0 0 -675px;z-index:3333;}
+.fsFixedTop{width:50px;height:auto;background:#fdfdfd;box-shadow: 0 0 4px rgba(0,0,0,.2);-webkit-transform:scale(1.2);-moz-transform:scale(1.2);transform:scale(1.2);opacity:0;-webkit-transition:all .3s ease;-moz-transition:all .3s ease;transition:all .3s ease;position:absolute;left:0;top:0}
+.fsFixedTop a{width:36px;height:36px;line-height:36px;display:block;position:relative;cursor:pointer;text-decoration:none;padding:7px;border-top: 1px solid #D4D4D4;}
+.fsFixedTop b{width:36px;height:36px;color:#333;font-size:13px;font-weight:600;text-align:center;display:block;}
+.fsFixedTop .fs-name{width:36px;height:36px;line-height:18px;color:#ff4040;text-align:center;display:none;overflow:hidden;font-size:13px;letter-spacing: 1px;word-wrap:break-word;}
+.fsFixedTop a.active{background:#ff4040 }
+.fsFixedTop a.active .fs-name{color:#fff;display:block;}
+.fsFixedTop a.active .fs {display: none}
+.fsFixedTop a.active .fs-name:hover {background:#ff4040;text-decoration:none}
+.fsFixedTop a:hover{background:#ff4040}
+.fsFixedTop a:hover .fs-name {display: block;color: #fff}
+.fsFixedTop a:hover b {display: none}
+</style>
+<div class="fsFixedTopContent" style="visibility: hidden; display: block;">
+    <div class="fsFixedTop" style="opacity: 0;"> 
+		[.callcolumn id="2" row="8" lang="cn" type="td" name="callcolumn".]
+                <a class="smooth active" href="javascript:;"> <b class="fs">[.$callcolumn.i.]F</b> <em class="fs-name"> [.$callcolumn.title.]</em> </a>
+		[./callcolumn.]
+    </div>
+</div>		
+<script>
+    $(function () {
+        $(window).scroll(function () {
+            var scrt = $(window).scrollTop();
+            if (scrt > 1000) {
+                $(".fsFixedTopContent").show("fast", function () {
+                    $(".fsFixedTop").css({
+                        "-webkit-transform": "scale(1)",
+                        "-moz-transform": "scale(1)",
+                        "transform": "scale(1)",
+                        "opacity": "1"
+                    })
+                }).css({
+                    "visibility": "visible"
+                })
+            } else {
+                $(".fsFixedTop").css({
+                    "-webkit-transform": "scale(1.2)",
+                    "-moz-transform": "scale(1.2)",
+                    "transform": "scale(1.2)",
+                    "opacity": "0"
+                });
+                $(".fsFixedTopContent").css({
+                    "visibility": "hidden"
+                })
+            }
+            setTab()
+        });
+        var arr = [],fsOffset = 0;
+        for (var i = 1; i < $(".floor").length; i++) {
+            arr.push(parseInt($(".floor").eq(i).offset().top) + 30)
+        }
+        $(".fsFixedTop a.smooth").on("click", function () {
+            var _th = $(this);
+            _th.blur();
+            var index = $(".fsFixedTop a.smooth").index(this);
+            if (index > 0) {
+                fsOffset =index* 100-50;
+            }else{
+                fsOffset =-50;
+            }
+            var hh = arr[index];
+            var clickheight = hh+fsOffset;
+            $("html,body").stop().animate({
+                scrollTop:clickheight+ "px"
+            }, 400)
+        });
+        $(".fsFixedTop a.fsbacktotop").click(function () {
+            $("html,body").stop().animate({
+                scrollTop: 0
+            }, 400)
+        })
+
+        function setTab() {
+            var Objs = $(".floor:gt(0)");
+            var textSt = $(window).scrollTop();
+            for (var i = Objs.length - 1; i >= 0; i--) {
+                if (textSt >= $(Objs[i]).offset().top - 50) {
+                    $(".fsFixedTop a").eq(i).addClass("active").siblings().removeClass("active");
+                    return;
+                }
+            }
+        }
+    });
+</script>
+
+
+
+<script src="[.$templatepath.]shop/js/jquery.SuperSlide.2.1.1.js"></script>
+<script>
+    //轮播
+    jQuery(".home-focus-layout").slide({mainCell: ".bd ul", autoPlay: true, delayTime: 500, interTime: 5000});
+    jQuery(".home-scroll").slide({mainCell: ".bd li", autoPage: true,autoPlay: true, delayTime: 1000, effect: "left", interTime: 5000, vis: 5});
+    jQuery(".home-sale-layout").slide({autoPlay: false, });
+</script>
+
+
+[.include file="cn/cn_shopfoot.html".]
+
+

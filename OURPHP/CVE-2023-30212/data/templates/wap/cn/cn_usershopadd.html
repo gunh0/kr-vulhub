@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>我的收件信息_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="top">
+		<dd class="f-l mt-10 text-c">我的收件信息</dd>
+		<div class="pos-a back"><a href="?cn-usercenter.html"><i class="icon YIQI-UI-iconfont">&#xe67d;</i></a></div>
+	</div>
+	<div class="pages">
+        <div class="content2" style="margin:60px auto;">
+            [.*表单开始*.]
+            <form id="form1" name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=shopadd_index&lang=cn&type=wap" class="registerform">
+                <table width="100%" border="0" class="table table-hover table-bg mt-20" style="background:#fff;">
+                    <tbody>
+                        [.foreach $shopadd as $op.]
+                          <tr>
+                            <td width="10">
+                              <input type="radio" class="radio" name="opcms" value="[.$op.id.]" [.if $op.index == 1.]checked[./if.] id="id[.$op.id.]" />
+                            </td>
+                            <td>
+							
+							
+							<label for="id[.$op.id.]" onclick="shopadd([.$op.id.]);" class="f-l">
+                              <p class="mb-0">
+                                  [.$op.name.] - [.$op.tel.]
+                              </p>
+                              <p>[.$op.add|replace:'|':''.]</p>
+                            </label>
+                            
+                            <span class="f-r pt-20">
+                                 <a href="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=shopadd_del&lang=cn&id=[.$op.id.]&type=wap" class="icon YIQI-UI-iconfont f-18">&#xe6e2;</a>
+                            </span>
+								
+                            </td>
+                          </tr>
+                        [./foreach.]
+                        [.if !empty($shopadd).]
+
+                      [./if.]
+                    </tbody>
+                </table>
+            </form>
+			
+			<p class="pos-f" style="left:0; bottom:0; z-index:99999; width:100%;">
+				<a href="?cn-usershopaddset.html" class="btn btn-yellow pt-10 pb-10 f-l radius-20" style="width:80%; margin-left:10%;">新建收件地址</a>
+			</p>
+            [.*表单结束*.]
+        </div>
+    </div>
+
+</div>
+<script src="[.$webpath.]function/plugs/layer3.1.0/layer.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+function shopadd(id)
+{
+        $.post("../user/ourphp_play.class.php?ourphp_cms=shopadd_index",{opcms:id,ajax:'yes'},function(result){
+          if(result.error == 1)
+          {
+            
+    
+          }else{
+    
+    			layer.msg('设置成功');
+    			
+          }
+        },'json');
+}
+</script>
+</body>
+</html>

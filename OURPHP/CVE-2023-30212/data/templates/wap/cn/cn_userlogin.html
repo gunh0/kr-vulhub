@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta name="description" content="[.$ourphp_web.webdescriptions.]"/>
+<meta name="keywords" content="[.$ourphp_web.webkeywords.]"/>
+<meta name="author" content="www.ourphp.net"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-title" content="[.$ourphp_web.website.]">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="HandheldFriendly" content="true">
+<meta name="MobileOptimized" content="320">
+<meta name="screen-orientation" content="portrait">
+<meta name="x5-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="x5-fullscreen" content="true">
+<meta name="browsermode" content="application">
+<meta name="x5-page-mode" content="app">
+<meta name="msapplication-tap-highlight" content="no">
+<title>登录_[.$ourphp_web.website.]</title>
+[.include file="cn/cn_shophead.html".]
+[.if isset($smarty.session.username).]
+<script>
+$(function (){
+    location.replace('?cn-usercenter.html');
+})
+</script>
+[./if.]
+<script>
+$(function (){
+	var w = window.screen.availWidth;
+	if(w <= 320){
+		$(".userloginhead").css("height","220px");
+	}
+	if(w >320 && w <= 375){
+		$(".userloginhead").css("height","240px");
+	}
+	if(w >375){
+		$(".userloginhead").css("height","270px");
+	}
+})
+
+function reginfo()
+{
+	layer.open({
+	  type: 1, 
+	  title :'《用户协议与隐私条款》',
+	  area: ['90%', '80%'],
+	  content: '<div style="padding:10px;">[.$usercontrol.protocol.]</div>'
+	});
+}
+
+function login() { 
+	var msg = "微信登录获取您的头像和名称信息 \n\n确认是否登录"; 
+	if (confirm(msg)==true){ 
+		return true; 
+	}else{ 
+		return false; 
+	}
+}
+
+function ok()
+{
+	if ($('input[name="Fruit"]').get(0).checked) {
+	   return true;
+	}else{
+		layer.tips('请先勾选同意', 'input[name="Fruit"]', {
+		  tips: 1
+		});
+		return false;
+	}
+}
+</script>
+<style type="text/css">
+body {background:#fff;}
+td {width:100%; border-bottom:1px #f5f5f5 solid; padding:2px;}
+.radio {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+	-webkit-appearance: checkbox; 
+}
+</style>
+</head>
+<body>
+<div id="YIQI-UI">
+	<div class="userloginhead">
+		<h1>会员登录</h1>
+	</div>
+	<div class="pages">
+		<form name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=login&lang=cn&type=wap" onsubmit="javascript:return ok()">
+        <div class="content" style="margin:0px auto 60px auto;">
+          <table width="100%" class="table">
+            <tr>
+              <td>
+                <div class="pl-10 pr-10">
+                  <span class="fromleft">账号</span><input type="text" name="OP_Useremail" class="userinput" placeholder="Email 或 手机号">
+                <div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="pl-10 pr-10">
+                  <span class="fromleft">密码</span><input type="password" name="OP_Userpass" class="userinput"  placeholder="密码">
+                </div>
+                </td>
+            </tr>
+              <tr>
+                  <td style="border-bottom:none;">
+				  
+					<div class="f-l f-14">没有账号? <a href="?cn-userreg.html">免费注册</a></div>
+                    <div class="f-r f-14"><a href="?cn-userpassword.html">找回密码</a></div>
+					
+					<div class="clear"></div>
+                    <div class="mt-40">
+						<input type="hidden" name="lang" value="cn" />
+						<input type="submit" name="Submit" value="立即登录" class="radius-20 userbtngo">
+                    </div>
+					
+                  </td>
+              </tr>
+			  <tr>
+                  <td style="border-bottom:none;" class="text-c">
+						<p class="f-12 f-999 pt-20">其它方式登录</p>
+						<p class="pt-5"><a href="[.$webpath.]client/plus/weixinlogin/login.php?introducer=[.$smarty.session.introducer_userid.]&weburlupgo=[.$smarty.session.ourphp_weburlupgo.]" onclick="javascript:return login()"><img src="[.$webpath.]client/plus/weixinlogin/ico.png" width="30" /></a></p>
+                  </td>
+              </tr>
+			  <tr>
+					<td class="text-c f-12 f-999" style="border-bottom:none;">
+							<p class="pt-20 f-12"><label><input name="Fruit" type="checkbox" class="radio" /> 已同意</label><a onclick="reginfo();"><u>《用户协议与隐私条款》</u></a></p>
+					</td>
+			  </tr>
+          </table>
+        </div>
+    </div>
+	<div class="clear"></div>
+	
+  </form>
+	[.include file="cn/cn_shopfoot.html".]
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#ourphp_user").addClass("on");
+});
+</script>
+</body>
+</html>

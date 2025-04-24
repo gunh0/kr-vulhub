@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>[.$opcms.title.] - [.$ourphp_web.website.]</title>
+        <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+        <meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+        <meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+        <link rel="stylesheet" href="[.$templatepath.]shop/css/common.css">
+        <link rel="stylesheet" href="[.$templatepath.]shop/css/home_header.css">
+        <script src="[.$templatepath.]shop/js/jquery-2.1.4.min.js"></script>
+        <script src="[.$templatepath.]shop/js/common.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery-ui.min.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery.ui.datepicker-zh-CN.js"></script>
+        <script src="[.$templatepath.]shop/js/jquery.validate.min.js"></script>
+        <script src="[.$templatepath.]shop/js/layer.js"></script>
+        <script src="[.$templatepath.]shop/js/dialog.js" id="dialog_js" charset="utf-8"></script>
+    </head>
+    <body>
+	
+[.include file="cn/cn_shoptop.html".]
+
+
+<!--面包屑导航 BEGIN-->
+<div class="dsh-breadcrumb-layout">
+    <div class="dsh-breadcrumb w1200"><i class="iconfont">&#xe6ff;</i>
+                <span><a href="[.$webpath.]?cn_shop.html">首页</a></span>
+						
+				[.foreach $crumbs as $op.]
+				<span class="arrow">></span><span><a href="[.$op.url.]" title="[.$op.title.]">[.$op.title.]</a></span>
+				[./foreach.]
+    </div>
+</div>
+<!--面包屑导航 END-->
+
+
+<script>
+    $(function() {
+	//首页左侧分类菜单
+	$(".all_categorys ul.menu").find("li").each(
+		function() {
+			$(this).hover(
+				function() {
+				    var cat_id = $(this).attr("cat_id");
+					var menu = $(this).find("div[cat_menu_id='"+cat_id+"']");
+					menu.show();
+					$(this).addClass("hover");					
+					var menu_height = menu.height();
+					if (menu_height < 60) menu.height(80);
+					menu_height = menu.height();
+					var li_top = $(this).position().top;
+					$(menu).css("top",-li_top + 40);
+				},
+				function() {
+					$(this).removeClass("hover");
+				    var cat_id = $(this).attr("cat_id");
+					$(this).find("div[cat_menu_id='"+cat_id+"']").hide();
+				}
+			);
+		}
+	);
+
+        $(".user_menu dl").hover(function() {
+            $(this).addClass("hover");
+        }, function() {
+            $(this).removeClass("hover");
+        });
+
+    });
+    
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("img").lazyload({ 
+		 effect: "fadeIn"
+	});    
+});
+
+function viewcode(){
+    layer.open({
+      type: 1,
+      title:false,
+      shadeClose: true,
+      shade: 0.5,
+      area: ['500px', '500px'],
+      content: '<div style="background:url([.$opcms.maximg.]) top center no-repeat; background-size:100%; width:100%; height:100%;"><div style="position:absolute; z-index:999999; bottom:10px; left:0; text-align:center;"><h2 style="font-size:14px;">[.$opcms.title.]</h2></div><div style="position:absolute; z-index:999999; bottom:70px; left:0; text-align:center; width:100%"><img src="http://qr.liantu.com/api.php?text=http://[.$ourphp_web.weburl.]/client/wap/?cn-productview-[.$ip.listid.]-[.$opcms.id.].html" width="200" height="200"></div></div>'
+    }); 
+}
+
+function car(){
+    var ourphp_kc = $('input[name="ourphp_kc"]').val();
+    var ourphp_hh = $('input[name="ourphp_hh"]').val();
+    var ourphp_sx = $('input[name="ourphp_sx"]').val();
+    var sl = $('input[name="sl"]').val();
+    var pid = $('input[name="pid"]').val();
+
+    $.post("[.$webpath.]function/ourphp_shopcarajax.class.php",{ourphp_kc:ourphp_kc,ourphp_hh:ourphp_hh,ourphp_sx:ourphp_sx,sl:sl,pid:pid,user:"[.$smarty.session.username.]",usermd:"[.token info=$smarty.session.username.]",type:1},function(result){
+        if(result.error == 1){
+            
+            alert(result.msg);
+            return false;
+
+        }else{
+            
+            layer.msg(result.msg);
+
+        }
+    },'json');
+}
+</script>
+
+
+<script src="[.$templatepath.]shop/js/search_goods.js"></script>
+<div class="dsh-container wrapper" >
+  <div class="left">
+        <div class="dsh-module dsh-module-style02">
+      <div class="title">
+        <h3>分类筛选</h3>
+      </div>
+      <div class="content">
+        <ul id="files" class="tree">
+		[.foreach from=$column item=op.]
+		[.if $op.id == 2.]
+		[.if isset($op.child).]
+			 [.foreach from=$op.child item=opop.]
+                    <li><i class="tree-parent tree-parent-collapsed"></i><a href="[.$opop.url.]" class="selected">[.$opop.title.]</a>
+                        <ul>
+						[.if isset($opop.child).]
+						 [.foreach from=$opop.child item=opopop.]
+                            <li><i class="tree-parent tree-parent-collapsed"></i><a href="[.$opopop.url.]" >[.$opopop.title.]</a>
+                                <ul>
+								[.foreach from=$opopop.child item=opopopop.]
+                                    <li class="tree-parent tree-parent-collapsed"><i></i><a href="[.$opopopop.url.]" >[.$opopopop.title.]</a></li>
+								[./foreach.] 	
+                                  </ul>
+                              </li>
+						  [./foreach.] 
+						[./if.]
+                          </ul>
+                      </li>
+			 [./foreach.]  
+		[./if.] 
+        [./if.]  
+        [./foreach.]       
+        </ul>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="right">
+    <div id="gc_goods_recommend_div" style="width:980px;"></div>
+				<h1 style="font-size:20px;"><span style="width: 18%; float:right; text-align:right; margin-right:2%;"><a onclick="viewcode();" style="width: 100%; text-align:right;"><img src="[.$webpath.]skin/erweimaico.png" height="45"></a></span><span style="width: 80%; float:left;">[.$opcms.title.]</span></h1>
+				<div class="clear"></div>
+				<script type="text/javascript" src="[.$webpath.]function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+                    [.*以下代码是我们OURPHP官方默认代码，如果你要修改模板，可以把以下代码全部复制走。*.]
+                    <script src="[.$webpath.]function/plugs/layer/layer.min.js"></script>
+                    <LINK href="[.$webpath.]function/plugs/product/style.css" rel=stylesheet>
+                    <div class="prleft">
+                    <img src="[.$opcms.maximg.]" style="width:300px; border:0px;" />
+                    </div>
+                    <div class="prright">
+                        <ul>
+                            <li><span>商品编号：</span>[.$opcms.number.]</li>
+                            <li><span>商品品牌：</span>[.$opcms.brand.title.]</li>
+                            <li><span>市场价格：</span><del>[.$opcms.market.]</del></li>
+                            <li><span>本站价格：</span>[.$opcms.webmarket.]</li>
+                            [.foreach from=$opcms.attribute item=aop.]
+                            <li>[.$aop.name.]：[.$aop.key.]</li>
+                            [./foreach.]
+                            <li><span>需积分：</span><font style="color:#FF0000; font-size:16px;">[.$opcms.integralexchange.]</font>&nbsp;&nbsp;兑换</li>
+                            <li style="padding-left:50px; margin-top:20px;"><a href="javascript:dialog([.$opcms.id.],'pc')"><img src="/skin/dhan.png" width="120" /></a>
+                                <script>
+                                function dialog(id,type){
+                                    $.layer({
+                                        type: 2,
+                                        title: '积分兑换',
+                                        shade: [0],
+                                        border: [5, 0.3, '#000'],
+                                        area: ['400px', '400px'],
+                                        iframe:{src: '[.$webpath.]function/ourphp_integral.php?id='+id+'&type='+type,scrolling: 'yes'}
+                                    });
+                                };
+                                </script>
+                            </li>
+                        </ul>
+                    </div>
+                    <div style="clear:both; height:50px;"></div>
+                    <script> 
+                    function setTab(m,n){
+                     var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+                     var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+                     for(i=0;i<tli.length;i++){
+                      tli[i].className=i==n?"hover":"";
+                      mli[i].style.display=i==n?"block":"none";
+                     }
+                    }
+                    </script>
+                    <div id="tabs0">
+                     <ul class="menu0" id="menu0">
+                      <li onclick="setTab(0,0)" class="hover">商品正文</li>
+                      <li onclick="setTab(0,1)">发货方式</li>
+                      <li onclick="setTab(0,2)">评论</li>
+                     </ul>
+                     <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+                      <ul class="block">
+                          <li>
+                          [.$opcms.content.]
+                          </li>
+                      </ul>
+                      <ul>
+                          <li>
+                           [.$shopset.sendout.]
+                          </li>
+                      </ul>
+                      <ul>
+                          <li class="td">
+                                [.comment id=$opcms.id type=$ip.type row="10".]
+                          </li>
+                      </ul>
+                    </div>
+                    </div>
+					<style type="text/css">
+                        .gmjl { margin-top:30px; font-size:13px;}
+                        .gmjl tr,td{ padding:10px; border-bottom:1px #f4f4f4 solid;}
+                        .gmjl span { font-size:12px; color: #999;}
+						.prright ul li {margin-bottom:10px;}
+                    </style>
+                    [.*积分兑换模板结束，如果你要修改模板，把以上代码全部复制走*.]
+
+
+  </div>
+  <div class="clear"></div>
+</div>
+<script src="[.$templatepath.]shop/js/waypoints.js"></script>
+<script src="[.$templatepath.]shop/js/search_category_menu.js"></script>
+<script type="text/javascript">
+var defaultSmallGoodsImage = 'home/common/default_goods_image.jpg';
+var defaultTinyGoodsImage = 'home/common/default_goods_image.jpg';
+
+$(function(){
+    $('#files').tree({
+        expanded: 'li:lt(2)'
+    });
+	//品牌索引过长滚条
+    $('#dsBrandlist').perfectScrollbar({suppressScrollX:true});
+    //浮动导航  waypoints.js
+    $('#main-nav-holder').waypoint(function(event, direction) {
+        $(this).parent().toggleClass('sticky', direction === "down");
+        event.stopPropagation();
+    });
+	// 单行显示更多
+	$('span[ds_type="show"]').click(function(){
+		s = $(this).parents('dd').prev().find('li[ds_type="none"]');
+		if(s.css('display') == 'none'){
+			s.show();
+			$(this).html('<i class="iconfont">&#xe688;</i>收起');
+		}else{
+			s.hide();
+			$(this).html('<i class="iconfont">&#xe689;</i>更多');
+		}
+	});
+
+
+    $('#priceBtn').click(function(){
+        var priceMin = $('#priceMin').val();
+        var priceMax = $('#priceMax').val();
+        var url = window.location.href;
+        var url = url + (url.indexOf("?")!=-1?'&':'?') + "priceMin=" + priceMin + "&priceMax=" + priceMax;
+        window.location.href = url;
+    });
+});
+</script>
+
+[.include file="cn/cn_shopfoot.html".]

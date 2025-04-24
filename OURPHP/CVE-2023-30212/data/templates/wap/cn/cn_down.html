@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+		<meta name="format-detection" content="telephone=no" />
+		<title>[.$listname.title.]_[.$ourphp_web.website.]</title>
+		<meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+		<meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+
+		[.include file="cn/cn_head.html".]
+		
+		</head>
+	<body>
+[.include file="cn/cn_top.html".]
+
+
+		<!--位置开始-->
+		<section class="cateList"> <span class="goBack iconbef" id="goBack"></span>
+	<h3>[.$listname.title.]<s class="iconn"></s></h3>
+	<!--栏目分类开始-->
+	<div class="box"> 
+		[.callcolumn id="7" row="8" lang="cn" type="td" name="callcolumn".]
+		<li><a href="[.$callcolumn.wapurl.]" title="[.$callcolumn.title.]">[.$callcolumn.title.]</a></li>
+		[./callcolumn.]
+	</div>
+	<!--栏目分类结束-->
+</section>
+
+		<!--位置结束-->
+		<!--文章列表开始-->
+		<section class="content newsList">
+		[.$ad.list.]
+			<ul class="list-loop list clearfix">
+			[.list id="$listid" form="down" name="list".] 
+					<li class="loop item"><a href="[.$list.wapurl.]" title="[.$list.title.]"><img src="[.$list.minimg.]" alt="[.$list.title.]">
+						<h3 class="tit">[.$list.title.]</h3>
+						<p class="txt">授权方式：[.$list.empower.]&nbsp;|&nbsp;软件类型：[.$list.type.]&nbsp;|&nbsp;操作语言：[.$list.lang.]&nbsp;|&nbsp;软件大小：[.$list.size.]</p>
+					</a></li>
+			[./list.]
+			</ul>
+			<div class="pglist">
+				<ul>[.$ourphppage.]</ul>
+			</div>
+		</section>
+		<!--文章列表结束-->
+
+		<div id="returntop" class="icon hidden"></div>
+
+		[.include file="cn/cn_foot.html".]
+	</body>
+</html>

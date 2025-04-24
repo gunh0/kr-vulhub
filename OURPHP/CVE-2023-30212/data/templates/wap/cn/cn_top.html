@@ -1,0 +1,35 @@
+<!--顶部开始-->
+<header id="top_main" class="header">
+	<div id="top" class="clearfix">
+	<a class="logo" href="[.$webpath.]client/wap" title="[.$ourphp_web.webname.]">
+			<img src="	[.$ourphp_web.weblogo.]" alt="[.$ourphp_web.webname.]"></a>
+		<div class="topsearch" id="topsearch"><span class="btn_search icon"></span></div>
+		<!--搜索栏开始-->
+		<div class="tsearch hidden" id="tsearch">
+			<form method="get" action="[.$webpath.]client/wap/search.php?temp=search">
+				<input class="txt" type="text" name="content" placeholder="请输入搜索关键字">
+					<input type="hidden" name="lang" value="cn" />
+					<input type="hidden" name="sid" value="product" />
+					<input type="hidden" name="type" value="wap" />
+				<input class="btn icon" type="submit" value="" name="">
+			</form>
+					</div>
+		<!--搜索栏结束-->
+		<div class="btn_close_main hidden" style="display: none;"><a class="btn_close icon"></a></div>
+		<div id="nav" class="cur">
+			<p class="nav icon"></p>
+		</div>
+	</div>
+</header>
+<!--顶部结束-->
+<!--右侧导航开始-->
+<nav class="subNav trans" id="subNav">
+	<div class="subNavCon trans">
+		<ul class="clearfix">
+			[.callcolumn id="0" row="8" lang="cn" type="td" name="callcolumn".]
+			<li><a href="[.$callcolumn.wapurl.]" title="[.$callcolumn.title.]">[.$callcolumn.title.]</a></li>
+			[./callcolumn.]
+		</ul>
+	</div>
+</nav>
+<!--右侧导航结束-->

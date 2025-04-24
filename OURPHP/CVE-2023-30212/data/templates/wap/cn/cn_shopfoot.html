@@ -1,0 +1,26 @@
+<div class="clear"></div>
+<div class="shopfoot">
+    <ul>
+        <li id="ourphp_home"><a href="[.$webpath.]client/wap/?cn-shop.html"><span class="icon YIQI-UI-iconfont">&#xe67f;</span><br />首页</a></li>
+        <li id="ourphp_class"><a href="[.$webpath.]client/wap/?cn-productclass-13.html"><span class="icon YIQI-UI-iconfont">&#xe681;</span><br />分类</a></li>
+		<li><a href="javascript:kefu();"><span class="icon YIQI-UI-iconfont YIQI-UI-iconfont-kefu"></span><br />客服</a></li>
+        <li id="ourphp_shopcar">
+			<a href="[.$webpath.]client/wap/?cn-shoppingcart.html"><span class="icon YIQI-UI-iconfont">&#xe672;</span><br />购物车<span id="shopcarnum">[.$shoppingcart['tiaoshu'].]</span>
+			</a>
+		</li>
+        <li id="ourphp_user"><a href="[.$webpath.]client/wap/?cn-usercenter.html"><span class="icon YIQI-UI-iconfont YIQI-UI-iconfont-user"></span><br />我的</a></li>
+    </ul>
+</div>
+<script src="[.$webpath.]function/plugs/layer3.1.0/layer.js"></script>
+<script>
+function kefu()
+{
+	layer.open({
+	  type: 1, 
+	  title :'扫一扫添加微信客服',
+	  area: ['70%', '300px'],
+	  content: '<div id="YIQI-UI"><div class="maximg text-c" style="width:100%;"><img src="[.$ourphp_web.erweima.]" /></div></div>'
+	});
+}
+</script>
+[.$advert.mpop.]

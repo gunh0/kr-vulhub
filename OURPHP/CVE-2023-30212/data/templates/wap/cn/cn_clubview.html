@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+		<meta name="format-detection" content="telephone=no" />
+		<title>客户留言__[.$ourphp_web.website.]</title>
+		<meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+		<meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+
+		[.include file="cn/cn_head.html".]
+		
+		</head>
+	<body>
+[.include file="cn/cn_top.html".]
+
+
+		<!--位置开始-->
+		<section class="cateList"> <span class="goBack iconbef" id="goBack"></span>
+	<h3>客户留言<s class="iconn"></s></h3>
+</section>
+
+		<!--位置结束-->
+		<!--文章列表开始-->
+		<section class="content newsList">
+    [.*留言开始*.]
+    <table width="100%" class="table">
+    <tr style="background:url([.$webpath.]skin/clubgb.png) repeat-x;">
+    	<td>留言列表</td>
+    </tr>
+    <tr>
+        <td>
+            <form id="form1" name="form1" method="post" action="[.$bookform.]">
+            <table width="100%" border="0">
+            <tr>
+            <td><div align="right">姓名：</div></td>
+                [.if $ip.bookuser == 0.]
+                <td><input type="text" name="bookname" style="width:80%; height:25px; border:1px #CCCCCC solid; background:#FFFFFF; font-size:14px; line-height:25px; color:#666666;" /></td>
+                [.else.]
+                
+                [.if isset($smarty.session.username).]
+                <td><input type="text" name="bookname" value="[.$smarty.session.name.]" style="width:80%;  height:25px; border:1px #CCCCCC solid; background:#f4f4f4; font-size:14px; line-height:25px; color:#ccc;" readonly /></td>
+                [.else.]
+                <td><input type="text" name="bookname" style="width:80%; height:25px; border:1px #CCCCCC solid; background:#FFFFFF; font-size:14px; line-height:25px; color:#666666;" /></td>
+                [./if.]
+                
+                [./if.]
+            </tr>
+            <tr>
+            <td><div align="right">联系方式：</div></td>
+            <td><input type="text" name="booktel" style="width:80%;  height:25px; border:1px #CCCCCC solid; background:#FFFFFF; font-size:14px; line-height:25px; color:#666666;" /></td>
+            </tr>
+            <tr>
+            <td valign="top"><div align="right">留言内容：</div></td>
+            <td><textarea name="bookcontent" style="width:80%;  height:100px; border:1px #CCCCCC solid; background:#FFFFFF; font-size:14px; line-height:25px; color:#666666;"></textarea></td>
+            </tr>
+            <tr>
+            <td><div align="right">验证码：</div></td>
+            <td><input type="text" name="bookcode" style="width:80px; height:25px; border:1px #CCCCCC solid; background:#FFFFFF; font-size:14px; line-height:25px; color:#666666;" onFocus="document.getElementById('checkcode').src+='?'" />&nbsp;<img title="点击刷新" id="checkcode" src="[.$webpath.]function/ourphp_code.php" align="absbottom" onClick="this.src='[.$webpath.]function/ourphp_code.php?'+Math.random();" width="80" height="25"></img></td>
+            </tr>
+            <tr>
+            <td><div align="right"><input type="hidden" name="wapbook" value="ourphp"></div></td>
+            [.if $ip.bookuser == 0.]
+            <tr>
+            <td><div align="right"></div></td>
+            <td><input type="submit" name="Submit" value="提 交" class="btn btn-primary radius-5 pl-20 pr-20 pt-5 pb-5" /></td>
+            </tr>
+            [.else.]
+            <tr>
+            <td></td>
+            [.if isset($smarty.session.username).]
+            <td><input type="submit" name="Submit" value="提 交" style="width:80px; height:25px; border:0px; background:#68A7D4; color:#FFFFFF;" /></td>
+            [.else.]
+            <td>请先登录,在发表留言!</td>
+            [./if.]
+            </tr>
+            [./if.]
+            </tr>
+            <tr>
+            <td></td>
+            <td><input type="hidden" name="ip" value="[.$ip.ip.]" />
+            <input type="hidden" name="class" value="[.$ip.listid.]" />
+            <input type="hidden" name="lang" value="[.$ip.lang.]" />
+            </td>
+            </tr>
+            </table>
+            </form>
+        </td>
+    </tr>
+    <tr>
+    <td valign="top">
+	<script type="text/javascript">
+		$(function(){
+			$(".noacc").hide();
+		});
+		var op_page = 2; //从第2页开始加载
+		var op_limit = 0; //0=按后台设置否侧按这里设置
+		var op_model = '[.$ip.type.]'; //获取栏目类型
+		var op_classid = [.$ip.listid.]; //获取栏目ID
+		var op_lang = 'cn'; //设置语言
+		var op_typeclass = ''; //产品附加属性
+		$(window).scroll(function() {
+				var scrollTop = $(this).scrollTop();
+				var scrollHeight = $(document).height();
+				var windowHeight = $(this).height();
+				if (scrollTop + windowHeight == scrollHeight) {
+					
+					$.post("[.$webpath.]function/ourphp_ajax.class.php",{page:op_page,model:op_model,id:op_classid,limit:op_limit,lang:op_lang},function(result){
+						if(result == 0){
+							$(".noacc").show();
+						}else{
+							$("#op_ajax_page").append(result);
+							$(".noacc").hide();
+							op_page += 1;
+						}
+					},'json');
+					
+				}
+		});
+	</script>
+    <table width="100%" class="table table-border" id="op_ajax_page">
+    [.foreach $opcms as $key => $op.] 
+    <tr>
+    <td width="20%" rowspan="2" valign="top"><div align="center"><img src="[.$webpath.]skin/userhead_s.jpg" border="0" /></div></td>
+    <td width="80%" style="min-height:60px;" valign="top">
+    <p style=" height:30px; line-height:30px; border-bottom:1px #CCCCCC dashed;"><span style="float:right; font-size:12px; color:#999999;">([.$op.time.])</span>[.$op.name.]</p>
+    <p style=" margin-top:20px;">[.$op.content.]</p>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    [.if $op.reply != ''.]
+    <table width="100%" border="0" cellpadding="5" bgcolor="#D7E1F9">
+    <tr>
+    <td style="border-bottom:1px #ffffff dashed;">管理员回复：</td>
+    </tr>
+    <tr>
+    <td valign="top">[.$op.reply.]</td>
+    </tr>
+    </table>
+    [./if.]
+    </td>
+    </tr>
+    [./foreach.]
+    </table> 
+    </td>
+    </tr>
+    </table>
+    <div style="clear:both; height:20px;"></div>
+			<p class="text-c f-999 noacc">
+					数据已全部加载完!
+			</p>
+    [.*留言结束*.]
+		</section>
+		<!--文章列表结束-->
+
+
+
+		<div id="returntop" class="icon hidden"></div>
+
+		[.include file="cn/cn_foot.html".]
+	</body>
+</html>

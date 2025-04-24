@@ -1,0 +1,248 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../../function/plugs/laydate/laydate.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">添加信息</li>
+  <li onclick="setTab(0,1)">组图上传</li>
+  <li><a href="javascript:history.go(-1)"><font color="#000000">返 回</font></a></li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+ <form id="form1" name="form1" method="POST" action="?ourphp_cms=add" class="registerform">
+  <ul class="block">
+	  <li>
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		<tr>
+		  	<td><div align="right">栏目</div></td>
+			<td>
+			
+<select name="OP_Photoclass"  datatype="zoo" class="win3">
+	<option value="0" >请选择</option>
+	[.assign var="level" value=0.]
+	[.function name=menu.]
+			[.foreach $data as $op.]
+				<option value="[.$op.id.]|[.$op.lang.]" [.if $op.model != 'photo'.]disabled="true" style="color:#FF0000;"[.else.] style="color:#009900"[./if.] [.if $smarty.get.aid != 0.][.if $smarty.get.aid == $op.id.]selected[./if.][./if.]>
+				[.if $op.uid != 0.]
+					[.for $foo=1 to $level.]
+					&nbsp;&nbsp;
+					[./for.]
+					└
+				[./if.]
+				[.$op.title.]
+				</option>
+				
+				[.if isset($op.child).]
+					[.call name=menu data=$op.child level=$level+1.]
+				[./if.]
+			[./foreach.]
+	[./function.]
+	[.call name=menu data=$photolist.]
+</select>
+			<font color="#009900">绿色</font>表示可录入项，<font color="#FF0000">红色</font>禁止录入项.			
+			
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">标题</div></td>
+			<td><input name="OP_Phototitle" type="text" class="win" [.$ourphp_bgcolor.] datatype="*" nullmsg="标题是必填项!"/><font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">缩略图</div></td>
+			<td><input name="OP_Photocminimg" type="text" class="win" [.$ourphp_bgcolor.] id="upload"/>
+			&nbsp;<input type="button" id="image3" value="上传" style="width:100px; height:35px; line-height:35px; background:#0099CC; color:#FFFFFF; border:0px;" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:imgtoimglist();">设置为组图第一张</a>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">发布时间</div></td>
+			<td>
+			<input name="time" type="text" id="time" class="win" value="[.date('Y-m-d H:i:s').]" [.$ourphp_bgcolor.] />
+			<script>
+				laydate.render({
+				  elem: '#time',
+				  type: 'datetime'
+				});
+			</script>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">电脑端正文</div></td>
+			<td><textarea name="OP_Photocontent" class="wtextarea editor" style="width:95%; height:400px;"></textarea><font color=red> (*)</font>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">手机端正文</div></td>
+			<td>
+				<div class="newsleft">
+					<textarea name="OP_Photocontent_wap" class="wtextarea editor waplook" style="width:100%; height:400px;"></textarea>
+					<font color=red> (*)</font>
+				</div>
+					[.include file="ourphp_editor.html".]
+					<script>
+					KindEditor.ready(function(K) {
+						var editor = K.editor({
+							allowFileManager : true
+						});
+						K('#image3').click(function() {
+							editor.loadPlugin('image', function() {
+								editor.plugin.imageDialog({
+									showRemote : false,
+									imageUrl : K('#upload').val(),
+									clickFn : function(url, title, width, height, border, align) {
+										K('#upload').val(url);
+										editor.hideDialog();
+									}
+								});
+							});
+						});
+					});
+				</script>
+				
+				<div class="newsright">
+					[.include file="ourphp_contentwap.html".]
+				</div>
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">排序</div></td>
+			<td><input name="OP_Photosorting" type="text" class="win2" value="99" [.$ourphp_bgcolor.] datatype="*" nullmsg="排序是必填项!"/> 数字越小越靠前！</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">属性</div></td>
+			<td>
+				<label><input type="checkbox" name="OP_Photoattribute[]" value="0" />&nbsp;头条</label>&nbsp;&nbsp;
+				<label><input type="checkbox" name="OP_Photoattribute[]" value="1" />&nbsp;热门</label>&nbsp;&nbsp;
+				<label><input type="checkbox" name="OP_Photoattribute[]" value="2" />&nbsp;滚动</label>&nbsp;&nbsp;
+				<label><input type="checkbox" name="OP_Photoattribute[]" value="3" />&nbsp;推荐</label>&nbsp;&nbsp;
+			</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">跳转</div></td>
+			<td><input name="OP_Photourl" type="text" class="win" [.$ourphp_bgcolor.] /> 如果为空，则不跳转！</td>
+		  </tr>
+		  <tr>
+			<td></td>
+		  	<td><strong>--------------- SEO设置 ---------------</strong></td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">关键词</div></td>
+			<td><input name="OP_Phototag" type="text" class="win" [.$ourphp_bgcolor.] />&nbsp;请用英文中的 , 格开</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">描述</div></td>
+			<td><textarea name="OP_Photodescription" class="wtextarea" ></textarea> 如果为空，自动截取正文前200个字</td>
+		  </tr>
+		</table>
+	  </li>
+  </ul>
+  
+  <ul>
+	  <li>
+		<style type="text/css">
+			.img { width:1060px; height:auto; padding:10px; float:left;}
+			.img h1 { height:30px; line-height:30px; font-size:14px; font-weight:500;}
+		</style>
+		<div class="img">
+				<table width="1100" border="0" style="border-bottom:1px #CCCCCC dashed; margin-bottom:30px;">
+                    <tr>
+                      <td width="20%"><h1>[在这里上传图集组图图片]</h1></td>
+                      <td width="80%">
+					  
+		<input type="button" id="J_selectImage" value="上传组图" style="width:100px; height:25px; line-height:25px; background:#0099CC; color:#FFFFFF; border:0px;" />
+		<script>
+			KindEditor.ready(function(K) {
+				var editor = K.editor({
+					allowFileManager : true
+				});
+				K('#J_selectImage').click(function() {
+					editor.loadPlugin('multiimage', function() {
+						editor.plugin.multiImageDialog({
+							clickFn : function(urlList) {
+								var div = K('#J_imageView');
+								div.html('');
+								var DataImage = [];
+								K.each(urlList, function(i, data) {
+									div.append('<p style=" width:200px; float:left; margin-right:15px; margin-bottom:15px; text-align:center;"><img src="' + data.url + '" style="max-width:200px; border:0px;"><br /><br />标题：<input type="text" name="OP_Photoname[]"><!--<br><a href="javascript:delItem(' + data.url + ')">[删除]</a>--></p>');
+									DataImage.push(data.url);
+								});
+								DataImage = DataImage.join('|');
+								/* 未加载 jQuery 使用下面*/
+								/*document.getElementById('uploadimg').value = DataImage;*/
+								/* 加载 jQuery 使用下面*/
+								$('#uploadimg').val(DataImage);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+			});
+		</script> 
+					  
+					  </td>
+                    </tr>
+            </table>
+				<div style="clear:both;"></div>
+				<!--缩略图传递-->
+				<div id="J_imageView2"></div>
+				<input type="hidden" name="OP_Imgtoone" id="OP_Imgtoone" />
+				<!--上传组图-->
+				<div id="J_imageView"></div>
+				<input type="hidden" name="OP_Photoimg" id="uploadimg" />
+		</div>
+	  </li>
+  </ul>
+  <ul><li></li></ul>
+  <div style="clear:both"></div>
+<table width="100%" border="0">
+  		   <tr>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		   <tr>
+		   	<td>&nbsp;</td>
+			<td>&nbsp;</td>
+		  </tr>
+</table>
+		  
+</form>
+</div>
+</div>
+
+<script>
+function imgtoimglist(){
+	var rem = "[.$webpath.]" + document.getElementById('upload').value;
+	if(rem == '[.$webpath.]' || rem == ''){
+		alert("缩略图不能为空!");
+		return false;
+	}
+	var div = $('#J_imageView2');
+	div.html('<p style=" width:200px; float:left; margin-right:15px; margin-bottom:15px; text-align:center;"><img src="' + rem.replace("[.$webpath.][.$webpath.]","[.$webpath.]") + '" style="max-width:200px; border:0px;"><br /><br />标题：<input type="text" name="OP_Photoname[]"><!--<br><a href="javascript:delItem(' + rem.replace("[.$webpath.][.$webpath.]","[.$webpath.]") + ')">[删除]</a>--></p>');
+	$('#OP_Imgtoone').val(rem.replace("[.$webpath.][.$webpath.]","[.$webpath.]"));
+}
+</script>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

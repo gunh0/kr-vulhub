@@ -1,0 +1,171 @@
+<div id="YIQI-UI">
+	<style type="text/css">
+	.table {width:100%; background:#f5f5f5; float:left; margin-top:30px; padding:15px 0;}
+	tr,td {padding:8px;}
+	[.if $url == 'pc'.]
+	textarea {width:410px; height:110px; border:1px #cccccc solid;text-align:left; padding:5px;}
+	.width {width:10%}
+	.width2 {width:90%}
+	[.else.]
+	textarea {width:90%; height:80px; border:1px #cccccc solid;text-align:left; padding:5px;}
+	.width {width:20%}
+	.width2 {width:80%}
+	[./if.]
+	</style>
+	<form name="product" method="post" action="[.$plugsurl.]product-content.php?ourphp_cms=add&id=[.$opcms.id.]&type=[.$ip.type.]&row=10">
+	<table width="100%" class="table table-border">
+	[.foreach $comment as $op.]
+	  <tr>
+	   <td class="width" rowspan="2" valign="top">
+	   
+			<div align="center"><img src="[.$op.img.]" border="0" width="50" height="50" /></div>
+		
+		</td>
+		<td class="width2" height="20">
+			<span style="float:right;">[.$op.time.]</span>[.$op.name.] <font color="#CCCCCC" size="2">([.$op.ip.])</font>
+			[.if $webpcomment == 4.]
+				[.if $op.vote != 0.]
+					[.if $op.vote == 1.]<img src="[.$webpath.]skin/1.gif" border="0" />好评[.elseif $op.vote == 2.]<img src="[.$webpath.]skin/2.gif" border="0" />中评[.elseif $op.vote == 3.]<img src="[.$webpath.]skin/3.gif" border="0" />差评[./if.]
+				[./if.]
+			[./if.]
+		</td>
+	  </tr>
+	  <tr>
+		<td height="98" valign="top">
+	   [.if $webpcomment == 4.]
+		 <table width="100%" border="0" cellpadding="0">
+		 [.if $op.scoring[0] != 0.]
+		   <tr>
+			 <td style="padding:0;">
+				宝贝描述相符度 <img src="[.$plugsurl.]lib/img/[.$op.scoring[0].].png" border="0" /><br />
+				服务态度 <img src="[.$plugsurl.]lib/img/[.$op.scoring[1].].png" border="0" /><br />
+				发货速度 <img src="[.$plugsurl.]lib/img/[.$op.scoring[2].].png" border="0" />
+			 </td>
+		   </tr>
+		 [./if.]
+		 </table>
+		[./if.]
+		<div style="clear:both; height:20px;"></div>
+		[.$op.content.]
+				
+				[.if $op.gocontent != ''.]
+				<div style="clear:both; height:20px;"></div>
+				<p>管理员回复：[.$op.gocontent.]&nbsp;&nbsp;&nbsp;&nbsp;([.$op.gotime.])</p>
+				[./if.]
+		</td>
+	  </tr>
+	  <tr>
+		<td colspan="2" bgcolor="#eeeeee"></td>
+	  </tr>
+	[./foreach.]
+	  
+	  [.if $webpcomment == 4.]
+	  <tr>
+		<td><div align="right">评价</div></td>
+		<td><input type="radio" name="OP_Vote" value="1" class="radio" /><img src="[.$webpath.]skin/1.gif" border="0" />好评&nbsp;&nbsp;<input name="OP_Vote" type="radio" value="2" checked="checked" class="radio" /><img src="[.$webpath.]skin/2.gif" border="0" />中评&nbsp;&nbsp;<input type="radio" name="OP_Vote" value="3" class="radio" /><img src="[.$webpath.]skin/3.gif" border="0" />差评</td>
+	  </tr>
+	  <tr>
+		<td><div align="right">评分</div>
+		<input type="hidden" name="dafen[]" value="3" id="baobei" />
+		<input type="hidden" name="dafen[]" value="3" id="taidu" />
+		<input type="hidden" name="dafen[]" value="3" id="fahuo" />
+		</td>
+		<td>
+		<script type="text/javascript" src="[.$plugsurl.]lib/jquery.raty.min.js"></script>
+		<style type="text/css">
+		.dafen { width:100%; float:left;}
+		.font { width:60px; float:left; text-align:right; height:25px; line-height:25px;}
+		.target-demo { width:180px; float:left; height:25px; line-height:25px; padding:0px; margin:0px;}
+		.hint { width:80px; float:left; height:25px; line-height:25px;}
+		.radio {
+			-webkit-appearance: radio; 
+		}
+		</style>
+			<div class="dafen">
+				<div class="font">描述相符度</div>
+				<div id="targetKeep-baobei" class="target-demo"></div>
+				<div id="targetKeep-hintbaobei" class="hint"></div>
+			  </div>
+				<div style=" clear:both"></div>
+			  <div class="dafen">
+				<div class="font">服务态度</div>
+				<div id="targetKeep-fuwu" class="target-demo"></div>
+				<div id="targetKeep-hintfuwu" class="hint"></div>
+			  </div>
+				<div style=" clear:both"></div>
+			  <div class="dafen">
+				<div class="font">发货速度</div>
+				<div id="targetKeep-fahuo" class="target-demo"></div>
+				<div id="targetKeep-hintfahuo" class="hint"></div>
+			  </div>
+		
+		  <script type="text/javascript">
+			$(function() {
+			  $.fn.raty.defaults.path = '[.$plugsurl.]lib/img';
+			  $('#targetKeep-baobei').raty({
+				cancel    : false,
+				target    : '#targetKeep-hintbaobei',
+				targetKeep: true,
+				score: 3,
+						click: function(score) {
+							$("#baobei").val(score);
+						  }
+			  });
+			  
+			  $('#targetKeep-fuwu').raty({
+				cancel    : false,
+				target    : '#targetKeep-hintfuwu',
+				targetKeep: true,
+				score: 3,
+						click: function(score) {
+							$("#taidu").val(score);
+						  }
+			  });
+			  
+			  $('#targetKeep-fahuo').raty({
+				cancel    : false,
+				target    : '#targetKeep-hintfahuo',
+				targetKeep: true,
+				score: 3,
+						click: function(score) {
+							$("#fahuo").val(score);
+						  }
+			  });
+			});
+		  </script>	
+		</td>
+	  </tr>
+	  [./if.]
+	  
+	  <tr>
+		<td><div align="right">发表评论</div></td>
+	[.if $webpcomment == 2.]
+		<td><textarea name="content" disabled="disabled" >评论被关闭:(</textarea></td>
+	[.elseif $webpcomment == 3.]
+
+				[.if isset($smarty.session.username).]
+				<td><textarea name="content"></textarea></td>
+				[.else.]
+				<td><textarea name="content" disabled="disabled" >请登录后在评论！</textarea></td>
+				[./if.]
+	[.elseif $webpcomment == 4.]
+					[.if $userbuy == 2.]
+					<td><textarea name="content" disabled="disabled" >您未购买过该商品，无权评价:(</textarea></td>
+					[.elseif $userbuy == 1.]
+					<td><textarea name="content"></textarea></td>
+					[./if.]
+	[.else.]
+		<td><textarea name="content"></textarea></td>
+	[./if.]
+	  </tr>
+	  <tr>
+		<td><div align="right">验证码</div></td>
+		<td><input type="text" name="code" style="width:100px; height:23px; border:1px #cccccc solid; line-height:23px;" onfocus="document.getElementById('checkcode2').src+='?'" />&nbsp;&nbsp;<img title="点击刷新" id="checkcode2" src="[.$webpath.]function/ourphp_code.php" align="absbottom" onclick="this.src='[.$webpath.]function/ourphp_code.php?'+Math.random();" width="80" height="25"></img></td>
+	  </tr>
+	  <tr>
+		<td>&nbsp;<input type="hidden" name="OP_Class" value="[.$opcms.id.]" /><input type="hidden" name="OP_Type" value="[.$ip.type.]" /></td>
+		<td><input type="submit" name="product" value="提交评论" style="width:100px; height:30px;background:#3399FF; color:#FFFFFF; border:0px; margin-top:10px;" />&nbsp;&nbsp;<a href="[.$webpath.]function/plugs/Comment/product-content.php?id=[.$opcms.id.]&type=[.$ip.type.]&row=10" target="_blank">查看全部评论 >>> </a></td>
+	  </tr>
+	</table>
+	</form>
+</div>

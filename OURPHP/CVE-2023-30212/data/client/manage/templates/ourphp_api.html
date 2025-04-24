@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script src="../../function/plugs/layer3.1.0/layer.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+function handleClick(e)
+{
+	if(e.checked){
+		$("#checkbox").val(1);
+	}else{
+		$("#checkbox").val(2);
+	}
+}
+</script>
+<style type="text/css">
+table {width:100%; text-align:left;}
+.input {background:#fff; width:99%; height:30px; line-height:30px; padding-left:1%;}
+.switch-button{
+	display: none;
+}
+.switch-button+label{
+	display: inline-block;
+	position: relative;
+	transition: all .3s;
+	width: 30px;
+	height: 15px;
+	border: 1px solid #999;
+	border-radius: 15px;
+	background-color: #ccc;
+}
+.switch-button:checked+label{
+	background-color: lightgreen;
+}
+.switch-button+label::before{
+	content: '';
+	display: block;
+	height: 12px;
+	width: 12px;
+	position: absolute;
+	border-radius: 25px;
+	left: 2px;
+	top: 1px;
+	background-color: #fff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	transition: all .3s;
+}
+.switch-button:checked+label::before{
+	left: 15px;
+	transition:  all .2s linear;
+}
+</style>
+</head>
+
+<body>
+<div id="tabs0" class="mt-50">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" class="hover">API列表</li>
+  <li onclick="setTab(0,1)">添加API</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul class="block">
+	  <li>
+		<div class="ourphp_newslist">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="5%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+                    <td width="40%" bgcolor="#EBEBEB">API标题</td>
+					<td width="10%" bgcolor="#EBEBEB">开启/关闭</td>
+                    <td width="20%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+				  [.section loop=$api name=op.]
+                  <tr>
+				  	<td><div align="center"><font class="la">[.$api[op].id.]</font></div></td>
+                    <td>[.$api[op].key[0].]</td>
+					<td>[.if $api[op].key[1] == 2.]<font color="red">【关闭中】</font>[.else.]<font color="green">【开启中】</font>[./if.]</td>
+                    <td><a href="javascript:dialog([.$api[op].id.],'[.$api[op].keyto.]')">编辑</a>[.if $api[op].id > 12.] - <a href="?ourphp_cms=del&id=[.$api[op].id.]">删除</a>[./if.]</td>
+                  </tr>
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="4">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+                  <tr>
+                    <td colspan="4">[.$ourphppage.]</td>
+                  </tr>
+                </table>
+        </div>
+	  </li>
+  </ul>
+  
+  <ul>
+	  <li>
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=add">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" style="border-collapse:collapse;" align="center">
+			  <tr>
+				<td width="80">插件名称</td>
+				<td>
+					<input name="plus[]" type="text" class="input" />
+				</td>
+			  </tr>
+			  <tr>
+				<td width="80">插件状态</td>
+				<td>
+					<input type="checkbox" class="switch-button" id="switch-button" onclick="handleClick(this)"/>
+					<label for="switch-button"></label>
+					<input name="plus[]" type="hidden" id="checkbox" value="1" />
+				</td>
+			  </tr>
+			  <tr>
+				<td>参数一</td>
+				<td>
+					<input name="plus[]" type="text" class="input" />
+				</td>
+			  </tr>
+			  <tr>
+				<td>参数二</td>
+				<td>
+					<input name="plus[]" type="text" class="input" />
+				</td>
+			  </tr>
+			  <tr>
+				<td>参数三</td>
+				<td>
+					<input name="plus[]" type="text" class="input" />
+				</td>
+			  </tr>
+			  <tr>
+				<td>参数四</td>
+				<td>
+					<input name="plus[]" type="text" class="input" />
+				</td>
+			  </tr>
+			  <tr>
+				<td>参数五</td>
+				<td>
+					<input name="plus[]" type="text" class="input" />
+				</td>
+			  </tr>
+			  <tr>
+				<td colspan="2"><input type="submit" name="submit" value="提交" class="ourphp-anniu"/></td>
+			  </tr>
+		</table>
+		</form>
+	  </li>
+  </ul>
+ </div>
+</div>
+<script>
+function dialog(id,name){
+    layer.open({
+        type: 2,
+        title: '编辑apiID : '+id,
+        shade: [0],
+		border: [5, 0.3, '#000'],
+        area: ['65%', '500px'],
+        content: 'ourphp_apiedit.php?id='+id,
+		end: function(){
+		  location.reload();
+		}
+    });
+};
+</script>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

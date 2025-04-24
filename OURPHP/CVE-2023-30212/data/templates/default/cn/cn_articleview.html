@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>[.$opcms.title.]_[.$ourphp_web.website.]</title>
+		<meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+		<meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+		<link href="[.$webpath.]favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	
+	[.include file="cn/cn_head.html".]
+</head>
+<body>
+
+[.include file="cn/cn_top.html".]
+		<div class="mbanner" style="background:url([.$listname.minimg.])"> </div> 
+
+		[.include file="cn/cn_banner.html".]	
+		<div id="bodycon">
+			<div id="left"></div>
+			<div id="center"> <strong class="strong_title">[.$opcms.title.]</strong>
+				<div class="mianbxContent"> 您的位置:  				<a href='[.$webpath.]' class=' '>首页</a>
+				[.foreach $crumbs as $op.]
+				> <a href="[.$op.url.]" title="[.$op.title.]">[.$op.title.]</a>
+				[./foreach.] > [.$opcms.title.]</div>
+				<div class="news_content">
+					<div class="news_content_title">
+						<h3> <strong>[.$opcms.title.]</strong> </h3>
+						<p>作者：[.$opcms.author.]&nbsp;&nbsp;&nbsp;&nbsp;发布时间：[.$opcms.time.]&nbsp;&nbsp;&nbsp;&nbsp;浏览次数：[.$opcms.click.]</p>
+						<hr width="95%" size="1" noshade>
+					</div>
+					
+					<div class="news_content_body">
+						<div class="content">
+						[.$ad.view.]
+						[.$opcms.content.]
+						
+						</div>
+					</div>
+					<div class="news_prevnext">
+						<div class="news_prev">[.uptext form="article" type="up" font="上一条：" noacc="暂无数据".]</div>
+						<div class="news_next">[.uptext form="article" type="down" font="下一条：" noacc="暂无数据".]</div>
+					</div>
+					
+					<div class="clear"></div>
+					
+					[.comment id=$opcms.id type=$ip.type row="10".]
+					
+				</div>
+				<div class="pro_detail">
+					<div class="pro_detail_rel_hd"> &nbsp;<strong>推荐产品</strong>
+					</div>
+					<div class="pro_detail_rel_item">
+						[.ourphp form="product" row="4" lang="cn" id="0" type="op" name="ourphp".]
+						<div class="one" >
+							<a href="[.$ourphp.url.]" title="[.$ourphp.title.]"> <img src="[.$ourphp.minimg.]" alt="[.$ourphp.title.]" class="pic"></a><br>
+							<a href="[.$ourphp.url.]" title="[.$ourphp.title.]" class="tle">[.$ourphp.title.]</a>
+						</div>
+						[./ourphp.]				
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div id="copy">
+			<div class="clear"></div>
+		</div>
+		<div class="top50"></div>
+
+	
+[.include file="cn/cn_foot.html".]
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+		<meta name="format-detection" content="telephone=no" />
+		<title>客户留言_[.$ourphp_web.website.]</title>
+		<meta name="description" content="[.$ourphp_web.webdescriptions.]" />
+		<meta name="keywords" content="[.$ourphp_web.webkeywords.]" />
+
+		[.include file="cn/cn_head.html".]
+		
+		</head>
+	<body>
+[.include file="cn/cn_top.html".]
+
+
+		<!--位置开始-->
+		<section class="cateList"> <span class="goBack iconbef" id="goBack"></span>
+	<h3>客户留言<s class="iconn"></s></h3>
+</section>
+
+		<!--位置结束-->
+		<!--文章列表开始-->
+		<section class="content newsList">
+        [.*留言版块开始*.]
+        <table width="100%" class="table table-border">
+            <tr style="background:url([.$webpath.]skin/clubgb.png) repeat-x;">
+                <td style="padding:0px 0px 0px 10px; height:31px;"><div align="left">版块名称</div></td>
+            </tr>
+            [.foreach $club as $key => $op.]
+            <tr>
+                <td height="50">
+                <p style="font-size:16px; float:left; color:#333333; line-height:30px;"><a href="[.$op.wapurl.]">【[.$op.title.]】</a></p>
+                <p style="font-size:12px; color:#999999; float:left; line-height:30px; color: #FF6600;">([.$op.number.]条留言)</p>
+                <div style="clear:both;"></div>
+                <p style="font-size:12px; color:#999999; padding-left:10px;">[.$op.content.]</p>
+                </td>
+            </tr>
+            [./foreach.]
+        </table>
+        [.*留言版块结束*.]
+		</section>
+		<!--文章列表结束-->
+
+		<div id="returntop" class="icon hidden"></div>
+
+		[.include file="cn/cn_foot.html".]
+	</body>
+</html>

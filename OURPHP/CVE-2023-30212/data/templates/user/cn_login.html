@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员中心 - [.$ourphp_web.website.] </title>
+<link rel="stylesheet" href="[.$templatepath.]css/style.css" type="text/css" />
+<script type="text/javascript" src="[.$webpath.]function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="[.$webpath.]function/plugs/layer3.1.0/layer.js"></script>
+<link rel="stylesheet" href="[.$webpath.]function/plugs/YIQI-UI/YIQI-UI.min.css" type="text/css" />
+[.if isset($smarty.session.username).]
+<script>
+$(function (){
+    location.replace('?cn-index.html');
+})
+</script>
+[./if.]
+</head>
+<body>
+<div id="YIQI-UI">
+    [.include file="cn_top.html".]
+    <div class="clear"></div>
+	
+	<div class="gb">
+		<div class="ourphp_center">
+			<div class="clear"></div>
+			<div class="ourphp_login">
+              
+                    <div class="f-l ourphp_left">
+                        [.if empty($ad.login).]
+                            <img src="[.$templatepath.]images/logobei.png" />
+                        [.else.]
+                            [.$ad.login.]
+                        [./if.]
+                    </div>
+                    <div class="f-r ourphp_right">
+					
+                    [.*会员登录表单开始*.]
+					<script type="text/javascript">
+						function reginfo()
+						{
+							layer.open({
+							  type: 1, 
+							  title :'《用户协议与隐私条款》',
+							  area: ['700px', '600px'],
+							  content: '<div style="padding:10px;">[.$usercontrol.protocol.]</div>'
+							});
+						}
+						
+						function ok()
+						{
+							if ($('input[name="Fruit"]').get(0).checked) {
+							   return true;
+							}else{
+								layer.tips('请先勾选同意', 'input[name="Fruit"]', {
+								  tips: 1
+								});
+								return false;
+							}
+						}
+					</script>
+					<style type="text/css">
+						.radio {
+							font-family: inherit;
+							font-size: inherit;
+							font-style: inherit;
+							font-weight: inherit;
+							-webkit-appearance: checkbox; 
+						}
+					</style>
+                    [.if $usercontrol.loginoff == 1.]
+                    <form id="form1" name="form1" method="post" action="[.$webpath.]client/user/ourphp_play.class.php?ourphp_cms=login&lang=cn" class="registerform" onsubmit="javascript:return ok()">
+                    <table width="100%" border="0" class="table">
+						  <tr>
+                            <td width="80"></td>
+                            <td><h5 class="f-l">会员登录</h5><h6 class="f-l ml-30 mt-15"><a href="?cn-reg.html">注册</a></h6></td>
+                          </tr>
+                          <tr>
+                            <td width="80"><div align="right">账号</div></td>
+                            <td><input type="text" name="OP_Useremail" class="input" datatype="*" placeholder="Email 或 手机号码" /> <font color="#FF0000">*</font></td>
+                          </tr>
+                          <tr>
+                            <td><div align="right">登录密码</div></td>
+                            <td><input type="password" name="OP_Userpass" class="input" datatype="*" placeholder="输入登录密码" /> 
+                            <font color="#FF0000">* </font></td>
+                          </tr>
+                          <tr>
+                            <td>&nbsp;</td>
+                            <td>
+							<input type="hidden" name="lang" value="cn" />
+                            <input type="submit" name="Submit" value="立即登录" class="btn btn-danger radius-5" />
+							</td>
+                          </tr>
+						  <tr>
+                            <td>&nbsp;</td>
+                            <td>
+								没有账号? <a href="[.$webpath.]client/user/?cn-reg.html">立即注册</a>
+								<a href="?[.$ip.lang.]-password.html" class="f-r mr-30">忘记密码? </a>
+							</td>
+                          </tr>
+						  <tr>
+								<td></td>
+						  </tr>
+						  <tr>
+								<td></td>
+						  </tr>
+						  <tr>
+								<td></td>
+						  </tr>
+						  <tr>
+								<td></td>
+						  </tr>
+						  <tr>
+								<td></td>
+						  </tr>
+						  <tr>
+								<td></td>
+						  </tr>
+						  <tr>
+								<td></td>
+								<td class="f-12"><label><input name="Fruit" type="checkbox" class="radio" /> 已同意</label><a onclick="reginfo();">《用户协议与隐私条款》</a></td>
+						  </tr>
+                    </table>
+                    </form>
+                    <link rel="stylesheet" href="../../function/plugs/Validform/style.css" type="text/css" />
+                    <script type="text/javascript" src="../../function/plugs/Validform/Validform_v5.3.2.js"></script>
+                    <script type="text/javascript">
+                    $(function(){
+                        $(".registerform").Validform();  //就这一行代码！;
+                    })
+                    </script>
+                    [.else.]
+                        <h3>暂时无法提供登录！</h3>
+                    [./if.]
+                    [.*会员登录表单结束*.]
+                    
+                    </div>
+                </div>
+    	</div>
+		
+	</div>
+    [.include file="cn_foot.html".]
+</div>
+</body>
+</html>

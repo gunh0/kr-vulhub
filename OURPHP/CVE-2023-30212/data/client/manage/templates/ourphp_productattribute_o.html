@@ -1,0 +1,117 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>[.$ourphp_adminfont.admintitle.]</title>
+<link href="templates/images/ourphp_login.css" rel="stylesheet" type="text/css"> 
+<script type="text/javascript" src="../../function/plugs/jquery/1.7.2/jquery-1.7.2.min.js"></script>
+<script src="../../function/plugs/layer/layer.min.js"></script>
+<script>
+<!--
+/*第一种形式 第二种形式 更换显示样式*/
+function setTab(m,n){
+ var tli=document.getElementById("menu"+m).getElementsByTagName("li");
+ var mli=document.getElementById("main"+m).getElementsByTagName("ul");
+ for(i=0;i<tli.length;i++){
+  tli[i].className=i==n?"hover":"";
+  mli[i].style.display=i==n?"block":"none";
+ }
+}
+//-->
+</script>
+
+</head>
+
+<body>
+<div style="height:50px;"></div>
+<div style="clear:both"></div>
+<div id="tabs0">
+ <ul class="menu0" id="menu0">
+  <li onclick="setTab(0,0)" [.if $smarty.get.id == 'ourphp'.]class="hover"[./if.]>参数列表</li>
+  <li onclick="setTab(0,1)" [.if $smarty.get.id == 'ourphps'.]class="hover"[./if.]>添加参数</li>
+ </ul>
+ <div class="main" id="main0" style="border-top:2px #488fcd solid; clear:both;">
+  <ul [.if $smarty.get.id == 'ourphp'.]class="block"[./if.]>
+	  <li>
+		<div class="ourphp_newslist">
+		        <table width="100%" border="0" cellpadding="10" class="ourphp_newslist">
+                  <tr>
+				  	<td width="10%" bgcolor="#EBEBEB"><div align="center">ID</div></td>
+                    <td width="60%" bgcolor="#EBEBEB">参数名称</td>
+					<td width="10%" bgcolor="#EBEBEB">排序</td>
+                    <td width="20%" bgcolor="#EBEBEB">操作</td>
+                  </tr>
+				  [.section loop=$Attribute name=op.]
+                  <tr>
+				  	<td><div align="center"><font style="background:#009933; color:#FFFFFF; padding:2px; text-align:center;">[.$Attribute[op].id.]</font></div></td>
+					<td>[.$Attribute[op].name.]</td>
+					<td>[.$Attribute[op].sorting.]</td>
+                    <td><a href="?id=ourphps&pid=[.$Attribute[op].id.]&oid=[.$smarty.get.oid.]">编辑</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="?ourphp_cms=del&id=[.$Attribute[op].id.]&oid=[.$smarty.get.oid.]" onclick="javascript:return confirm('确认删除吗?')">删除</a></td>
+                  </tr>
+				  [.sectionelse.]
+				  <tr>
+                    <td colspan="4">[.$ourphp_access.]</td>
+                  </tr>
+				  [./section.]
+                </table>
+		</div>
+	  </li>
+  </ul>
+  
+  <ul [.if $smarty.get.id == 'ourphps'.]class="block"[./if.]>
+  [.if $smarty.get.id == 'ourphp'.]
+	  <li>
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=add&oid=[.$smarty.get.oid.]" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		  <tr>
+		  	<td><div align="right">参数名称</div></td>
+			<td><input name="OP_Title" type="text" class="win" [.$ourphp_bgcolor.] datatype="*" nullmsg="名称是必填项!"/>&nbsp;例如：内存容量<font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">参数值</div></td>
+			<td><textarea name="OP_Text" class="wtextarea" [.$ourphp_bgcolor.] datatype="*" nullmsg="名称是必填项!" ></textarea><font color=red> (*)</font>
+			<br /><br />多个值用 | 格开 如：1G|2G</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">排序</div></td>
+			<td><input name="OP_Sorting" type="text" class="win2" [.$ourphp_bgcolor.] value="99" datatype="*" nullmsg="排序是必填项!"/>&nbsp;数字越小越靠前</td>
+		  </tr>
+		   <tr>
+		   	<td><input type="hidden" name="OP_Class" value="[.$smarty.get.oid.]" /></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+		</form>
+	  </li>
+	  [.else.]
+	  <li>
+		<form id="form1" name="form1" method="POST" action="?ourphp_cms=edit&id=[.$ourphp_productattribute.id.]&oid=[.$smarty.get.oid.]" class="registerform">
+		<table width="98%" border="0" cellpadding="5" cellspacing="0" bordercolor="#666666" style="border-collapse:collapse;" align="center">
+		  <tr>
+		  	<td><div align="right">参数名称</div></td>
+			<td><input name="OP_Title" type="text" class="win" [.$ourphp_bgcolor.] value="[.$ourphp_productattribute.OP_Title.]" datatype="*" nullmsg="名称是必填项!"/>&nbsp;例如：内存容量<font color=red> (*)</font></td>
+		  </tr>
+		  <tr>
+		  	<td valign="top"><div align="right">参数值</div></td>
+			<td><textarea name="OP_Text" class="wtextarea" [.$ourphp_bgcolor.] datatype="*" nullmsg="名称是必填项!" >[.$ourphp_productattribute.OP_Text.]</textarea><font color=red> (*)</font>
+			<br /><br />多个值用 | 格开 如：1G|2G</td>
+		  </tr>
+		  <tr>
+		  	<td><div align="right">排序</div></td>
+			<td><input name="OP_Sorting" type="text" class="win2" [.$ourphp_bgcolor.] value="[.$ourphp_productattribute.OP_Sorting.]" datatype="*" nullmsg="排序是必填项!"/>&nbsp;数字越小越靠前</td>
+		  </tr>
+		   <tr>
+		   	<td></td>
+			<td><input type="submit" name="submit" value="提 交" class="ourphp-anniu"/></td>
+		  </tr>
+		</table>
+		</form>
+	  </li>
+	 [./if.]
+  </ul>
+ </div>
+</div>
+[.include file="ourphp_foot.html".]
+</body>
+</html>

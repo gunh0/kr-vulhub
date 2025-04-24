@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员中心 - [.$ourphp_web.website.]</title>
+<link rel="stylesheet" href="[.$templatepath.]css/style.css" type="text/css" />
+<script type="text/javascript" src="[.$webpath.]function/plugs/YIQI-UI/jquery-2.1.1.min.js"></script>
+<link rel="stylesheet" href="[.$webpath.]function/plugs/YIQI-UI/YIQI-UI.min.css" type="text/css" />
+<link href="[.$webpath.]function/plugs/YIQI-UI/font/YIQI-UI-iconfont.min.css" rel="stylesheet">
+</head>
+<body class="bodygb">
+<div id="YIQI-UI">
+    [.include file="cn_top.html".] 
+	<div class="nav">
+		<div class="ourphp_center">
+				<li class="on"><a href="[.$webpath.]client/user/">会员中心</a></li>
+				<li><a href="[.$webpath.]?cn-shop.html">商城首页</a></li>
+				<li><a href="[.$webpath.]">企业官网</a></li>
+				<li><a href="[.$webpath.]?cn-product-11.html">积分中心</a></li>
+				<li><a href="[.$webpath.]?cn-product-12.html">团购</a></li>
+				<li><a href="[.$webpath.]?cn-brand-1.html">品牌商城</a></li>
+		</div>
+	</div>
+    <div class="clear"></div>
+    <div class="ourphp_center">
+        <div class="clear"></div>
+        <div class="ourphp_login">
+            <div class="ourphp_user_left">
+                [.include file="cn_leftnav.html".] 
+            </div>
+            <div class="ourphp_user_right">
+                <div class="ourphp_user_up">
+                    <div class="user_touxiang">
+						[.if $user.img == ''.]
+							<img src="[.$templatepath.]images/default_user_portrait.gif" class="img-w150 radius-75" />
+								[.else.]
+							<img src="[.$user.img.]"  class="img-w150 radius-75">
+						[./if.]
+					</div>	
+                    <div class="left">
+                        <p>[.$user.email.]</p>
+                        <p>[.if !empty($user.name).][.$user.name.][./if.]([.$user.class.])</p>
+                        <p><a href="?cn-tixian.html">[申请提现]</a></p>
+                    </div>
+                    <div class="right">
+                        <div class="xj"><dd><i class="icon YIQI-UI-iconfont">&#xe6b7;</i></dd><div class="clear"></div><br />余额<br />[.$user.money.]&nbsp;元</div>
+                        <div class="jf"><dd><i class="icon YIQI-UI-iconfont">&#xe6b5;</i></dd><div class="clear"></div><br />积分<br />[.$user.integral.]&nbsp;分</div>
+                        <div class="yhq"><dd><i class="icon YIQI-UI-iconfont">&#xe6ca;</i></dd><div class="clear"></div><br />优惠券<br />[.$user.coupon.]&nbsp;张</div>
+                        <div class="xnb"><dd><i class="icon YIQI-UI-iconfont">&#xe70a;</i></dd><div class="clear"></div><br />虚拟币<br />[.$user.coin.]&nbsp;枚</div>
+                    </div>
+                </div>
+					  <div class="clear"></div>
+					  <div class="mt-50">
+							<h1 class="f-20">推广给好友注册</h1>
+					  </div>
+				  <div class="clear"></div>
+                  <div class="ourphp_user_down">
+                        <table width="100%" border="0" cellpadding="10">
+                          <tr>
+                            <td width="10%"><div align="right">推广地址：</div></td>
+                            <td width="60%"><textarea style=" width:540px; height:20px; border:1px #CCCCCC solid; padding:10px;">http://[.$ourphp_web.weburl.]/client/user/?cn-reg.html-&introducer=[.$user.id.]</textarea></td>
+							<td rowspan="2">
+								
+								[.assign var="md" value="http://"|cat:$ourphp_web.weburl|cat:"/client/user/?cn-reg.html-&introducer="|cat:$user.id.]
+								<img src="[.$webpath.]function/api/qrcode/?text=http://[.$ourphp_web.weburl.]/client/user/?cn-reg.html-%26introducer=[.$user.id.]&md=[.token info=$md.]&l=L&s=3" />
+								
+							</td>
+                          </tr>
+                          <tr>
+                            <td><div align="right">说明：</div></td><td><p>复制上面地址，邀请其它会员注册。成功注册一个新用户，网站奖励您现金：[.$usercontrol.money[2].]&nbsp;&nbsp;&nbsp;&nbsp;积分：[.$usercontrol.money[3].]</p></td>
+                          </tr>
+						  <tr>
+                            <td><div align="right">推广码：</div></td><td><p>[.$user.regcode.]</p></td>
+                          </tr>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
+    [.include file="cn_foot.html".]
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<div class="server">
+    <div class="ensure">
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+        <a href="#"></a>
+    </div>
+    <div class="mall_desc">
+        <dl> 
+            <dt>帮助中心</dt>
+            <dd>
+                                <a href="?cn-about-20.html">积分兑换说明</a>
+                                <a href="?cn-about-21.html">我要买</a>
+                                <a href="?cn-about-22.html">如何注册成为会员</a>
+                                <a href="?cn-about-23.html">积分细则</a>
+                                <a href="/client/user/?cn-password.html">忘记密码</a>
+            </dd>
+        </dl>
+        <dl> 
+            <dt>支付方式</dt>
+            <dd>
+                                <a href="?cn-about-24.html">邮局汇款</a>
+                                <a href="?cn-about-25.html">如何注册支付宝</a>
+                                <a href="?cn-about-26.html">分期付款</a>
+                                <a href="?cn-about-27.html">公司转账</a>
+                                <a href="?cn-about-28.html">在线支付</a>
+            </dd>
+        </dl>
+                <dl> 
+            <dt>售后服务</dt>
+            <dd>
+                                <a href="?cn-about-29.html">返修/退换货</a>
+                                <a href="?cn-about-30.html">联系卖家</a>
+                                <a href="?cn-about-31.html">退换货流程</a>
+                                <a href="?cn-about-32.html">退款申请</a>
+                                <a href="?cn-about-33.html">退换货政策</a>
+            </dd>
+        </dl>
+                <dl> 
+            <dt>客服中心</dt>
+            <dd>
+                                <a href="/client/user/?cn-useredit.html">会员修改个人资料</a>
+                                <a href="/client/user/?cn-usershopadd.html">修改收货地址</a>
+                                <a href="/client/user/?cn-useredit.html">会员修改密码</a>
+            </dd>
+        </dl>
+                        <dl class="mall_mobile">
+            <dt>手机商城</dt>
+            <dd>
+                <a href="#" class="join">
+                    <img src="[.$templatepath.]images/erweima.png" width="105" height="105" >
+                </a>
+            </dd> 
+        </dl>
+    </div>
+</div>
+
+<script src="[.$templatepath.]shop/js/jquery.cookie.js"></script>
+<link rel="stylesheet" href="[.$templatepath.]shop/css/perfect-scrollbar.min.css">
+<script src="[.$templatepath.]shop/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="[.$templatepath.]shop/js/jquery.qtip.min.js"></script>
+<link href="[.$templatepath.]shop/css/jquery.qtip.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="[.$templatepath.]shop/js/jquery.lazyload.min.js"></script>
+<script>
+    //懒加载
+    $("img.lazyload").lazyload({
+//        placeholder : "/static/home/images/loading.gif",
+        effect: "fadeIn",
+        skip_invisible : false,
+        threshold : 200,
+    });
+</script>
+<div class="footer-info">
+    <div class="links w1200">
+	|
+	[.callcolumn id="0" row="8" lang="cn" type="td" name="callcolumn".]
+                <a href="[.$callcolumn.url.]" title="[.$callcolumn.title.]" target="_blank">[.$callcolumn.title.]</a>|
+	[./callcolumn.]
+            </div>
+    <p class="copyright">Copyright &copy; [.$smarty.now|date_format:"%Y".] [.$ourphp_web.webname.] 版权所有 保留一切权利</p>
+    <p class="copyright">[.$ourphp_web.by|replace:"2019":date("Y").]&nbsp;[.$version.]&nbsp;[.$ourphp_web.webstatistics.]</p>
+</div>
+[.$advert.float.]
+[.$advert.right.]
+[.$advert.double.]
