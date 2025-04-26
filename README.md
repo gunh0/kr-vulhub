@@ -21,8 +21,8 @@
 
 ## 4. 실습 (PoC)
 
-- PoC를 실행하는 방법은 준비된 `poc_exploit.sh` 스크립트를 실행하는 것이다.
 - 해당 스크립트는 Drupal 서버에 취약한 요청을 보내고 명령어 실행 결과를 확인할 수 있다.
+- 자동 poc 실행 코드
 
 ### PoC 스크립트 (poc_exploit.sh)
 명령어 자동실행
@@ -49,4 +49,4 @@ chmod +x poc_exploit.sh
 [![image](https://github.com/won6c/whitehat-school-vulhub/blob/main/CVE-2021-22205/1.png)]
 [![image](https://github.com/Thengelsec/kr-vulhub/raw/main/1.png)]
 
-- PoC를 실행하는 방법은 준비된 `poc_exploit.sh` 스크립트를 실행하는 것이다.
+- 쉘에서 id 명령어 결과가 나옴
