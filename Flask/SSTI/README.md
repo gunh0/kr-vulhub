@@ -15,7 +15,10 @@
   
 <br/>
 
-## 프로젝트 clone 및 실행
+### 1.2 프로젝트 clone 및 실행
+다음 명령어를 통하여 내 GitHub에서 Fork된 kr-vulhub 클론한 뒤 해당 폴더로 이동하였다.
+>> git clone https://github.com/ChoiAh/kr-vulhub.git
+>> cd kr-vulhub/Flask/SSTI
 
 1. `docker compose up -d` 를 실행하여 테스트 환경을 실행.
 2. `http://your-ip:8000/?name={{233*233}}`에 접속하여 54289가 출력되는지 확인하여 SSTI 취약점이 존재함을 확인합니다.
