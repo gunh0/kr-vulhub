@@ -1,0 +1,22 @@
+services:
+  web:
+    image: vulhub/drupal:8.5.0
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    volumes:
+      - ./settings.php:/var/www/html/sites/default/settings.php
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: drupal
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
