@@ -47,6 +47,6 @@ chmod +x poc_exploit.sh
 
 ## 5. 결과
 [![image](https://github.com/won6c/whitehat-school-vulhub/blob/main/CVE-2021-22205/1.png)]
-[![image](https://github.com/Thengelsec/kr-vulhub/raw/main/1.png)]
+[![image](https://github.com/Thengelsec/kr-vulhub/tree/feature/thengelsec/1.png)]
 
 - 쉘에서 id 명령어 결과가 나옴
