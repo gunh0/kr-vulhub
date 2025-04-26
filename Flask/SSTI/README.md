@@ -3,11 +3,11 @@
 
 <br/>
 
-# 1. SSTI 개념 증명 해보기 (poc코드 수정 전)
+## 1. SSTI 개념 증명 해보기 (poc코드 수정 전)
 
 위의 깃허브링크에서 **Flask (Jinja2) SSTI (Server Side Template Injection) 취약점**을 선택하였고, 해당 깃허브 링크를 fork해서 내 github에 복사하였다.
 
-## 1.1 실습 환경 구축
+### 1.1 실습 환경 구축
 
 - docker desktop 설치
 - Git-2.49.0-64-bit 설치
