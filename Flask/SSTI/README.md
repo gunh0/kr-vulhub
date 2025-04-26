@@ -1,18 +1,21 @@
-# Flask (Jinja2) SSTI (Server Side Template Injection)
-
-> 화이트햇 스쿨 1기 - [신경방 (@positiveWand)](https://github.com/positiveWand)
-
-<br/>
-
-## 요약
-
-- 서버 탬플릿 엔진은 사용자로부터 요청이 들어올때마다 작성된 템플릿 파일을 렌더링하고 그 결과를 사용자에게 반환한다.
-- 서버는 서버에 저장된 데이터, 사용자 요청과 함께 전달받은 데이터 등과 같이 서버에서 사용가능한 데이터들을 이용해 렌더링을 수행한다.
-- 이 취약점은 Flask와 Flask에서 사용하는 템플릿 엔진 "Jinja2"를 사용할 때 발생. 사용자가 잘 구성한 렌더링 코드 문자열을 서버에 전달하고 서버가 이 문자열을 그대로 템플릿 엔진에 삽입하여 렌더링을 수행한다면 사용자가 전달한 임의의 Python 코드가 실행될 수 있다.
+# Flask (Jinja2) SSTI 취약점 검증 및 PoC 실습 보고서
+> 화이트햇 스쿨 3기 - 최아현(5975)
 
 <br/>
 
-## 환경 구성 및 실행
+# 1. SSTI 개념 증명 해보기 (poc코드 수정 전)
+
+위의 깃허브링크에서 **Flask (Jinja2) SSTI (Server Side Template Injection) 취약점**을 선택하였고, 해당 깃허브 링크를 fork해서 내 github에 복사하였다.
+
+## 1.1 실습 환경 구축
+
+- docker desktop 설치
+- Git-2.49.0-64-bit 설치
+- python 3.13.3 도 설치
+  
+<br/>
+
+## 프로젝트 clone 및 실행
 
 1. `docker compose up -d` 를 실행하여 테스트 환경을 실행.
 2. `http://your-ip:8000/?name={{233*233}}`에 접속하여 54289가 출력되는지 확인하여 SSTI 취약점이 존재함을 확인합니다.
