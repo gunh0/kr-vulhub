@@ -83,7 +83,7 @@ py poc.py명령을 통하여 위에서 작성한 코드를 실행해보았다.
 ![poc.py 실행결과](./4.png)
 위의 사진처럼 출력이 되었다.
  > uid=33(www-data) gid=33(www-data) groups=33(www-data),0(root)
-<br/>
+
 ### 2.3 출력값의 의미
 - uid=33(www-data)  → 현재 FLASK서버가  uid=33(www-data) 계정으로 실행중이라는 의미
 - gid=33(www-data) →   현재 FLASK서버가  gid=33(www-data) 그룹 계정으로 실행중이라는 의미
