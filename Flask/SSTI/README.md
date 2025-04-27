@@ -8,6 +8,7 @@
 Flask/Jinja2의 서버 측 템플릿 인젝션(SSTI) 취약점은 사용자가 제공한 입력이 템플릿 엔진에 삽입될 때 발생합니다. 이를 통해 공격자는 임의의 Python 코드를 실행할 수 있습니다.
 
 # 환경 설정
+### 제 개인 PC에서 VMware없이 Fedora 42 부팅환경에서 진행하였습니다.
 
 kr-vulhub 저장소를 클론합니다:
 ```
@@ -55,5 +56,5 @@ poc.py 스크립트는 임의의 Python 코드를 실행하도록 수정할 수 
 
 ## 풀 리퀘스트
 
-URL:
+### URL: https://github.com/gunh0/kr-vulhub/pull/308
 
