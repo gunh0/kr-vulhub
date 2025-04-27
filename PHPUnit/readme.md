@@ -1,4 +1,4 @@
-# PHPUnit/CVE-2017-9841
+# CVE-2017-9841
 
 > 화이트햇 스쿨 3기 - 김수연 (ksuyeon0124@gmail.com)
 
