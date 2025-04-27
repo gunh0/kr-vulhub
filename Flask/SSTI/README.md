@@ -20,7 +20,7 @@
 ![name의 파라미터 값으로 지정된 값을 화면에 그대로 출력시키는 것을 확인](https://github.com/user-attachments/assets/cd0c96e8-747e-4655-ae62-5dfdccf84821)
 2. 파라미터 값에 템플릿 엔진에 삽입되는 템플릿 구문으로 연산 값 입력 시 7*7이 그대로 출력되는 것이 아닌 연산 결과가 출력되는 것을 통해 SSTI에 취약함을 확인
 ![연산 결과가 출력되는 것을 통해 SSTI에 취약함을 확인](https://github.com/user-attachments/assets/b3d643cd-869e-48c9-bf30-57368d09d685)
-3. git 실습 코드에 포함된 아래의 poc.py 파일 실행
+4. git 실습 코드에 포함된 아래의 poc.py 파일 실행
 ```python
 from urllib import parse
 
