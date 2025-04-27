@@ -104,10 +104,4 @@ curl -i -X GET "http://localhost:8003?q=http://google.com%5C%5C@apple.com"
 - Fork한 레포지토리: [https://github.com/UserJ32/kr-vulhub](https://github.com/UserJ32/kr-vulhub)
 
 (※ 이후 Pull Request를 생성하였습니다.)
-
----
-
-# Git 작업 기록
-
 - PR 링크: [Pull Request #291 - CVE-2024-29041 PoC Report](https://github.com/gunh0/kr-vulhub/pull/291)
-- 커밋 기록: (Fork 레포지토리에서 PR만 생성, 직접 커밋 없음)
