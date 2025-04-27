@@ -39,7 +39,7 @@
 
 ## 2. 공격코드 (poc.py) 실행
 Flask 서버에 실제 시스템 명령어 삽입하기 (PoC 수행)
-<br/>
+
 ### 2.1 poc.py 작성
 vs code에서 C:\Users\chloe\kr-vulhub\Flask\SSTI 이 경로에 poc.py라는 이름의 py파일을 생성하고 아래의 코드를 입력해 넣었다.
 ```python
@@ -81,7 +81,7 @@ print(response.text)
 ![vs code로 poc.py작성](./3.png)
 
 ### 2.2 poc.py 실행
-py poc.py명령을 통하여 위에서 작성한 코드를 실행해보았다.
+<py poc.py> 명령을 통하여 위에서 작성한 코드를 실행해보았다.
 ![poc.py 실행결과](./4.png)
 위의 사진처럼 출력이 되었다.
  > uid=33(www-data) gid=33(www-data) groups=33(www-data),0(root)
@@ -100,7 +100,7 @@ py poc.py명령을 통하여 위에서 작성한 코드를 실행해보았다.
 
 
 ## 3. 결론
-poc.py 스크립트를 통하여 SSTI(Server Side Template Injection) 취약점이 존재하는 FLASK서버에 악의적인 템플릿 코드<`__import__("os").popen("id").read()` 명령어를 실행하는 코드>를 삽입하였다.
+poc.py 스크립트를 통하여 SSTI(Server Side Template Injection) 취약점이 존재하는 FLASK 서버에 악의적인 템플릿 코드<`__import__("os").popen("id").read()` 명령어를 실행하는 코드>를 삽입하였다.
 따라서 서버는 해당 코드를 실행하여 현재 사용자의 UID, GID, groups 정보를 알려주었다. 
-이 실습을 통하여 flask 서버의 SSTI 취약점을 통하여 원격 코드 실행(RCE, Remote Code Execution)수준의 제어가 가능함을 확인할 수 있었으며 공격자는 name 파라미터에 Jinja2 템플릿 문법을 삽입함으로써 서버 측에서 Python 코드가 실행되도록 유도할 수 있었다. 즉, 단순 수식 평가뿐 아니라 시스템 명령어인 id같은 명령어까지 실행할 수 있어 서버의 중요 정보인 UID, GID 정보가 노출되는 SSTI 취약점을 확인해 보았다.
+이 실습을 통하여 flask 서버의 SSTI 취약점을 통하여 원격 코드 실행(RCE, Remote Code Execution)수준의 제어가 가능함을 확인할 수 있었으며 공격자는 name 파라미터에 Jinja2 템플릿 문법을 삽입함으로써 서버 측에서 Python 코드가 실행되도록 유도할 수 있었다. 즉, 단순 수식 평가 뿐만 아니라 시스템 명령어인 id 같은 명령어까지 실행할 수 있어 서버의 중요 정보인 UID, GID 정보가 노출되는 SSTI 취약점을 확인해 보았다.
 이러한 취약점의 경우**원격 명령 실행(RCE)** 으로 이어질 수 있기에 심각한 보안 위협이며, 이에 대한 조치가 필요함을 느꼈다.
