@@ -1,7 +1,8 @@
 # PHPUnit/CVE-2017-9841
 
 > 화이트햇 스쿨 3기 - 김수연 (ksuyeon0124@gmail.com)
-> 
+
+깃허브 주소 : https://github.com/f3s123/kr-vulhub
 &nbsp;
 ### CVE 요약
 
@@ -32,3 +33,5 @@ curl -X POST http://127.0.0.1:8080/vendor/phpunit/phpunit/src/Util/PHP/eval-stdi
 ### 정리
 
 - 원래는 서버에서 사용자 입력의 실행이 금지되어야 하는데, `eval-stdin.php` 로 인해 실행이 된다. 하여 서버로 `system`의 `id`를 출력하는 명령어를 보냈는데, 그 정보를 그대로 출력하는 것을 확인할 수 있었다.
+
+&nbsp;   
