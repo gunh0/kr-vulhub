@@ -70,7 +70,7 @@ curl -i -X GET "http://localhost:8002?q=http://google.com%5C%5C@apple.com"
 ```bash
 curl -i -X GET "http://localhost:8003?q=http://google.com%5C%5C@apple.com"
 ```
-= 결과 : 정상 처리 (에러 없음)
+- 결과 : 정상 처리 (에러 없음)
 ![8003](image-8.png)
 
 3. 브라우저 테스트
