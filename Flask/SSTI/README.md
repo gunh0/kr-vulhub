@@ -20,18 +20,19 @@ PoC 스크립트를 실행합니다:python poc.py
 
 PoC에서 생성된 URL에 접속하여 서버 프로세스 ID를 확인합니다.
 
-# PoC 세부 정보
+## PoC 세부 정보
 poc.py 스크립트는 임의의 Python 코드를 실행하도록 수정할 수 있습니다. 기본적으로 서버의 프로세스 ID를 출력합니다.
-## 결과
+
+# 결과
 
 ## Docker 실행
 ![](1.png)
 ## 취약점 확인
-# SSTI
+### SSTI
 ![](2.png)
-# poc.py 실행
+### poc.py 실행
 ![](3.png)
-# PoC 실행
+### PoC 실행
 ![](4.png)
 
 # 완화 방법
