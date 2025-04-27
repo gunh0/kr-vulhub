@@ -88,11 +88,13 @@ py poc.py명령을 통하여 위에서 작성한 코드를 실행해보았다.
 - uid=33(www-data)  → 현재 FLASK서버가  uid=33(www-data) 계정으로 실행중이라는 의미
 - gid=33(www-data) →   현재 FLASK서버가  gid=33(www-data) 그룹 계정으로 실행중이라는 의미
 - groups=33(www-data),0(root) → 이서버는 root권한도 가지고 있다는 뜻
-<br/>
+
+
 ### 2.4 출력 결과 분석
 즉, 템플릿 인젝션으로 서버에서 임의 시스템 명령어 실행이 가능했고 실행된 결과로 서버 내부 계정 정보를 탈취할 수 있었다. 따라서 결과적으로 해당 flask 서버의 제어권한을 획득할 수 있었다. 
 서버에서  os명령어가 실행되었고 해당 flask 서버가 root권한을 포함하고 있는 것을  확인할 수 있음
-<br/>
+
+
 ## 3. 결론
 poc.py 스크립트를 통하여 SSTI(Server Side Template Injection) 취약점이 존재하는 FLASK서버에 악의적인 템플릿 코드<`__import__("os").popen("id").read()` 명령어를 실행하는 코드>를 삽입하였다.
 따라서 서버는 해당 코드를 실행하여 현재 사용자의 UID, GID, groups 정보를 알려주었다. 
