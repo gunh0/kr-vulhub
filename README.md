@@ -1,15 +1,15 @@
 ### Apache HertzBeat SnakeYaml Deserialization Remote Code Execution (CVE-2024-42323)
 
-#### 요약
+### 요약
 
 Apache HertzBeat는 오픈소스 실시간 모니터링 및 경고 도구로, 운영 체제, 미들웨어, 데이터베이스 등을 웹 인터페이스를 통해 모니터링할 수 있습니다. 버전 1.6.0 이전의 HertzBeat는 YAML 파일을 파싱할 때 취약한 SnakeYAML 라이브러리를 사용하고 있습니다. 이로 인해, 인증된 사용자가 /api/monitors/import 또는 /api/alert/defines/import API를 통해 새로운 모니터링 타입을 임포트할 때 조작된 YAML 파일을 업로드하면 신뢰되지 않은 객체가 역직렬화되며, 원격 코드 실행(RCE)이 발생할 수 있습니다. 
 
-
+[中文版本(Chinese version)](https://github.com/vulhub/vulhub/blob/master/hertzbeat/CVE-2024-42323/README.zh-cn.md)
 
 
 <br>
 
-#### 환경 구축
+### 환경 구축
 
 터미널에서 다음 명령어로 취약한 HertzBeat 1.4.4 버전을 실행합니다:
 
@@ -26,9 +26,10 @@ Apache HertzBeat는 오픈소스 실시간 모니터링 및 경고 도구로, �
 
 
 <br>
-#### 취약점 재현 (공격 설명)
 
-##### 1단계: 악성 YAML 파일 생성
+### 취약점 재현 (공격 설명)
+
+#### 1단계: 악성 YAML 파일 생성
 
 파일명은 반드시 .yaml 확장자를 가져야 하며, 아래처럼 생성합니다.
 
@@ -42,7 +43,7 @@ Apache HertzBeat는 오픈소스 실시간 모니터링 및 경고 도구로, �
 
 
 
-##### 2단계: YAML 파일 업로드
+#### 2단계: YAML 파일 업로드
 
 HertzBeat 대시보드에 로그인 후, 모니터링 설정 화면으로 이동합니다.
 
@@ -55,7 +56,7 @@ HertzBeat 대시보드에 로그인 후, 모니터링 설정 화면으로 이동
 
 
 
-##### 3단계: 코드 실행 확인
+#### 3단계: 코드 실행 확인
 
 파일이 업로드되면서 SnakeYAML이 역직렬화를 수행하고, 내부에서 명령어가 실행됩니다.
 
@@ -72,7 +73,7 @@ HertzBeat 대시보드에 로그인 후, 모니터링 설정 화면으로 이동
 
 <br>
 
-#### 참고 자료
+### 참고 자료
 
 - https://forum.butian.net/article/612
 - https://lists.apache.org/thread/dwpwm572sbwon1mknlwhkpbom2y7skbx
