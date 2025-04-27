@@ -1,11 +1,12 @@
-Flask (Jinja2) SSTI 취약점 보고서
-작성자
+# Flask (Jinja2) SSTI 취약점 보고서
 
-WHS3_38반_양지민(5582)
-GitHub: yjm080821
+## 작성자
+### WHS3_38반_양지민(5582)
+### GitHub: yjm080821
 
 # 요약
 Flask/Jinja2의 서버 측 템플릿 인젝션(SSTI) 취약점은 사용자가 제공한 입력이 템플릿 엔진에 삽입될 때 발생합니다. 이를 통해 공격자는 임의의 Python 코드를 실행할 수 있습니다.
+
 # 환경 설정
 
 kr-vulhub 저장소를 클론합니다:git clone --depth 1 https://github.com/gunh0/kr-vulhub.git
