@@ -22,3 +22,5 @@
   - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) | Next.js 미들웨어 인가 우회
 - Nginx
   - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) | Nginx Integer Overflow Vulnerability
+- Gradio
+  - [CVE-2023-51449](./gradio/CVE-2023-51449/README.md) | 디렉터리 트래버설(Directory Traversal) 및 서버 사이드 요청 위조(SSRF)
