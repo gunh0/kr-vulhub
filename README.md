@@ -19,7 +19,6 @@ git clone https://github.com/UserJ32/kr-vulhub.git
 cd kr-vulhub/express/CVE-2024-29041
 ```
 3. `docker-compose up -d` 명령어로 컨테이너 실행
-# 먼저, Docker Desktop 실행
 ```bash
 docker-compose up -d
 ```
@@ -42,7 +41,7 @@ curl -i "http://localhost:8002/redirect?url=https://example.com"
 ```bash
 curl -i "http://localhost:8003/redirect?url=https://example.com"
 ```
-결과 : 정상 처리 (에러 없음)
+- 결과 : 정상 처리 (에러 없음)
 ![normal](image-5.png)
 
 3. 브라우저 테스트
@@ -71,7 +70,7 @@ curl -i -X GET "http://localhost:8002?q=http://google.com%5C%5C@apple.com"
 ```bash
 curl -i -X GET "http://localhost:8003?q=http://google.com%5C%5C@apple.com"
 ```
-결과 : 정상 처리 (에러 없음)
+= 결과 : 정상 처리 (에러 없음)
 ![8003](image-8.png)
 
 3. 브라우저 테스트
