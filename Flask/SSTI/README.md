@@ -13,8 +13,6 @@
 - Git-2.49.0-64-bit 설치
 - python 3.13.3 도 설치
   
-<br/>
-
 ### 1.2 프로젝트 clone 및 실행
 다음 명령어를 통하여 내 GitHub에서 Fork된 kr-vulhub 클론한 뒤 해당 폴더로 이동하였다.
 1. git clone https://github.com/ChoiAh/kr-vulhub.git
@@ -23,8 +21,6 @@
 ### 1.3 Docker로 Flask 서버 실행하기
 docker-compose up -d 명령어를 통하여 
 ![docker-compose up -d 실행결과](./1.png)
-<br/>
-
 
 ### 1.4 브라우저에서 flask 서버 접속
 ![서버 접속 실행결과](./1.png)
@@ -33,9 +29,10 @@ docker-compose up -d 명령어를 통하여
 ### 1.5 출력 결과 분석
 이건 서버가 내가 입력한 것을 내부에서 파이썬 연산처럼 처리했다는 , Flask 서버가 이걸 Jinja2 템플릿 문법으로 처리해서 7 * 7 = 49 계산한 결과를 보여주는 것, 서버가 사용자의 입력을 코드로 실행한 것 = SSTI 발생! 템플릿 엔진이 입력된 수식을 그대로 실행한 결과를 보여주고 이는 SSTI취약점이 존재함을 의미
 
+<br/>
+
 ## 2. 공격코드 (poc.py) 실행
 Flask 서버에 실제 시스템 명령어 삽입하기 (PoC 수행)
-<br/>
 
 ### 2.1 poc.py 작성
 vs code에서 C:\Users\chloe\kr-vulhub\Flask\SSTI 이 경로에 poc.py라는 이름의 py파일을 생성하고 아래의 코드를 입력해 넣었다.
@@ -75,13 +72,13 @@ print("<서버의 응답>")
 print(response.text)
 ```
 ![vs code로 poc.py작성](./3.png)
-<br/>
+
 ### 2.2 poc.py 실행
 py poc.py명령을 통하여 위에서 작성한 코드를 실행해보았다.
 ![poc.py 실행결과](./4.png)
 위의 사진처럼 출력이 되었다.
-
  > uid=33(www-data) gid=33(www-data) groups=33(www-data),0(root)
+> 
 ### 2.3 출력값의 의미
 - uid=33(www-data)  → 현재 FLASK서버가  uid=33(www-data) 계정으로 실행중이라는 의미
 - gid=33(www-data) →   현재 FLASK서버가  gid=33(www-data) 그룹 계정으로 실행중이라는 의미
@@ -91,6 +88,7 @@ py poc.py명령을 통하여 위에서 작성한 코드를 실행해보았다.
 즉, 템플릿 인젝션으로 서버에서 임의 시스템 명령어 실행이 가능했고 실행된 결과로 서버 내부 계정 정보를 탈취할 수 있었다. 따라서 결과적으로 해당 flask 서버의 제어권한을 획득할 수 있었다. 
 서버에서  os명령어가 실행되었고 해당 flask 서버가 root권한을 포함하고 있는 것을  확인할 수 있음
 
+<br/>
 
 ## 3. 결론
 
