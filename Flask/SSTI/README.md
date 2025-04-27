@@ -17,10 +17,14 @@
 ## 취약점 실습 진행
 
 1. name의 파라미터 값으로 지정된 값을 화면에 그대로 출력시키는 것을 확인
+
 ![name의 파라미터 값으로 지정된 값을 화면에 그대로 출력시키는 것을 확인](https://github.com/user-attachments/assets/cd0c96e8-747e-4655-ae62-5dfdccf84821)
+
 2. 파라미터 값에 템플릿 엔진에 삽입되는 템플릿 구문으로 연산 값 입력 시 7*7이 그대로 출력되는 것이 아닌 연산 결과가 출력되는 것을 통해 SSTI에 취약함을 확인
+
 ![연산 결과가 출력되는 것을 통해 SSTI에 취약함을 확인](https://github.com/user-attachments/assets/b3d643cd-869e-48c9-bf30-57368d09d685)
-4. git 실습 코드에 포함된 아래의 poc.py 파일 실행
+
+3. git 실습 코드에 포함된 아래의 poc.py 파일 실행
 ```python
 from urllib import parse
 
@@ -52,9 +56,13 @@ print(url)
 print() 
 ```
 4. 실행 결과로 출력된 요청 URL을 복사하여 웹 사이트에 입력
+
 ![실행 결과로 출력된 요청 URL을 복사하여 웹 사이트에 입력](https://github.com/user-attachments/assets/4b080377-5ebb-4af2-b3e7-3be84a4b7d52)
+
 5. 템플릿 구문으로 입력된 내용이 실행되며 서버 프로세스의 id가 출력됨
+
 ![템플릿 구문으로 입력된 내용이 실행되며 서버 프로세스의 id가 출력됨](https://github.com/user-attachments/assets/610e5e80-6ca9-4307-8eae-cbbb28d244b7)
+
 6. PoC 코드를 조금 수정해 ls ../ 명령어가 실행되도록 하면
 ```python
 from urllib import parse
@@ -87,6 +95,7 @@ print(url)
 print()
 ```
 7. 명령어가 실행되며 상위 디렉토리가 나열되는 것을 확인 (다양한 명령어 실행이 가능한 것)
+
 ![명령어가 실행되며 상위 디렉토리가 나열되는 것을 확인](https://github.com/user-attachments/assets/cd77ee76-675a-41ec-9c14-91d33cf2479a)
 
 <br/>
