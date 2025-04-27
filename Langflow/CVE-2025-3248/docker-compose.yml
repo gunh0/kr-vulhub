@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  langflow:
+    build: .
+    ports:
+      - "7860:7860"
+    container_name: langflow-cve-2025-3248
