@@ -9,14 +9,23 @@ Flask/Jinja2의 서버 측 템플릿 인젝션(SSTI) 취약점은 사용자가 �
 
 # 환경 설정
 
-kr-vulhub 저장소를 클론합니다:git clone --depth 1 https://github.com/gunh0/kr-vulhub.git
+kr-vulhub 저장소를 클론합니다:
+```
+git clone --depth 1 https://github.com/gunh0/kr-vulhub.git
 cd kr-vulhub/Flask/SSTI
+```
 
-Docker Compose로 환경을 시작합니다:docker compose up -d
+Docker Compose로 환경을 시작합니다
+```
+docker compose up -d
+```
 
 브라우저에서 http://localhost:8000/?name={{233*233}}에 접속하여 SSTI를 확인합니다. 결과는 54289여야 합니다.
 
-PoC 스크립트를 실행합니다:python poc.py
+PoC 스크립트를 실행합니다
+```
+python poc.py
+```
 
 PoC에서 생성된 URL에 접속하여 서버 프로세스 ID를 확인합니다.
 
