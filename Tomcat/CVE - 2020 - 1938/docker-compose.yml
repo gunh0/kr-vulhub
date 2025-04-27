@@ -1,0 +1,7 @@
+# docker-compose.yml
+services:
+  tomcat:
+    build: .
+    ports:
+      - "8080:8080" # HTTP
+      - "8009:8009" # AJP
