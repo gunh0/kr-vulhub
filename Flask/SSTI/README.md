@@ -75,9 +75,9 @@ response = requests.get(url)
 print("<서버의 응답>")
 print(response.text)
 ```
-<br/>
+
 ![vs code로 poc.py작성](./3.png)
-<br/>
+
 ### 2.2 poc.py 실행
 py poc.py명령을 통하여 위에서 작성한 코드를 실행해보았다.
 ![poc.py 실행결과](./4.png)
