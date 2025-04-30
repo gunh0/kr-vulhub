@@ -22,3 +22,5 @@
   - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) | Next.js 미들웨어 인가 우회
 - Nginx
   - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) | Nginx Integer Overflow Vulnerability
+- Spring
+  - [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) | Spring Cloud Function SpEL 코드 주입
