@@ -11,7 +11,7 @@
 ### Table of Contents
 
 - Django
-  - [CVE-2021-35042](./_Django/CVE-2021-35042/README.md) | QuerySet.order_by() SQL Injection
+  - [CVE-2021-35042](./Django/CVE-2021-35042/README.md) | QuerySet.order_by() SQL Injection
 - Express
   - [CVE-2024-29041](./Express/CVE-2024-29041/README.md) | Express 오픈 리다이렉트 취약점
 - Flask
