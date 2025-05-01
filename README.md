@@ -2,9 +2,9 @@
 
 ![logo](./README.assets/logo.svg)
 
-[Vulhub](https://github.com/vulhub/vulhub) (<https://vulhub.org/>) 을 기반으로 한국어 번역 및 컨텐츠를 추가하는 것을 목표로 공동작업합니다.
+취약한 도커 환경을 구축하여, 이해도를 높이고, 실습을 통해 보안 기술을 익히는 것을 목표로 합니다.
 
-차세대 보안리더 양성 프로그램 화이트햇 스쿨 수강생들이 기여하고 있습니다.
+[Vulhub](https://github.com/vulhub/vulhub) (<https://vulhub.org/>) 을 참고하여, 다양한 컨테이너 기반의 취약한 환경을 구축합니다.
 
 <br/>
 
