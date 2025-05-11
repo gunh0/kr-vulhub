@@ -24,3 +24,4 @@
   - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) | Nginx Integer Overflow Vulnerability
 - Spring
   - [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) | Spring Cloud Function SpEL 코드 주입
+  - [CVE-2022-22978](./Spring/CVE-2022-22978/README.md) | Spring Security Authorization Bypass in RegexRequestMatcher
