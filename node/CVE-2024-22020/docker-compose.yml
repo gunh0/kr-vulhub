@@ -1,0 +1,6 @@
+services:
+  node-app:
+    build: .
+    container_name: cve-2024-22020-server
+    ports:
+      - "3000:3000"
