@@ -10,22 +10,41 @@
 
 ### Table of Contents
 
-| Category | Vulnerability | Description | Contributor | Verification | Report Score | Risk Score |
-| --- | --- | --- | --- | --- | --- | --- |
-| Django | [CVE-2021-35042](./Django/CVE-2021-35042/README.md) | QuerySet.order_by() SQL Injection | [@sj1226m](https://github.com/sj1226m) | Not revalidated | TBD | TBD |
-| Express | [CVE-2024-29041](./Express/CVE-2024-29041/README.md) | Express 오픈 리다이렉트 취약점 | [@j93es](https://github.com/j93es) | Not revalidated | TBD | TBD |
-| Flask | [SSTI](./Flask/SSTI/README.md) | Server Side Template Injection | [@positiveWand](https://github.com/positiveWand) | Not revalidated | TBD | TBD |
-| MySQL | [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) | MySQL Authentication Bypass | [@baethwjd2](https://github.com/baethwjd2) | Not revalidated | TBD | TBD |
-| Next.js | [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) | Next.js 미들웨어 인가 우회 | [@idealinsane](https://github.com/idealinsane) | Not revalidated | TBD | TBD |
-| Nginx | [CVE-2017-7529](./nginx/CVE-2017-7529/README.md) | Nginx Integer Overflow Vulnerability | [@c0dep1ayer](https://github.com/c0dep1ayer) | Not revalidated | TBD | TBD |
-| Spring | [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) | Spring Cloud Function SpEL 코드 주입 | [@foskingson](https://github.com/foskingson) | Not revalidated | TBD | TBD |
-| Spring | [CVE-2022-22978](./Spring/CVE-2022-22978/README.md) | Spring Security Authorization Bypass in RegexRequestMatcher | [@sub0810](https://github.com/sub0810) | Not revalidated | TBD | TBD |
+- **Django**
+    - [CVE-2021-35042](./Django/CVE-2021-35042/README.md) — QuerySet.order_by() SQL Injection
+        - Contributor: [@sj1226m](https://github.com/sj1226m) | Risk Score: 7.5 (Reproducibility: 70%)
+
+- **Express**
+    - [CVE-2024-29041](./Express/CVE-2024-29041/README.md) — Express 오픈 리다이렉트 취약점
+        - Contributor: [@j93es](https://github.com/j93es) | Risk Score: 6.1 (Reproducibility: 75%)
+
+- **Flask**
+    - [SSTI](./Flask/SSTI/README.md) — Server Side Template Injection
+        - Contributor: [@positiveWand](https://github.com/positiveWand) | Risk Score: 9.0 (Reproducibility: 75%)
+
+- **MySQL**
+    - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) — MySQL Authentication Bypass
+        - Contributor: [@baethwjd2](https://github.com/baethwjd2) | Risk Score: 7.0 (Reproducibility: 70%)
+
+- **Next.js**
+    - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) — Next.js 미들웨어 인가 우회
+        - Contributor: [@idealinsane](https://github.com/idealinsane) | Risk Score: 9.1 (Reproducibility: 85%)
+
+- **Nginx**
+    - [CVE-2017-7529](./nginx/CVE-2017-7529/README.md) — Nginx Integer Overflow Vulnerability
+        - Contributor: [@c0dep1ayer](https://github.com/c0dep1ayer) | Risk Score: 7.5 (Reproducibility: 75%)
+
+- **Spring**
+    - [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) — Spring Cloud Function SpEL 코드 주입
+        - Contributor: [@foskingson](https://github.com/foskingson) | Risk Score: 9.8 (Reproducibility: 75%)
+    - [CVE-2022-22978](./Spring/CVE-2022-22978/README.md) — Spring Security Authorization Bypass in RegexRequestMatcher
+        - Contributor: [@sub0810](https://github.com/sub0810) | Risk Score: 9.8 (Reproducibility: 80%)
 
 <br/>
 
 ### Report Evaluation
 
-각 보고서는 취약점 자체의 위험도와 보고서 완성도를 분리해 평가합니다. 점수는 Docker 환경과 제출된 PoC를 재검증한 뒤 0.0에서 10.0 사이의 값으로 기록합니다.
+각 보고서는 취약점 자체의 위험도와 Report Reliability를 분리해 평가합니다. Docker 환경과 제출된 PoC를 재검증한 뒤 기록합니다.
 
-- 보고서 완성도: 환경 구성, 취약 조건, 재현 절차, PoC 코드, 실행 결과, 대응 방안이 명확한지 평가합니다.
-- 취약점 위험도: 인증 필요 여부, 원격 악용 가능성, 영향 범위, PoC 및 Docker 환경에서 확인되는 실제 동작을 기준으로 CVSS처럼 0.0에서 10.0 사이로 평가합니다.
+- Reproducibility: 제출된 환경과 PoC를 그대로 따랐을 때 재현 가능한 정도를 0%에서 100%로 표현합니다. 환경 구성, 취약 조건, 재현 절차, PoC 코드, 실행 결과, 대응 방안의 명확성을 기준으로 평가합니다.
+- Risk Score: 인증 필요 여부, 원격 악용 가능성, 영향 범위, PoC 및 Docker 환경에서 확인되는 실제 동작을 기준으로 CVSS처럼 0.0에서 10.0 사이로 평가합니다.
