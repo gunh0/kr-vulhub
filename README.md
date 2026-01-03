@@ -34,6 +34,10 @@
     - [CVE-2017-7529](./nginx/CVE-2017-7529/README.md) — Nginx Integer Overflow Vulnerability
         - Contributor: [@c0dep1ayer](https://github.com/c0dep1ayer) | Risk Score: 7.5 (Reproducibility: 75%)
 
+- **Redis** — 인메모리 키-값 데이터베이스
+    - [CVE-2022-0543](./Redis/CVE-2022-0543/README.md) — Lua 샌드박스 탈출을 통한 원격 코드 실행
+        - Contributor: [@yeo0n](https://github.com/yeo0n) | Risk Score: 10.0 (Reproducibility: 65%)
+
 - **Spring** — Java 엔터프라이즈 웹 프레임워크
     - [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) — Spring Cloud Function SpEL 코드 주입
         - Contributor: [@foskingson](https://github.com/foskingson) | Risk Score: 9.8 (Reproducibility: 75%)
