@@ -41,6 +41,8 @@
 - **Spring** — Java 엔터프라이즈 웹 프레임워크
     - [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) — Spring Cloud Function SpEL 코드 주입
         - Contributor: [@foskingson](https://github.com/foskingson) | Risk Score: 9.8 (Reproducibility: 75%)
+    - [CVE-2022-22965](./Spring/CVE-2022-22965/README.md) — Spring Framework RCE via Data Binding (Spring4Shell)
+        - Contributor: [@ddddabi](https://github.com/ddddabi) | Risk Score: 9.8 (Reproducibility: 70%)
     - [CVE-2022-22978](./Spring/CVE-2022-22978/README.md) — Spring Security Authorization Bypass in RegexRequestMatcher
         - Contributor: [@sub0810](https://github.com/sub0810) | Risk Score: 9.8 (Reproducibility: 80%)
 
