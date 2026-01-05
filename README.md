@@ -18,6 +18,10 @@
     - [CVE-2024-29041](./Express/CVE-2024-29041/README.md) — Express 오픈 리다이렉트 취약점
         - Contributor: [@j93es](https://github.com/j93es) | Risk Score: 6.1 (Reproducibility: 75%)
 
+- **GeoServer** — Java 기반 오픈소스 공간 데이터 서버
+    - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
+        - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | Risk Score: 9.8 (Reproducibility: 65%)
+
 - **Flask** — Python 경량 웹 프레임워크
     - [SSTI](./Flask/SSTI/README.md) — Server Side Template Injection
         - Contributor: [@positiveWand](https://github.com/positiveWand) | Risk Score: 9.0 (Reproducibility: 75%)
