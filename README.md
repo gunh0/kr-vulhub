@@ -18,13 +18,13 @@
     - [CVE-2024-29041](./Express/CVE-2024-29041/README.md) — Express 오픈 리다이렉트 취약점
         - Contributor: [@j93es](https://github.com/j93es) | Risk Score: 6.1 (Reproducibility: 75%)
 
-- **GeoServer** — Java 기반 오픈소스 공간 데이터 서버
-    - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
-        - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | Risk Score: 9.8 (Reproducibility: 65%)
-
 - **Flask** — Python 경량 웹 프레임워크
     - [SSTI](./Flask/SSTI/README.md) — Server Side Template Injection
         - Contributor: [@positiveWand](https://github.com/positiveWand) | Risk Score: 9.0 (Reproducibility: 75%)
+
+- **GeoServer** — Java 기반 오픈소스 공간 데이터 서버
+    - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
+        - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | Risk Score: 9.8 (Reproducibility: 65%)
 
 - **MySQL** — 관계형 데이터베이스
     - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) — MySQL Authentication Bypass
@@ -53,6 +53,14 @@
 - **Tiki Wiki** — PHP 기반 오픈소스 CMS / Wiki
     - [CVE-2020-15906](./TikiWiki/CVE-2020-15906/README.md) — TikiWiki CMS Authentication Bypass → RCE
         - Contributor: [@haijun9](https://github.com/haijun9) | Risk Score: 8.8 (Reproducibility: 60%)
+
+- **Tomcat** — Java 기반 오픈소스 웹 애플리케이션 서버
+    - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
+        - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
+
+- **Tomcat** — Java 기반 오픈소스 웹 애플리케이션 서버
+    - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
+        - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
 
 <br/>
 
