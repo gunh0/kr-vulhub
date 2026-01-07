@@ -38,6 +38,10 @@
     - [CVE-2017-7529](./nginx/CVE-2017-7529/README.md) — Nginx Integer Overflow Vulnerability
         - Contributor: [@c0dep1ayer](https://github.com/c0dep1ayer) | Risk Score: 7.5 (Reproducibility: 75%)
 
+- **Node** — JavaScript 런타임 환경
+    - [CVE-2017-14849](./Node/CVE-2017-14849/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
+        - Contributor: [@ssongk](https://github.com/ssongk) | Risk Score: 7.5 (Reproducibility: 75%)
+
 - **Redis** — 인메모리 키-값 데이터베이스
     - [CVE-2022-0543](./Redis/CVE-2022-0543/README.md) — Lua 샌드박스 탈출을 통한 원격 코드 실행
         - Contributor: [@yeo0n](https://github.com/yeo0n) | Risk Score: 10.0 (Reproducibility: 65%)
@@ -53,10 +57,6 @@
 - **Tiki Wiki** — PHP 기반 오픈소스 CMS / Wiki
     - [CVE-2020-15906](./TikiWiki/CVE-2020-15906/README.md) — TikiWiki CMS Authentication Bypass → RCE
         - Contributor: [@haijun9](https://github.com/haijun9) | Risk Score: 8.8 (Reproducibility: 60%)
-
-- **Tomcat** — Java 기반 오픈소스 웹 애플리케이션 서버
-    - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
-        - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
 
 - **Tomcat** — Java 기반 오픈소스 웹 애플리케이션 서버
     - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
