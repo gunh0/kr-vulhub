@@ -30,6 +30,10 @@
     - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
         - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | Risk Score: 9.8 (Reproducibility: 65%)
 
+- **Librsvg** — GNOME SVG 렌더링 라이브러리
+    - [CVE-2023-38633](./Librsvg/CVE-2023-38633/README.md) — librsvg xi:include 디렉터리 탐색 파일 읽기
+        - Contributor: [@EL55](https://github.com/EL55) | Risk Score: 7.5 (Reproducibility: 80%)
+
 - **MySQL** — 관계형 데이터베이스
     - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) — MySQL Authentication Bypass
         - Contributor: [@baethwjd2](https://github.com/baethwjd2) | Risk Score: 7.0 (Reproducibility: 70%)
