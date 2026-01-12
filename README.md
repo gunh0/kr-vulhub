@@ -28,6 +28,10 @@
     - [SSTI](./Flask/SSTI/README.md) — Server Side Template Injection
         - Contributor: [@positiveWand](https://github.com/positiveWand) | Risk Score: 9.0 (Reproducibility: 75%)
 
+- **Gradio** — Python 기반 ML 모델 웹 인터페이스 라이브러리
+    - [CVE-2023-51449](./Gradio/CVE-2023-51449/README.md) — /file 엔드포인트 디렉터리 트래버설
+        - Contributor: [@annseojin](https://github.com/annseojin) | Risk Score: 7.5 (Reproducibility: 80%)
+
 - **GeoServer** — Java 기반 오픈소스 공간 데이터 서버
     - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
         - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | Risk Score: 9.8 (Reproducibility: 65%)
