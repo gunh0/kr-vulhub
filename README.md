@@ -17,6 +17,8 @@
 - **Django** — Python 기반 웹 프레임워크
     - [CVE-2021-35042](./Django/CVE-2021-35042/README.md) — QuerySet.order_by() SQL Injection
         - Contributor: [@sj1226m](https://github.com/sj1226m) | Risk Score: 7.5 (Reproducibility: 70%)
+    - [CVE-2022-34265](./Django/CVE-2022-34265/README.ko-kr.md) — Trunc()/Extract() SQL Injection
+        - Contributor: [@woohyun212](https://github.com/woohyun212) | Risk Score: 9.8 (Reproducibility: 85%)
 
 - **Express** — Node.js 웹 프레임워크
     - [CVE-2024-29041](./Express/CVE-2024-29041/README.md) — Express 오픈 리다이렉트 취약점
