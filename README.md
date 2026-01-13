@@ -76,6 +76,10 @@
     - [CVE-2022-22978](./Spring/CVE-2022-22978/README.md) — Spring Security Authorization Bypass in RegexRequestMatcher
         - Contributor: [@sub0810](https://github.com/sub0810) | Risk Score: 9.8 (Reproducibility: 80%)
 
+- **Struts2** — Java 기반 MVC 웹 프레임워크
+    - [CVE-2019-0230](./Struts2/CVE-2019-0230/README.md) — Struts2 S2-059 OGNL 표현식 주입 RCE
+        - Contributor: [@hy30nq](https://github.com/hy30nq) | Risk Score: 9.8 (Reproducibility: 80%)
+
 - **Tiki Wiki** — PHP 기반 오픈소스 CMS / Wiki
     - [CVE-2020-15906](./TikiWiki/CVE-2020-15906/README.md) — TikiWiki CMS Authentication Bypass → RCE
         - Contributor: [@haijun9](https://github.com/haijun9) | Risk Score: 8.8 (Reproducibility: 60%)
