@@ -26,6 +26,10 @@
     - [CVE-2024-29041](./Express/CVE-2024-29041/README.md) — Express 오픈 리다이렉트 취약점
         - Contributor: [@j93es](https://github.com/j93es) | Risk Score: 6.1 (Reproducibility: 75%)
 
+- **Elfinder** — PHP 기반 웹 파일 관리자
+    - [CVE-2021-32682](./Elfinder/CVE-2021-32682/README.md) — ZIP 인수 삽입을 통한 원격 코드 실행
+        - Contributor: [@Tjdmin1](https://github.com/Tjdmin1) | Risk Score: 9.8 (Reproducibility: 75%)
+
 - **Flask** — Python 경량 웹 프레임워크
     - [SSTI](./Flask/SSTI/README.md) — Server Side Template Injection
         - Contributor: [@positiveWand](https://github.com/positiveWand) | Risk Score: 9.0 (Reproducibility: 75%)
