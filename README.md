@@ -70,7 +70,7 @@
     - [CVE-2017-14849](./Node/CVE-2017-14849/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
         - Contributor: [@ssongk](https://github.com/ssongk) | Risk Score: 7.5 (Reproducibility: 75%)
     - [CVE-2017-14849 (2)](./Node/CVE-2017-14849_2/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
-        - Contributor: [@junwonheo](https://github.com/junwonheo) | Risk Score: 7.5 (Reproducibility: 80%)
+        - Contributor: [@junwonheo](https://github.com/junwonheo) | Risk Score: 7.5 (Reproducibility: 65%)
 
 - **Python** — Python 런타임 환경
     - [CVE-2017-8291](./Python/CVE-2017-8291/README.md) — PIL(Pillow) GhostScript EPS 처리 RCE
