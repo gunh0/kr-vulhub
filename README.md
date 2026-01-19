@@ -45,6 +45,8 @@
 - **GeoServer** — Java 기반 오픈소스 공간 데이터 서버
     - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
         - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | Risk Score: 9.8 (Reproducibility: 65%)
+    - [CVE-2023-25157 (2)](./GeoServer/CVE-2023-25157_2/README.md) — GeoServer OGC 필터 SQL 인젝션
+        - Contributor: [@moooooji](https://github.com/moooooji) | Risk Score: 9.8 (Reproducibility: 60%)
 
 - **HugeGraph** — Apache 기반 오픈소스 그래프 데이터베이스
     - [CVE-2024-43441](./HugeGraph/CVE-2024-43441/README.md) — JWT 비밀 키 하드코딩으로 인한 인증 우회
