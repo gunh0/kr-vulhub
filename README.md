@@ -78,6 +78,10 @@
     - [CVE-2017-14849 (2)](./Node/CVE-2017-14849_2/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
         - Contributor: [@junwonheo](https://github.com/junwonheo) | Risk Score: 7.5 (Reproducibility: 65%)
 
+- **PHP** — 서버 사이드 스크립트 언어
+    - [CVE-2012-1823](./PHP/CVE-2012-1823/README.md) — php-cgi 인자 주입을 통한 원격 코드 실행
+        - Contributor: [@kty121](https://github.com/kty121) | Risk Score: 9.8 (Reproducibility: 80%)
+
 - **Python** — Python 런타임 환경
     - [CVE-2017-8291](./Python/CVE-2017-8291/README.md) — PIL(Pillow) GhostScript EPS 처리 RCE
         - Contributor: [@wjdgnsdl213](https://github.com/wjdgnsdl213) | Risk Score: 9.8 (Reproducibility: 75%)
