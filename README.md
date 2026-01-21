@@ -56,6 +56,10 @@
     - [CVE-2023-38633](./Librsvg/CVE-2023-38633/README.md) — librsvg xi:include 디렉터리 탐색 파일 읽기
         - Contributor: [@EL55](https://github.com/EL55) | Risk Score: 7.5 (Reproducibility: 80%)
 
+- **Libssh** — SSHv2 프로토콜 C 라이브러리
+    - [CVE-2018-10933](./Libssh/CVE-2018-10933/README.md) — libssh 서버 state machine 인증 우회
+        - Contributor: [@hhtboy](https://github.com/hhtboy) | Risk Score: 9.8 (Reproducibility: 75%)
+
 - **MongoExpress** — MongoDB 웹 기반 관리 인터페이스
     - [CVE-2019-10758](./MongoExpress/CVE-2019-10758/README.md) — mongo-express 원격 코드 실행
         - Contributor: [@ilohas0021](https://github.com/ilohas0021) | Risk Score: 9.8 (Reproducibility: 80%)
