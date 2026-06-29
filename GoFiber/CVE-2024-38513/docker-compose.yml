@@ -1,0 +1,15 @@
+services:
+  vulnerable-app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+      network: host
+    container_name: cve-2024-38513-target
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/login"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
