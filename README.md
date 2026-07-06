@@ -116,6 +116,9 @@
     - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
         - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
 
+- **Apache-HTTPD** — Apache HTTP Server
+    - [CVE-2021-42013](./Apache-HTTPD/CVE-2021-42013/README.md) — Apache HTTP Server 2.4.50 Path Traversal 및 CGI RCE
+        - Contributor: [@i-Zer0](https://github.com/i-Zer0) | Risk Score: 9.8
 <br/>
 
 ### Report Evaluation
