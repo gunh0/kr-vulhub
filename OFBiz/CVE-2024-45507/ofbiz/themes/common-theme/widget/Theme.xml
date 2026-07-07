@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<theme name="common"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://ofbiz.apache.org/Widget-Theme" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Theme http://ofbiz.apache.org/dtds/widget-theme.xsd">
+    <visual-themes><!--List of visual theme contains to this theme components-->
+        <visual-theme id="COMMON" display-name="Common Theme">
+            <description>${util:label('CommonThemeUiLabels', 'CommonThemeVisualThemeDescription', locale)}</description>
+            <screenshot location="/images/spinner.gif"/>
+        </visual-theme>
+    </visual-themes>
+    <widget-properties><!--Transversal properties relative to ofbiz widget component-->
+        <default-view-size value="20"/>
+        <autocompleter
+                default-view-size="10"
+                default-min-lenght="2"
+                default-delay="300"
+                display-return-field="true"/>
+        <lookup
+                position="top-left"
+                width="640"
+                height="500"
+                show-description="Y"/>
+        <layered-modal
+                width="800"
+                height="600"/>
+    </widget-properties>
+
+    <theme-properties> <!--specific properties dedicate to this theme -->
+        <!--jgrowl properties-->
+        <property name="jgrowlPosition" value="center" type="String"/><!--possible value: top-left, top-right, bottom-left, bottom-right, center-->
+        <property name="jgrowlWidth" value="800" type="Integer"/>
+        <property name="jgrowlHeight" value="" type="Integer"/>
+        <property name="jgrowlSpeed" value="100" type="Integer"/>
+        <!--templates location-->
+        <property name="VT_SHORTCUT_ICON" value="/images/favicon"/>
+        <property name="VT_HDR_TMPLT_LOC" value="component://flatgrey/template/Header.ftl"/><!--use flatgrey to wait the new design-->
+        <property name="VT_FTR_TMPLT_LOC" value="component://flatgrey/template/Footer.ftl"/>
+        <property name="VT_NAV_TMPLT_LOC" value="component://flatgrey/template/AppBar.ftl"/>
+        <property name="VT_MSG_TMPLT_LOC" value="component://common-theme/template/includes/Messages.ftl"/>
+        <!--javascript libs-->
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/jquery-3.5.1.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/jquery-migrate-3.3.0.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/browser-plugin/jquery.browser-0.1.0.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/select2/js/select2-4.0.6.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/fjTimer/jquerytimer-min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/mask/jquery.mask-1.14.13.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jeditable/jquery.jeditable-1.7.3.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/validate/jquery.validate.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/OpenLayers-5.3.0.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/elrte-1.3/js/elrte.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/dompurify/dist/purify.min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/OfbizUtil.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/fieldlookup.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.format-1.2.3-min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/date.timezone-min.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/miscAjaxFunctions.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/selectMultipleRelatedValues.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/util.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/plugins/jsTree/jquery.jstree.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/jquery/ui/js/jquery.cookie-1.4.0.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/plugins/date/FromThruDateCheck.js"/>
+        <property name="VT_HDR_JAVASCRIPT['add']" value="/common/js/util/application.js"/>
+        <!--Css styles: don't load them since they differ depending on theme -->
+        <property name="VT_STYLESHEET['add']" value="/common/js/jquery/plugins/elrte-1.3/css/elrte.min.css"/>
+        <property name="VT_STYLESHEET['add']" value="/common/js/jquery/ui/jquery-ui-1.12.1.min.css"/>
+        <property name="VT_STYLESHEET['add']" value="/common/js/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-1.6.3.min.css"/>
+        <property name="VT_STYLESHEET['add']" value="/common/js/jquery/plugins/select2/css/select2-4.0.6.css"/>
+    </theme-properties>
+
+    <templates><!-- Freemarker template use by this theme to render widget model-->
+        <template name="screen" type="html" content-type="UTF-8" encoding="none" encoder="html" compress="false">
+            <template-file widget="screen" location="component://common-theme/template/macro/HtmlScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/HtmlFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/HtmlTreeMacroLibrary.ftl"/>
+            <template-file widget="menu" location="component://common-theme/template/macro/HtmlMenuMacroLibrary.ftl"/>
+            <template-file widget="error" location="component://common-theme/template/ErrorPage.ftl"/>
+        </template>
+        <template name="screenxml" type="xml" content-type="UTF-8" encoding="none" encoder="xml">
+            <template-file widget="screen" location="component://common-theme/template/macro/XmlScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/XmlFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/XmlTreeMacroLibrary.ftl"/>
+        </template>
+        <template name="screenxls" type="xls" content-type="application/vnd.ms-excel" encoding="none" encoder="html">
+            <template-file widget="screen" location="component://common-theme/template/macro/XlsScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/XlsFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/XlsTreeMacroLibrary.ftl"/>
+        </template>
+        <template name="screenfop" type="xsl-fo" content-type="application/pdf" encoding="none">
+            <template-file widget="screen" location="component://common-theme/template/macro/FoScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/FoFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/FoTreeMacroLibrary.ftl"/>
+        </template>
+        <template name="screentext" type="text" content-type="UTF-8" encoding="none">
+            <template-file widget="screen" location="component://common-theme/template/macro/TextScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/TextFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/TextTreeMacroLibrary.ftl"/>
+        </template>
+        <template name="screencsv" type="csv" content-type="UTF-8" encoding="none">
+            <template-file widget="screen" location="component://common-theme/template/macro/CsvScreenMacroLibrary.ftl"/>
+            <template-file widget="form" location="component://common-theme/template/macro/CsvFormMacroLibrary.ftl"/>
+            <template-file widget="tree" location="component://common-theme/template/macro/CsvTreeMacroLibrary.ftl"/>
+        </template>
+    </templates>
+
+    <common-screens><!--list all common screen and decorator global to each application that each theme can be surcharge or not and use the screen present on common theme-->
+        <root-decorator default-location="component://common-theme/widget/CommonScreens.xml">
+            <screen name="AjaxGlobalDecorator"/>
+            <screen name="ajaxAutocompleteOptions"/>
+            <screen name="GlobalActions"/>
+            <screen name="GlobalDecorator"/>
+            <screen name="LookupDecorator"/>
+            <screen name="SimpleDecorator"/>
+            <screen name="FoReportDecorator"/>
+            <screen name="GlobalFoDecorator"/>
+            <screen name="LookupHelpDecorator" location="component://common-theme/widget/HelpScreens.xml"/>
+        </root-decorator>
+        <subtype-decorator default-location="component://common-theme/widget/CommonScreens.xml">
+            <screen name="FindScreenDecorator"/>
+        </subtype-decorator>
+        <generic-screen default-location="component://common-theme/widget/CommonScreens.xml">
+            <screen name="geoChart"/>
+            <screen name="EventMessages"/>
+            <screen name="countries"/>
+            <screen name="states"/>
+            <screen name="cctypes"/>
+            <screen name="ccmonths"/>
+            <screen name="ccyears"/>
+            <screen name="genericLink"/>
+            <screen name="ajaxAutocompleteOptions"/>
+            <screen name="FoError"/>
+            <screen name="login"/>
+            <screen name="impersonated"/>
+            <screen name="ajaxNotLoggedIn"/>
+            <screen name="requirePasswordChange"/>
+            <screen name="forgotPassword"/>
+            <screen name="GetUiLabels"/>
+            <screen name="help"/>
+            <screen name="viewBlocked"/>
+            <screen name="TimeDuration" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="ListVisualThemes" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="ListSetCompanies" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="ListLocales" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="ListTimezones" location="component://common-theme/widget/LookupScreens.xml"/>
+            <screen name="showDocumentHelp" location="component://common-theme/widget/HelpScreens.xml"/>
+            <screen name="navigateHelp" location="component://common-theme/widget/HelpScreens.xml"/>
+            <screen name="ShowHelp" location="component://common-theme/widget/HelpScreens.xml"/>
+        </generic-screen>
+    </common-screens>
+    <common-menus><!--list all common menu to each application that each theme can be surcharge or not and use the menu present on common theme-->
+        <root-decorator default-location="component://common-theme/widget/CommonMenus.xml">
+            <menu name="CommonAppBarMenu"/>
+            <menu name="CommonTabBarMenu"/>
+            <menu name="CommonButtonBarMenu"/>
+            <menu name="CommonInlineBarMenu"/>
+        </root-decorator>
+    </common-menus>
+</theme>
