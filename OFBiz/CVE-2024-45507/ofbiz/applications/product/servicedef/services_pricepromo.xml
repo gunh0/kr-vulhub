@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>Product Component Services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Product Price Services -->
+    <service name="calculateProductPrice" engine="java"
+                location="org.apache.ofbiz.product.price.PriceServices" invoke="calculateProductPrice" auth="false" use-transaction="false">
+        <description>Calculate a Product's Price from ProductPriceRules</description>
+        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreGroupId" type="String" mode="IN" optional="true"/>
+        <attribute name="agreementId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="currencyUomIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="productPricePurposeId" type="String" mode="IN" optional="true"><!-- defaults to PURCHASE --></attribute>
+        <attribute name="termUomId" type="String" mode="IN" optional="true"><!-- if specified ProductPrice records will be filtered by this, ensures for purposes like recurring prices that only the recurring term desired is taken into consideration --></attribute>
+        <attribute name="autoUserLogin" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="checkIncludeVat" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N --></attribute>
+        <attribute name="findAllQuantityPrices" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N; see the allQuantityPrices attribute for more details --></attribute>
+        <attribute name="surveyResponseId" type="String" mode="IN" optional="true"/>
+        <attribute name="customAttributes" type="Map" mode="IN" optional="true"/>
+        <attribute name="basePrice" type="BigDecimal" mode="OUT" optional="false"><!-- will only be different from price if there is a display price adjustment, for example: checkIncludeVat=Y and a VAT amount was found --></attribute>
+        <attribute name="price" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="listPrice" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="defaultPrice" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="competitivePrice" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="averageCost" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="promoPrice" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="specialPromoPrice" type="BigDecimal" mode="OUT" optional="true"><!-- used for the Product [Special Promo] Type ProductPromo Action --></attribute>
+        <attribute name="isSale" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="currencyUsed" type="String" mode="OUT" optional="false"/>
+        <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>
+        <attribute name="allQuantityPrices" type="java.util.List" mode="OUT" optional="true">
+            <!-- Populated when findAllQuantityPrices is Y;
+                is a List of Map where each Map has all other return attributes normally created for a price calculation;
+                each Map in the List will also contain a field called "quantityProductPriceRule" with the GenericValue object representing the ProductPriceRule with the quantity condition that the List entry is based on
+            -->
+        </attribute>
+        <attribute name="optimizeForLargeRuleSet" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createProductPriceRule" default-entity-name="ProductPriceRule" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPriceRule</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="ruleName" optional="false" allow-html="safe"/>
+    </service>
+    <service name="updateProductPriceRule" default-entity-name="ProductPriceRule" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPriceRule</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="ruleName" optional="false" allow-html="safe"/>
+    </service>
+    <service name="deleteProductPriceRule" default-entity-name="ProductPriceRule" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPriceRule</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
+                location="component://product/minilang/product/price/PriceServices.xml" invoke="createProductPriceCond" auth="true">
+        <description>Create a ProductPriceCond</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="condValueInput" type="String" mode="IN" optional="true"></attribute>
+        <override name="productPriceCondSeqId" mode="OUT"/>
+    </service>
+    <service name="updateProductPriceCond" default-entity-name="ProductPriceCond" engine="simple"
+                location="component://product/minilang/product/price/PriceServices.xml" invoke="updateProductPriceCond" auth="true">
+        <description>Update a ProductPriceCond</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="condValueInput" type="String" mode="IN" optional="true"></attribute>
+    </service>
+    <service name="deleteProductPriceCond" default-entity-name="ProductPriceCond" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPriceCond</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPriceAction" default-entity-name="ProductPriceAction" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPriceAction</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productPriceActionSeqId" mode="OUT"/>
+    </service>
+    <service name="updateProductPriceAction" default-entity-name="ProductPriceAction" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPriceAction</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPriceAction" default-entity-name="ProductPriceAction" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPriceAction</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Product Promotion Services -->
+    <service name="createProductPromo" default-entity-name="ProductPromo" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="promoName" optional="false"/>
+        <override name="promoText" allow-html="safe"/>
+        <override name="userEntered" default-value="Y"/>
+    </service>
+    <service name="updateProductPromo" default-entity-name="ProductPromo" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="promoText" allow-html="safe"/>
+        <override name="userEntered" default-value="Y"/>
+    </service>
+    <service name="deleteProductPromo" default-entity-name="ProductPromo" engine="entity-auto" invoke="delete" auth="true">
+        <!-- TODO: if a force remove flag is passed, remove related info first, maybe just rules, store assocs, etc -->
+        <description>Delete a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPromoAction" default-entity-name="ProductPromoAction" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productPromoActionSeqId" mode="OUT"/>
+        <override name="customMethodId" optional="false" />
+    </service>
+    <service name="updateProductPromoAction" default-entity-name="ProductPromoAction" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPromoAction" default-entity-name="ProductPromoAction" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPromoCategory" default-entity-name="ProductPromoCategory" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPromoCategory</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductPromoCategory" default-entity-name="ProductPromoCategory" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPromoCategory</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPromoCategory" default-entity-name="ProductPromoCategory" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPromoCategory</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPromoCode" default-entity-name="ProductPromoCode" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPromoCode</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductPromoCode" default-entity-name="ProductPromoCode" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPromoCode</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPromoCode" default-entity-name="ProductPromoCode" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPromoCode</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createBulkProductPromoCode" engine="java"
+            location="org.apache.ofbiz.product.promo.PromoServices" invoke="importPromoCodesFromFile" auth="true">
+        <description>Creates several ProductPromoCode from an uploaded list of promo codes (one code per line)</description>
+        <implements service="uploadFileInterface"/>
+        <auto-attributes mode="IN" entity-name="ProductPromoCode" include="nonpk" optional="true"/>
+    </service>
+
+    <service name="createProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPromoCodeEmail</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPromoCodeEmail</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="createBulkProductPromoCodeEmail" engine="java"
+                location="org.apache.ofbiz.product.promo.PromoServices" invoke="importPromoCodeEmailsFromFile" auth="true">
+        <description>Create several ProductPromoCodeEmail from an uploaded list of emails (one address per line)</description>
+        <implements service="uploadFileInterface"/>
+        <attribute name="productPromoCodeId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPromoCodeParty</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPromoCodeParty</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPromoCodeSet" default-entity-name="ProductPromoCode" engine="java"
+            location="org.apache.ofbiz.product.promo.PromoServices" invoke="createProductPromoCodeSet" auth="true">
+        <description>Create a Product Promo Code Set</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true">
+            <exclude field-name="createdDate"/>
+            <exclude field-name="createdByUserLogin"/>
+            <exclude field-name="lastModifiedDate"/>
+            <exclude field-name="lastModifiedByUserLogin"/>
+        </auto-attributes>
+        <attribute name="quantity" type="Long" mode="IN" optional="false"/>
+        <attribute name="codeLength" type="Integer" mode="IN" optional="true" default-value="8"/>
+        <attribute name="promoCodeLayout" type="String" mode="IN" optional="true" default-value="sequence"/>
+    </service>
+
+    <service name="createProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
+                location="component://product/minilang/product/promo/PromoServices.xml" invoke="createProductPromoCond" auth="true">
+        <description>Create a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="carrierShipmentMethod" type="String" mode="IN" optional="true"/>
+        <override name="productPromoCondSeqId" mode="OUT"/>
+    </service>
+    <service name="updateProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
+                location="component://product/minilang/product/promo/PromoServices.xml" invoke="updateProductPromoCond" auth="true">
+        <description>Update a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="carrierShipmentMethod" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPromoCond" default-entity-name="ProductPromoCond" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPromoProduct" default-entity-name="ProductPromoProduct" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPromoProduct</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateProductPromoProduct" default-entity-name="ProductPromoProduct" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPromoProduct</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPromoProduct" default-entity-name="ProductPromoProduct" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPromoProduct</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createProductPromoRule" default-entity-name="ProductPromoRule" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+        <override name="productPromoRuleId" mode="OUT"/>
+    </service>
+    <service name="updateProductPromoRule" default-entity-name="ProductPromoRule" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="false"/>
+    </service>
+    <service name="deleteProductPromoRule" default-entity-name="ProductPromoRule" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPromo</description>
+        <permission-service service-name="productPriceGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="calculatePurchasePrice" engine="java"
+                location="org.apache.ofbiz.product.price.PriceServices" invoke="calculatePurchasePrice" auth="false" use-transaction="false">
+        <description>Calculate a Product's Purchase Price</description>
+        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="agreementId" type="String" mode="IN" optional="true"/>
+
+        <attribute name="price" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
+        <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="getAssociatedPriceRulesConds" engine="simple" auth="false"
+        location="component://product/minilang/product/price/PriceServices.xml" invoke="getAssociatedPriceRulesConds">
+        <description>Set the Value options for selected Price Rule Condition Input</description>
+        <attribute name="inputParamEnumId" mode="IN" type="String"/>
+        <attribute name="productPriceRulesCondValues" mode="OUT" type="java.util.List" optional="true"/><!-- optional="true" because of quantity or other kind of fiels needing an input -->
+    </service>
+
+    <!-- ProductPriceActionType services -->
+    <service name="createProductPriceActionType" default-entity-name="ProductPriceActionType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPriceActionType</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductPriceActionType" default-entity-name="ProductPriceActionType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPriceActionType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPriceActionType" default-entity-name="ProductPriceActionType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPriceActionType</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductPriceAutoNotice services -->
+    <service name="createProductPriceAutoNotice" default-entity-name="ProductPriceAutoNotice" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a ProductPriceAutoNotice</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+    </service>
+    <service name="updateProductPriceAutoNotice" default-entity-name="ProductPriceAutoNotice" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a ProductPriceAutoNotice</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteProductPriceAutoNotice" default-entity-name="ProductPriceAutoNotice" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a ProductPriceAutoNotice</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ProductPricePromoCond services -->
+    <service name="interfaceProductPromoCond" engine="interface" location="" invoke="">
+        <attribute name="productPromoCond" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
+        <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
+        <attribute name="directResult" type="Boolean" mode="OUT" optional="true"/>
+        <attribute name="compareBase" type="Integer" mode="OUT" optional="true"/>
+        <attribute name="operatorEnumId" type="String" mode="OUT" optional="true"/>
+    </service>
+    <service name="productPromoCondProductAmount" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productAmount">
+        <description>Product promo condition service on the product amount</description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondProductTotal" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productTotal">
+        <description>Product promo condition service on the product Total</description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondProductQuant" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productQuant">
+        <description>Product promo condition service on quantity </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondNewACCT" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productNewACCT">
+        <description>Product promo condition service on Account Days Since Created </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondPartyID" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productPartyID">
+        <description>Product promo condition service on party ID </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondPartyGM" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productPartyGM">
+        <description>Product promo condition service on party group member </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondPartyClass" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productPartyClass">
+        <description>Product promo condition service on party Classification </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondRoleType" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productRoleType">
+        <description>Product promo condition service on role type </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondGeoID" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productGeoID">
+        <description>Product promo condition service on shipping destination </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondOrderTotal" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productOrderTotal">
+        <description>Product promo condition service on cart sub-total </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondOrderHist" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productOrderHist">
+        <description>Product promo condition service on Order sub-total X in last Y Months </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondOrderYear" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productOrderYear">
+        <description>Product promo condition service on Order sub-total X since beginning of current year </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondOrderLastYear" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productOrderLastYear">
+        <description>Product promo condition service on Order sub-total X last year </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondPromoRecurrence" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productPromoRecurrence">
+        <description>Product promo condition service on promotion recurrence </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondOrderShipTotal" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productShipTotal">
+        <description>Product promo condition service on promotion recurrence </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondListPriceMinAmount" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productListPriceMinAmount">
+        <description>Product promo condition service on shipping total </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+    <service name="productPromoCondListPriceMinPercent" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoCondServices.groovy" invoke="productListPriceMinPercent">
+        <description>Product promo condition service on shipping total </description>
+        <implements service="interfaceProductPromoCond"/>
+    </service>
+
+    <!-- ProductPricePromoAction services -->
+    <service name="interfaceProductPromoAction" engine="interface" location="" invoke="">
+        <attribute name="productPromoAction" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
+        <attribute name="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN"/>
+        <attribute name="nowTimestamp" type="Timestamp" mode="IN"/>
+        <attribute name="actionResultInfo" type="org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker$ActionResultInfo" mode="INOUT" />
+        <attribute name="cartItemModifyException" type="org.apache.ofbiz.order.shoppingcart.CartItemModifyException" mode="OUT" optional="true"/>
+    </service>
+    <service name="productPromoActGiftGWP" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productGWP">
+        <description>Product promo Action gift with purchase </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActFreeShip" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productActFreeShip">
+        <description>Product promo Action free shipping </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActProdDISC" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productDISC">
+        <description>Product promo Action product discount % </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActProdAMDISC" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productAMDISC">
+        <description>Product promo Action product discount </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActProdPrice" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productPrice">
+        <description>Product promo Action product price </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActOrderPercent" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productOrderPercent">
+        <description>Product promo Action order percent </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActOrderAmount" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productOrderAmount">
+        <description>Product promo Action order amount </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActProdSpecialPrice" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productSpecialPrice">
+        <description>Product promo Action product special price </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActTaxPercent" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productTaxPercent">
+        <description>Product promo Action product tax percent </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+    <service name="productPromoActShipCharge" engine="groovy" auth="false"
+            location="component://product/groovyScripts/product/promo/ProductPromoActionServices.groovy" invoke="productShipCharge">
+        <description>Product promo Action product shipping charge </description>
+        <implements service="interfaceProductPromoAction"/>
+    </service>
+</services>
