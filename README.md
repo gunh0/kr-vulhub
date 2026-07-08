@@ -118,7 +118,7 @@
 
 - **WordPress** — PHP 기반 오픈소스 콘텐츠 관리 시스템
     - [CVE-2024-27956](./WordPress/CVE-2024-27956/README.md) — WordPress Automatic Plugin SQL Injection
-        - Contributor: [@kimwm5377](https://github.com/kimwm5377) | Risk Score: 9.8 (Reproducibility: 90%)
+        - Contributor: [@kimwm5377](https://github.com/kimwm5377) | Risk Score: 9.8
 
 <br/>
 
