@@ -1,0 +1,18 @@
+#!/usr/bin/env -S php -d phar.readonly=0
+<?php
+
+error_reporting(E_ALL);
+
+require_once('lib/PHPGGC.php');
+
+$x = new PHPGGC();
+
+try
+{
+    $x->generate();
+}
+catch(\PHPGGC\Exception $e)
+{
+    print("ERROR: " . $e->getMessage() . "\n");
+    exit(1);
+}
