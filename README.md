@@ -35,6 +35,8 @@
         - Contributor: [@Tjdmin1](https://github.com/Tjdmin1) | Risk Score: 9.8 (Reproducibility: 75%)
 
 - **Flask** — Python 경량 웹 프레임워크
+    - [CVE-2025-47278](./Flask/CVE-2025-47278/README.md) — fallback key가 현재 키 대신 새 세션 서명에 사용되는 취약점
+        - Contributor: [@hkksi](https://github.com/hkksi) | Risk Score: 1.8 (Reproducibility: 100%)
     - [SSTI](./Flask/SSTI/README.md) — Server Side Template Injection
         - Contributor: [@positiveWand](https://github.com/positiveWand) | Risk Score: 9.0 (Reproducibility: 75%)
 
