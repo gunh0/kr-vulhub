@@ -116,6 +116,10 @@
     - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
         - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
 
+- **WordPress** — PHP 기반 오픈소스 콘텐츠 관리 시스템
+    - [CVE-2021-29447](./WordPress/CVE-2021-29447/README.md) — WordPress 미디어 라이브러리 인증된 XXE
+        - Contributor: [@Doyoun510](https://github.com/Doyoun510) | Risk Score: 7.1 (Reproducibility: 85%)
+
 <br/>
 
 ### Report Evaluation
