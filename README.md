@@ -10,6 +10,10 @@
 
 ### Table of Contents
 
+- **aiohttp** — Python 비동기 HTTP 클라이언트/서버 프레임워크
+    - [CVE-2024-23334](./Aiohttp/CVE-2024-23334/README.md) — `follow_symlinks=True` 정적 파일 경로 탐색
+        - Contributor: [@SoliShim](https://github.com/SoliShim) | Risk Score: 7.5 (Reproducibility: 100%)
+
 - **ActiveMQ** — Java 기반 오픈소스 메시지 브로커
     - [CVE-2016-3088](./ActiveMQ/CVE-2016-3088/README.md) — ActiveMQ fileserver 임의 파일 쓰기 → RCE
         - Contributor: [@Roronoawjd](https://github.com/Roronoawjd) | Risk Score: 9.8 (Reproducibility: 75%)
