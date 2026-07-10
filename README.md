@@ -51,6 +51,8 @@
 - **HugeGraph** — Apache 기반 오픈소스 그래프 데이터베이스
     - [CVE-2024-43441](./HugeGraph/CVE-2024-43441/README.md) — JWT 비밀 키 하드코딩으로 인한 인증 우회
         - Contributor: [@HanTul](https://github.com/HanTul) | Risk Score: 9.8 (Reproducibility: 85%)
+    - [CVE-2024-43441 (2)](./HugeGraph/CVE-2024-43441_2/README.md) — JWT 하드코딩 기본 시크릿 인증 우회 (외부 이미지 없이 공식 릴리스 직접 빌드하는 self-contained 재구성)
+        - Contributor: [@yejunkim2000](https://github.com/yejunkim2000) | Risk Score: 9.8 (Reproducibility: 100%)
 
 - **Librsvg** — GNOME SVG 렌더링 라이브러리
     - [CVE-2023-38633](./Librsvg/CVE-2023-38633/README.md) — librsvg xi:include 디렉터리 탐색 파일 읽기
