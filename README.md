@@ -68,6 +68,10 @@
     - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) — MySQL Authentication Bypass
         - Contributor: [@baethwjd2](https://github.com/baethwjd2) | Risk Score: 7.0 (Reproducibility: 70%)
 
+- **Nacos** — Alibaba 동적 서비스 디스커버리 / 설정관리 플랫폼
+    - [CVE-2021-29441](./Nacos/CVE-2021-29441/README.md) — Nacos AuthFilter User-Agent 검증 인증 우회
+        - Contributor: [@typemnm](https://github.com/typemnm) | Risk Score: 9.8 (Reproducibility: 90%)
+
 - **Next.js** — React 기반 풀스택 웹 프레임워크
     - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) — Next.js 미들웨어 인가 우회
         - Contributor: [@idealinsane](https://github.com/idealinsane) | Risk Score: 9.1 (Reproducibility: 85%)
