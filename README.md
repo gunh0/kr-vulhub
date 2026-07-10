@@ -13,6 +13,8 @@
 - **ActiveMQ** — Java 기반 오픈소스 메시지 브로커
     - [CVE-2016-3088](./ActiveMQ/CVE-2016-3088/README.md) — ActiveMQ fileserver 임의 파일 쓰기 → RCE
         - Contributor: [@Roronoawjd](https://github.com/Roronoawjd) | Risk Score: 9.8 (Reproducibility: 75%)
+    - [CVE-2023-46604](./ActiveMQ/CVE-2023-46604/README.md) — ActiveMQ OpenWire 역직렬화 원격 코드 실행(RCE)
+        - Contributor: [@yejunkim2000](https://github.com/yejunkim2000) | Risk Score: 9.8 (Reproducibility: 100%)
 
 - **CouchDB** — Erlang 기반 오픈소스 문서 지향 NoSQL 데이터베이스
     - [CVE-2017-12635](./CouchDB/CVE-2017-12635/README.md) — CouchDB JSON 파서 불일치를 이용한 원격 권한 상승
