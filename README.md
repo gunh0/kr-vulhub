@@ -116,6 +116,10 @@
     - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
         - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
 
+- **vm2** — Node.js용 오픈소스 VM/샌드박스 라이브러리
+    - [CVE-2026-45411](./vm2/CVE-2026-45411/README.md) — 비동기 제너레이터 yield* 위임 남용을 통한 샌드박스 탈출 RCE
+        - Contributor: [@jeongjihyunn](https://github.com/jeongjihyunn) | Risk Score: 9.8 (Reproducibility: 90%)
+
 <br/>
 
 ### Report Evaluation
