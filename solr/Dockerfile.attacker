@@ -1,0 +1,10 @@
+FROM python:3.11-slim-bookworm
+#3.11-slim 태그이름이 바뀔수도 있다해서 bookworm 태그 사용해 확실하게함
+
+RUN apt-get update && apt-get install -y curl netcat-openbsd && pip install requests
+
+WORKDIR /root
+COPY poc.py .
+
+#nc 연결 대기
+CMD ["nc", "-lvnk", "4444"]
