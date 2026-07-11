@@ -107,6 +107,8 @@
         - Contributor: [@ye11oc4t](https://github.com/ye11oc4t) | Risk Score: 8.1 (Reproducibility: 80%)
     - [CVE-2019-0230](./Struts2/CVE-2019-0230/README.md) — Struts2 S2-059 OGNL 표현식 주입 RCE
         - Contributor: [@hy30nq](https://github.com/hy30nq) | Risk Score: 9.8 (Reproducibility: 80%)
+    - [CVE-2023-50164](./Struts2/CVE-2023-50164/README.md) — Struts2 파일 업로드 경로 조작 RCE
+        - Contributor: [@taehyeon-git](https://github.com/taehyeon-git) | Risk Score: 9.8 (Reproducibility: 90%)
 
 - **Tiki Wiki** — PHP 기반 오픈소스 CMS / Wiki
     - [CVE-2020-15906](./TikiWiki/CVE-2020-15906/README.md) — TikiWiki CMS Authentication Bypass → RCE
