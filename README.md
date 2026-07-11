@@ -60,6 +60,10 @@
     - [CVE-2018-10933](./Libssh/CVE-2018-10933/README.md) — libssh 서버 state machine 인증 우회
         - Contributor: [@hhtboy](https://github.com/hhtboy) | Risk Score: 9.8 (Reproducibility: 75%)
 
+- **Log4Shell** — Java 기반 로깅 라이브러리 Apache Log4j2
+  - [CVE-2021-44228](https://github.com/gunh0/kr-vulhub/blob/main/Log4Shell/CVE-2021-44228/README.md) — Log4j2 JNDI Injection → RCE
+    - Contributor: [@susan0606](https://github.com/susan0606) | Risk Score: 10.0 (Reproducibility: 85%)
+
 - **MongoExpress** — MongoDB 웹 기반 관리 인터페이스
     - [CVE-2019-10758](./MongoExpress/CVE-2019-10758/README.md) — mongo-express 원격 코드 실행
         - Contributor: [@ilohas0021](https://github.com/ilohas0021) | Risk Score: 9.8 (Reproducibility: 80%)
