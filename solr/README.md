@@ -6,17 +6,16 @@ contributors : 허찬영(https://github.com/whatever0356)
 
 # 1. CVE-2019-0193 취약점
 
-apapch solr 는 오픈소스 검색 플랫폼이다. 8983포트에서 관리자 UI 및 API를 인증없이 제공한다.
+Apache Solr는 Apache Lucene 기반의 오픈소스 검색 플랫폼이다. 
+8983 포트에서 관리자 UI 및 REST API를 별도 인증 없이 제공한다.
+DataImportHandler는 외부 데이터를 Solr로 가져오기 위한 모듈이다. 기본적으로 설치되어있는 모듈은 아니지만 많이 사용되는 모듈이다.
+Apache Solr 8.2.0 미만 버전에서는 인증 없이 접근 가능한 관리자 UI/API를 통해 DIH의 디버그 모드를 사용할 수 있다. 이 모드에서는 HTTP 요청의 dataConfig 파라미터로 DIH 설정 XML 전체를 직접 전달할 수 있다.
+이때 공격자가 전달하는 dataConfig XML에는 script 태그가 포함될 수 있다. 여기에 포함된 스크립트는 Nashorn JavaScript 엔진에서 실행되는데, Nashorn은 Java 클래스에 직접 접근하여 Runtime.getRuntime().exec()를 호출해 서버에서 임의의 OS 명령을 실행할 수 있다.
+취약점 재현을 위해서는 다음 조건이 모두 충족되어야 한다.
 
-dataimporthandler 는 외부 데이터를 solr 인텍스로 가져오기위한 모듈이다. Apache Solr 8.2.0 미만 버전에서는 파라미터를 통해 인증없이 디버그모드를 사용 가능하다.
-
-이 설정 안의 script 태그는 Nashorn JavaScript 엔진에서 실행되며, Nashorn은 Java.lang.Runtime 등 Java 클래스에 접근 가능하므로 Runtime.exec() 를 호출해 OS 명령을 실행시킬 수 있다.
-
-취약점 재현을 위해서는 다음과 같은 조건이 필요하다.
-
-1. apach solr 버전이 8.2.0 미만이어야하고 
-2. dataimport 핸들러가 등록되어있어야하며 
-3. 대상네트워크 8983번 포트에 접근가능하며 별도 인증이 없어야한다.
+1. Apache Solr 버전이 8.2.0 미만일 것 (또는 8.2.0 이상이라도 -Denable.dih.dataConfigParam=true가 설정되어 있을 것)
+2. DataImportHandler가 등록된 core가 존재할 것
+3. 대상 네트워크의 8983 포트에 접근 가능하고, 별도의 인증이 적용되어 있지 않을 것
 
 # 2. 환경 구성
 
