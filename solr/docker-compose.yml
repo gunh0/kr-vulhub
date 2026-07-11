@@ -1,0 +1,18 @@
+services:
+  solr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: target
+    ports:
+      - "8983:8983"
+
+  attacker:
+    build:
+      context: .
+      dockerfile: Dockerfile.attacker
+    container_name: attacker
+    depends_on:
+      - solr
+    tty: true
+    stdin_open: true
