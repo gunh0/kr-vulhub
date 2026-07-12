@@ -4,7 +4,7 @@
 
 취약한 도커 환경을 구축하여, 이해도를 높이고, 실습을 통해 보안 기술을 익히는 것을 목표로 합니다.
 
-[Vulhub](https://github.com/vulhub/vulhub) (<https://vulhub.org/>) 을 참고하여, 다양한 컨테이너 기반의 취약한 환경을 구축합니다.
+[Vulhub](https://github.com/vulhub/vulhub) (<https://vulhub.org/\>\) 을 참고하여, 다양한 컨테이너 기반의 취약한 환경을 구축합니다.
 
 <br/>
 
@@ -81,6 +81,8 @@
         - Contributor: [@ssongk](https://github.com/ssongk) | Risk Score: 7.5 (Reproducibility: 75%)
     - [CVE-2017-14849 (2)](./Node/CVE-2017-14849_2/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
         - Contributor: [@junwonheo](https://github.com/junwonheo) | Risk Score: 7.5 (Reproducibility: 65%)
+    - [CVE-2021-21315](./Node/CVE-2021-21315/README.md) — systeminformation 배열 파라미터 필터 우회를 통한 커맨드 인젝션(RCE)
+        - Contributor: [@sua-h-lee](https://github.com/sua-h-lee) | Risk Score: 9.8 (Reproducibility: 90%)
 
 - **PHP** — 서버 사이드 스크립트 언어
     - [CVE-2012-1823](./PHP/CVE-2012-1823/README.md) — php-cgi 인자 주입을 통한 원격 코드 실행
