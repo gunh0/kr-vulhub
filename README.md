@@ -10,6 +10,10 @@
 
 ### Table of Contents
 
+
+- **Apache** - HTTP Server / reverse proxy
+    - [CVE-2021-40438](./Apache/CVE-2021-40438/README.md) - Apache HTTP Server mod_proxy SSRF
+        - Contributor: [@Potatonion](https://github.com/Potatonion) | Risk Score: 9.0 (Reproducibility: 90%)
 - **ActiveMQ** — Java 기반 오픈소스 메시지 브로커
     - [CVE-2016-3088](./ActiveMQ/CVE-2016-3088/README.md) — ActiveMQ fileserver 임의 파일 쓰기 → RCE
         - Contributor: [@Roronoawjd](https://github.com/Roronoawjd) | Risk Score: 9.8 (Reproducibility: 75%)
