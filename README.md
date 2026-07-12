@@ -82,6 +82,10 @@
     - [CVE-2017-14849 (2)](./Node/CVE-2017-14849_2/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
         - Contributor: [@junwonheo](https://github.com/junwonheo) | Risk Score: 7.5 (Reproducibility: 65%)
 
+- **OpenSSL** — TLS/SSL 및 암호화 라이브러리
+    - [CVE-2022-0778](./OpenSSL/CVE-2022-0778/README.md) — BN_mod_sqrt() 무한 루프를 통한 서비스 거부
+        - Contributor: [@openaisetone-hash](https://github.com/openaisetone-hash) | Risk Score: 7.5 (Reproducibility: 100%)
+
 - **PHP** — 서버 사이드 스크립트 언어
     - [CVE-2012-1823](./PHP/CVE-2012-1823/README.md) — php-cgi 인자 주입을 통한 원격 코드 실행
         - Contributor: [@kty121](https://github.com/kty121) | Risk Score: 9.8 (Reproducibility: 80%)
