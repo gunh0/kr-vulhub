@@ -1,0 +1,7 @@
+Set-Content -Path .\docker-compose.yml -Value @"
+services:
+  php:
+    image: vulhub/php:5.4.1-cgi
+    ports:
+      - "8081:80"
+"@
