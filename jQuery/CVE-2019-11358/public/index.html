@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile Service</title>
+</head>
+<body>
+  <h1>프로필</h1>
+  <p>jQuery version: <span id="jquery-version">확인 중</span></p>
+
+  <form id="profile-form">
+    <p>
+      <label for="name">이름</label><br>
+      <input id="name" name="name" value="guest" required maxlength="50">
+    </p>
+    <p>
+      <label for="bio">소개</label><br>
+      <textarea id="bio" name="bio" rows="4" cols="40" maxlength="500">기본 공개 프로필입니다.</textarea>
+    </p>
+    <button type="submit">프로필 저장</button>
+  </form>
+
+  <p>
+    <button id="export-button" type="button">공개 프로필 확인</button>
+    <button id="reset-button" type="button">초기화</button>
+  </p>
+
+  <p id="status">대기 중</p>
+  <pre id="result"></pre>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>
