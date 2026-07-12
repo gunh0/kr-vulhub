@@ -12,7 +12,7 @@
 
 - **Apache HTTP Server** — HTTP 웹 서버
     - [CVE-2021-41773](./Apache/CVE-2021-41773/README.md) — Path Traversal 및 CGI 기반 RCE
-        - Contributor: [@uni0790](https://github.com/uni0790) | Risk Score: 9.8 (Reproducibility: 85%)
+        - Contributor: [@acr0209-eng](https://github.com/acr0209-eng) | Risk Score: 9.8 (Reproducibility: 85%)
 
 - **ActiveMQ** — Java 기반 오픈소스 메시지 브로커
     - [CVE-2016-3088](./ActiveMQ/CVE-2016-3088/README.md) — ActiveMQ fileserver 임의 파일 쓰기 → RCE
