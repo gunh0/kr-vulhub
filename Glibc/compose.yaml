@@ -1,0 +1,13 @@
+services:
+  looney-tunables:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    platform: linux/amd64
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,noexec,size=16m
+    cap_drop:
+      - ALL
+    pids_limit: 64
+    network_mode: none
