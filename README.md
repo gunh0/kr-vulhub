@@ -90,6 +90,10 @@
     - [CVE-2017-8291](./Python/CVE-2017-8291/README.md) — PIL(Pillow) GhostScript EPS 처리 RCE
         - Contributor: [@wjdgnsdl213](https://github.com/wjdgnsdl213) | Risk Score: 9.8 (Reproducibility: 75%)
 
+- **Rails** — Ruby 기반 웹 애플리케이션 프레임워크
+    - [CVE-2019-5418](./Rails/CVE-2019-5418/README.md) — Action View `Accept` 헤더 조작을 통한 임의 파일 읽기
+        - Contributor: [@haSuroad](https://github.com/haSuroad) | Risk Score: 7.5 (Reproducibility: 90%)
+
 - **Redis** — 인메모리 키-값 데이터베이스
     - [CVE-2022-0543](./Redis/CVE-2022-0543/README.md) — Lua 샌드박스 탈출을 통한 원격 코드 실행
         - Contributor: [@yeo0n](https://github.com/yeo0n) | Risk Score: 10.0 (Reproducibility: 65%)
