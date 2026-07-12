@@ -90,6 +90,10 @@
     - [CVE-2017-8291](./Python/CVE-2017-8291/README.md) — PIL(Pillow) GhostScript EPS 처리 RCE
         - Contributor: [@wjdgnsdl213](https://github.com/wjdgnsdl213) | Risk Score: 9.8 (Reproducibility: 75%)
 
+- **PyJWT** — Python JSON Web Token 구현체
+    - [CVE-2022-29217](./PyJWT/CVE-2022-29217/README.md) — 공개키 형식 검증 누락을 이용한 JWT 알고리즘/키 혼동 인증 우회
+        - Contributor: [@han122400](https://github.com/han122400) | Risk Score: 7.5 (Reproducibility: 90%)
+
 - **Redis** — 인메모리 키-값 데이터베이스
     - [CVE-2022-0543](./Redis/CVE-2022-0543/README.md) — Lua 샌드박스 탈출을 통한 원격 코드 실행
         - Contributor: [@yeo0n](https://github.com/yeo0n) | Risk Score: 10.0 (Reproducibility: 65%)
