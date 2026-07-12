@@ -89,6 +89,8 @@
 - **Python** — Python 런타임 환경
     - [CVE-2017-8291](./Python/CVE-2017-8291/README.md) — PIL(Pillow) GhostScript EPS 처리 RCE
         - Contributor: [@wjdgnsdl213](https://github.com/wjdgnsdl213) | Risk Score: 9.8 (Reproducibility: 75%)
+    - [CVE-2024-23334](./Python/CVE-2024-23334/README.md) — aiohttp static route 디렉터리 트래버설
+        - Contributor: [@heechan](https://github.com/heechan) | Risk Score: 7.5 (Reproducibility: 90%)
 
 - **Redis** — 인메모리 키-값 데이터베이스
     - [CVE-2022-0543](./Redis/CVE-2022-0543/README.md) — Lua 샌드박스 탈출을 통한 원격 코드 실행
