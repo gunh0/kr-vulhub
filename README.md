@@ -69,6 +69,8 @@
         - Contributor: [@baethwjd2](https://github.com/baethwjd2) | Risk Score: 7.0 (Reproducibility: 70%)
 
 - **Next.js** — React 기반 풀스택 웹 프레임워크
+    - [CVE-2024-46982](./Next.js/CVE-2024-46982/README.md) — Pages Router 비동적 SSR 라우트 캐시 오염
+        - Contributor: [@MyeongJong03](https://github.com/MyeongJong03) | Risk Score: 7.5 (Reproducibility: 90%)
     - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) — Next.js 미들웨어 인가 우회
         - Contributor: [@idealinsane](https://github.com/idealinsane) | Risk Score: 9.1 (Reproducibility: 85%)
 
