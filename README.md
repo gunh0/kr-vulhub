@@ -10,6 +10,12 @@
 
 ### Table of Contents
 
+- Linux — cve재현
+    - [CVE-2016-5195](Linux/CVE-2016-5195) — Dirty COW race condition을 이용한 로컬 권한 상승
+        - Contributor: [@pjh05803](https://github.com/pjh05803) | Risk Score: 7.0 (Reproducibility: 95%)
+
+
+
 - **ActiveMQ** — Java 기반 오픈소스 메시지 브로커
     - [CVE-2016-3088](./ActiveMQ/CVE-2016-3088/README.md) — ActiveMQ fileserver 임의 파일 쓰기 → RCE
         - Contributor: [@Roronoawjd](https://github.com/Roronoawjd) | Risk Score: 9.8 (Reproducibility: 75%)
