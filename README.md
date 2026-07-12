@@ -86,6 +86,10 @@
     - [CVE-2012-1823](./PHP/CVE-2012-1823/README.md) — php-cgi 인자 주입을 통한 원격 코드 실행
         - Contributor: [@kty121](https://github.com/kty121) | Risk Score: 9.8 (Reproducibility: 80%)
 
+- **PHPUnit** — PHP 단위 테스트 프레임워크
+    - [CVE-2017-9841](./PHPUnit/CVE-2017-9841/README.md) — eval-stdin.php 를 통한 무인증 원격 코드 실행
+        - Contributor: [@malrang-me](https://github.com/malrang-me) | Risk Score: 9.8 (Reproducibility: 95%)
+
 - **Python** — Python 런타임 환경
     - [CVE-2017-8291](./Python/CVE-2017-8291/README.md) — PIL(Pillow) GhostScript EPS 처리 RCE
         - Contributor: [@wjdgnsdl213](https://github.com/wjdgnsdl213) | Risk Score: 9.8 (Reproducibility: 75%)
