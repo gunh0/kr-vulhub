@@ -14,6 +14,10 @@
     - [CVE-2016-3088](./ActiveMQ/CVE-2016-3088/README.md) — ActiveMQ fileserver 임의 파일 쓰기 → RCE
         - Contributor: [@Roronoawjd](https://github.com/Roronoawjd) | Risk Score: 9.8 (Reproducibility: 75%)
 
+- **aiohttp** — Python asyncio 기반 비동기 HTTP 클라이언트/서버 프레임워크
+    - [CVE-2024-23334](./Aiohttp/CVE-2024-23334/README.md) — aiohttp 정적 라우트 디렉터리 트래버설을 통한 임의 파일 읽기
+        - Contributor: [@dndlftls](https://github.com/dndlftls) | Risk Score: 7.5 (Reproducibility: 90%)
+
 - **CouchDB** — Erlang 기반 오픈소스 문서 지향 NoSQL 데이터베이스
     - [CVE-2017-12635](./CouchDB/CVE-2017-12635/README.md) — CouchDB JSON 파서 불일치를 이용한 원격 권한 상승
         - Contributor: [@jason1343](https://github.com/jason1343) | Risk Score: 9.8 (Reproducibility: 70%)
