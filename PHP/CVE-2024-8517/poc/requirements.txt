@@ -1,0 +1,6 @@
+alive_progress==3.1.5
+beautifulsoup4==4.10.0
+prompt_toolkit==3.0.46
+random_user_agent==1.0.1
+requests==2.32.3
+rich_click==1.8.2
