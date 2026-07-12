@@ -17,6 +17,8 @@
 - **CouchDB** — Erlang 기반 오픈소스 문서 지향 NoSQL 데이터베이스
     - [CVE-2017-12635](./CouchDB/CVE-2017-12635/README.md) — CouchDB JSON 파서 불일치를 이용한 원격 권한 상승
         - Contributor: [@jason1343](https://github.com/jason1343) | Risk Score: 9.8 (Reproducibility: 70%)
+    - [CVE-2017-12635 (2)](./CouchDB/CVE-2017-12635_2/README.md) — CouchDB JSON 파서 불일치를 이용한 원격 권한 상승
+        - Contributor: [@kingsthegarden](https://github.com/kingsthegarden)
 
 - **Django** — Python 기반 웹 프레임워크
     - [CVE-2021-35042](./Django/CVE-2021-35042/README.md) — QuerySet.order_by() SQL Injection
