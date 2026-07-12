@@ -71,6 +71,8 @@
 - **Next.js** — React 기반 풀스택 웹 프레임워크
     - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) — Next.js 미들웨어 인가 우회
         - Contributor: [@idealinsane](https://github.com/idealinsane) | Risk Score: 9.1 (Reproducibility: 85%)
+    - [CVE-2025-29927 (9077)](./Next.js/CVE-2025-29927_9077/README.md) — Next.js 미들웨어 인가 우회
+        - Contributor: [@briel241](https://github.com/briel241) | Risk Score: 9.1 (Reproducibility: 85%)
 
 - **Nginx** — 고성능 웹 서버 / 리버스 프록시
     - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) — Nginx Integer Overflow Vulnerability
