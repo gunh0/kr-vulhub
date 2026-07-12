@@ -60,6 +60,10 @@
     - [CVE-2018-10933](./Libssh/CVE-2018-10933/README.md) — libssh 서버 state machine 인증 우회
         - Contributor: [@hhtboy](https://github.com/hhtboy) | Risk Score: 9.8 (Reproducibility: 75%)
 
+- **Metabase** — Java(Clojure) 기반 오픈소스 BI/데이터 분석 도구
+    - [CVE-2023-38646](./Metabase/CVE-2023-38646/README.md) — setup-token 재사용 + H2 JDBC 연결 문자열 SQL 인젝션을 통한 인증 없는 원격 코드 실행
+        - Contributor: [@tortoiese](https://github.com/tortoiese) | Risk Score: 9.8 (Reproducibility: 90%)
+
 - **MongoExpress** — MongoDB 웹 기반 관리 인터페이스
     - [CVE-2019-10758](./MongoExpress/CVE-2019-10758/README.md) — mongo-express 원격 코드 실행
         - Contributor: [@ilohas0021](https://github.com/ilohas0021) | Risk Score: 9.8 (Reproducibility: 80%)
