@@ -116,6 +116,10 @@
     - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
         - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
 
+- **urllib3** — Python HTTP 클라이언트 라이브러리
+    - [CVE-2023-43804](./urllib3/CVE-2023-43804/README.md) — 교차 출처 리다이렉트 시 Cookie 헤더 유출
+        - Contributor: [@minjungi11](https://github.com/minjungi11) | Risk Score: 5.9 (Reproducibility: 95%)
+
 <br/>
 
 ### Report Evaluation
