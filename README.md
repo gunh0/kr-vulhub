@@ -116,6 +116,10 @@
     - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
         - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
 
+- **Vite** — JavaScript 프론트엔드 개발 도구
+    - [CVE-2025-31125](./Vite/CVE-2025-31125/README.md) — 개발 서버 접근 제어 우회를 통한 임의 파일 읽기
+        - Contributor: [@yangyu0330](https://github.com/yangyu0330) | Risk Score: 7.5 (Reproducibility: 100%)
+
 <br/>
 
 ### Report Evaluation
