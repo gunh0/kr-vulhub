@@ -60,6 +60,10 @@
     - [CVE-2018-10933](./Libssh/CVE-2018-10933/README.md) — libssh 서버 state machine 인증 우회
         - Contributor: [@hhtboy](https://github.com/hhtboy) | Risk Score: 9.8 (Reproducibility: 75%)
 
+- **LangChain** — LLM 애플리케이션 개발 프레임워크
+    - [CVE-2023-34541](./LangChain/CVE-2023-34541/README.md) — LangChain load_prompt 임의 코드 실행
+        - Contributor: [@gogooma125732](https://github.com/gogooma125732) | Risk Score: 9.8 (Reproducibility: 85%)
+
 - **MongoExpress** — MongoDB 웹 기반 관리 인터페이스
     - [CVE-2019-10758](./MongoExpress/CVE-2019-10758/README.md) — mongo-express 원격 코드 실행
         - Contributor: [@ilohas0021](https://github.com/ilohas0021) | Risk Score: 9.8 (Reproducibility: 80%)
