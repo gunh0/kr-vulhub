@@ -1,3 +1,5 @@
 .DS_Store
 .codex/
 .claude/
+__pycache__/
+*.py[cod]
