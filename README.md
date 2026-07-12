@@ -63,6 +63,8 @@
 - **MongoExpress** — MongoDB 웹 기반 관리 인터페이스
     - [CVE-2019-10758](./MongoExpress/CVE-2019-10758/README.md) — mongo-express 원격 코드 실행
         - Contributor: [@ilohas0021](https://github.com/ilohas0021) | Risk Score: 9.8 (Reproducibility: 80%)
+    - [CVE-2019-10758 (2)](./MongoExpress/CVE-2019-10758_2/README.md) — mongo-express /checkValid 원격 코드 실행 재현
+        - Contributor: [@Te0str4](https://github.com/Te0str4)
 
 - **MySQL** — 관계형 데이터베이스
     - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) — MySQL Authentication Bypass
