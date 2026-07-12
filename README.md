@@ -94,6 +94,10 @@
     - [CVE-2022-0543](./Redis/CVE-2022-0543/README.md) — Lua 샌드박스 탈출을 통한 원격 코드 실행
         - Contributor: [@yeo0n](https://github.com/yeo0n) | Risk Score: 10.0 (Reproducibility: 65%)
 
+- **Sudo** — Unix/Linux 권한 위임 도구
+    - [CVE-2021-3156](./Sudo/CVE-2021-3156/README.md) — Baron Samedit heap-based buffer overflow를 통한 로컬 권한 상승
+        - Contributor: [@diadice123](https://github.com/diadice123) | Risk Score: 7.8 (Reproducibility: 80%)
+
 - **Spring** — Java 엔터프라이즈 웹 프레임워크
     - [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) — Spring Cloud Function SpEL 코드 주입
         - Contributor: [@foskingson](https://github.com/foskingson) | Risk Score: 9.8 (Reproducibility: 75%)
