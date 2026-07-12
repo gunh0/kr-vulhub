@@ -52,6 +52,10 @@
     - [CVE-2024-43441](./HugeGraph/CVE-2024-43441/README.md) — JWT 비밀 키 하드코딩으로 인한 인증 우회
         - Contributor: [@HanTul](https://github.com/HanTul) | Risk Score: 9.8 (Reproducibility: 85%)
 
+- **jQuery** — JavaScript DOM 조작 라이브러리
+    - [CVE-2019-11358](./jQuery/CVE-2019-11358/README.md) — `jQuery.extend()` Prototype Pollution
+        - Contributor: [@doo513](https://github.com/doo513) | Risk Score: 6.1 (Reproducibility: 95%)
+
 - **Librsvg** — GNOME SVG 렌더링 라이브러리
     - [CVE-2023-38633](./Librsvg/CVE-2023-38633/README.md) — librsvg xi:include 디렉터리 탐색 파일 읽기
         - Contributor: [@EL55](https://github.com/EL55) | Risk Score: 7.5 (Reproducibility: 80%)
