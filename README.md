@@ -64,6 +64,10 @@
     - [CVE-2019-10758](./MongoExpress/CVE-2019-10758/README.md) — mongo-express 원격 코드 실행
         - Contributor: [@ilohas0021](https://github.com/ilohas0021) | Risk Score: 9.8 (Reproducibility: 80%)
 
+- **MinIO** — S3 호환 오브젝트 스토리지 서버
+    - [CVE-2023-28432](./MinIO/CVE-2023-28432/README.md) — 분산 클러스터 환경변수 노출을 통한 관리자 계정 탈취
+        - Contributor: [@kkinomalo](https://github.com/kkinomalo) | Risk Score: 7.5 (Reproducibility: 100%)
+
 - **MySQL** — 관계형 데이터베이스
     - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) — MySQL Authentication Bypass
         - Contributor: [@baethwjd2](https://github.com/baethwjd2) | Risk Score: 7.0 (Reproducibility: 70%)
