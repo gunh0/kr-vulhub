@@ -77,8 +77,6 @@
 - **Node** — JavaScript 런타임 환경
     - [CVE-2017-14849](./Node/CVE-2017-14849/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
         - Contributor: [@ssongk](https://github.com/ssongk) | CVSS: 7.5 (NVD)
-    - [CVE-2017-14849 (2)](./Node/CVE-2017-14849_2/README.md) — Node.js path.normalize() 디렉터리 탐색 취약점
-        - Contributor: [@junwonheo](https://github.com/junwonheo) | CVSS: 7.5 (NVD)
 
 - **PHP** — 서버 사이드 스크립트 언어
     - [CVE-2012-1823](./PHP/CVE-2012-1823/README.md) — php-cgi 인자 주입을 통한 원격 코드 실행
