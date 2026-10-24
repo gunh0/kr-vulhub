@@ -41,9 +41,7 @@
         - Contributor: [@annseojin](https://github.com/annseojin) | CVSS: 7.5 (NVD)
 
 - **GeoServer** — Java 기반 오픈소스 공간 데이터 서버
-    - [CVE-2023-25157](./GeoServer/CVE-2023-25157/README.md) — GeoServer OGC 필터 SQL 인젝션
-        - Contributor: [@djadydwls0720](https://github.com/djadydwls0720) | CVSS: 9.8 (NVD)
-    - [CVE-2023-25157 (2)](./GeoServer/CVE-2023-25157_2/README.md) — GeoServer OGC 필터 SQL 인젝션
+    - [CVE-2023-25157](./GeoServer/CVE-2023-25157_2/README.md) — GeoServer OGC 필터 SQL 인젝션
         - Contributor: [@moooooji](https://github.com/moooooji) | CVSS: 9.8 (NVD)
 
 - **HugeGraph** — Apache 기반 오픈소스 그래프 데이터베이스
