@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Simple-Method" xsi:schemaLocation="http://ofbiz.apache.org/Simple-Method http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    <simple-method method-name="checkCategoryRelatedPermission" short-description="Check Product Category Related Permission">
+        <if-empty field="callingMethodName">
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="callingMethodName"/>
+        </if-empty>
+        <if-empty field="checkAction">
+            <set field="checkAction" value="UPDATE"/>
+        </if-empty>
+        <if-empty field="productCategoryIdName">
+            <set field="productCategoryIdName" value="productCategoryId"/>
+        </if-empty>
+        <if-empty field="productCategoryIdToCheck">
+            <set field="productCategoryIdToCheck" from-field="parameters.${productCategoryIdName}"/>
+        </if-empty>
+
+        <!-- find all role-categories that this category is a member of -->
+        <if>
+            <condition>
+                <not><if-has-permission permission="CATALOG" action="_${checkAction}"/></not>
+            </condition>
+            <then>
+                <entity-and entity-name="ProductCategoryRollupAndRole" list="roleCategories" filter-by-date="true">
+                    <field-map field-name="productCategoryId" from-field="productCategoryIdToCheck"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                    <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
+                </entity-and>
+                <filter-list-by-date list="roleCategories" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
+            </then>
+        </if>
+        <log level="info" message="Checking category permission, roleCategories=${roleCategories}"/>
+        <if>
+            <condition>
+                <not>
+                    <or>
+                        <if-has-permission permission="CATALOG" action="_${checkAction}"/>
+                        <and>
+                            <if-has-permission permission="CATALOG_ROLE" action="_${checkAction}"/>
+                            <not><if-empty field="roleCategories"/></not>
+                        </and>
+                    </or>
+                </not>
+            </condition>
+            <then>
+                <log level="verbose" message="Permission check failed, user does not have permission"/>
+                <add-error>
+                    <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+                </add-error>
+                <set field="hasPermission" type="Boolean" value="false"/>
+            </then>
+        </if>
+    </simple-method>
+</simple-methods>

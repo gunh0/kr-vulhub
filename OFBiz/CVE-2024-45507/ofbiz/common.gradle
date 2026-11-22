@@ -1,0 +1,58 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+mkdir "${rootDir}/plugins"
+
+def iterateOverActiveComponents(applyFunction) {
+
+    // Start is not a real component, therefore loading it manually
+    applyFunction file("${rootDir}/framework/start")
+
+    def rootComponents = new XmlParser().parse("${rootDir}/framework/base/config/component-load.xml")
+    rootComponents.children().each { rootComponent ->
+        File componentLoadFile = file "${rootDir}/"+ rootComponent.@"parent-directory" + "/component-load.xml"
+
+        if(componentLoadFile.exists()) {
+            // iterate through the components defined in component-load.xml
+            def parsedComponents = new XmlParser().parse(componentLoadFile.toString())
+            parsedComponents.children().each { component ->
+                def componentLocation = file "${rootDir}/"+ rootComponent.@"parent-directory" + '/' + component.@"component-location"
+                applyIfEnabled(componentLocation, applyFunction)
+            }
+        } else {
+            // iterate through all components (subdirectories of the root component)
+            file(rootComponent.@"parent-directory").eachDir { componentLocation ->
+                applyIfEnabled(componentLocation, applyFunction)
+            }
+        }
+    }
+}
+
+def applyIfEnabled(componentDir, applyFunction) {
+    File componentFile = file componentDir.toString() + '/ofbiz-component.xml'
+    if(componentFile.exists()) {
+        def parsedComponent = new XmlParser().parse(componentFile.toString())
+        if(parsedComponent.@enabled == null || parsedComponent.@enabled == "true") {
+            applyFunction componentDir
+        }
+    }
+}
+
+ext{
+    iterateOverActiveComponents = this.&iterateOverActiveComponents
+}

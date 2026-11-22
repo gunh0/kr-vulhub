@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>Order Services: Quotes </description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <!-- Quote -->
+    <service name="getNextQuoteId" engine="groovy"
+        location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="getNextQuoteId">
+        <description>Get the Next Quote ID According to Settings on the PartyAcctgPreference Entity for the given Party</description>
+        <implements service="createQuote"/>
+        <attribute name="partyId" type="String" mode="IN"/>
+        <attribute name="quoteId" type="String" mode="OUT"/>
+    </service>
+
+    <service name="quoteSequenceEnforced" engine="groovy"
+        location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="quoteSequenceEnforced">
+        <implements service="getNextQuoteId" optional="true"/>
+        <attribute name="partyAcctgPreference" type="org.apache.ofbiz.entity.GenericValue" mode="IN"/>
+        <override name="quoteId" type="Long" mode="OUT"/>
+    </service>
+
+    <service name="createQuote" default-entity-name="Quote" engine="groovy"
+             location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuote" auth="true">
+        <description>Create an Quote</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="true"/>
+    </service>
+    <service name="updateQuote" default-entity-name="Quote" engine="groovy"
+                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="updateQuote" auth="true">
+        <description>Update a Quote</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="copyQuote" default-entity-name="Quote" engine="groovy"
+                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="copyQuote" auth="true">
+        <description>Copy a Quote</description>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <attribute name="copyQuoteRoles" type="String" mode="IN" optional="true"/>
+        <attribute name="copyQuoteAttributes" type="String" mode="IN" optional="true"/>
+        <attribute name="copyQuoteCoefficients" type="String" mode="IN" optional="true"/>
+        <attribute name="copyQuoteItems" type="String" mode="IN" optional="true"/>
+        <attribute name="copyQuoteAdjustments" type="String" mode="IN" optional="true"/>
+        <attribute name="copyQuoteTerms" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="checkUpdateQuoteStatus" default-entity-name="Quote" engine="groovy"
+             location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="checkUpdateQuoteStatus" auth="true">
+        <description>Set the Quote status to ordered.</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- QuoteRole  -->
+    <service name="createQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a QuoteRole</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" />
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <!-- make fromDate as optional for backward compatibility, EntityAuto engine automatically set the fromDate to nowTimestamp if its not missing-->
+        <override name="fromDate" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteRole</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" />
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="removeQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove a QuoteRole</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="expireQuoteRole" default-entity-name="QuoteRole" engine="entity-auto" invoke="expire" auth="true">
+        <description>Expire a QuoteRole</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <!-- QuoteItem  -->
+    <service name="createQuoteItem" default-entity-name="QuoteItem" engine="groovy"
+                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteItem" auth="true">
+        <description>Create a QuoteItem</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteItem" default-entity-name="QuoteItem" engine="groovy"
+                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="updateQuoteItem" auth="true">
+        <description>Update a QuoteItem</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeQuoteItem" default-entity-name="QuoteItem" engine="groovy"
+                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="removeQuoteItem" auth="true">
+        <description>Remove a QuoteItem</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="copyQuoteItem" default-entity-name="QuoteItem" engine="groovy"
+                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="copyQuoteItem" auth="true">
+        <description>Copy a QuoteItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="quoteIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteItemSeqIdTo" type="String" mode="IN" optional="true"/>
+        <attribute name="copyQuoteAdjustments" type="String" mode="IN" optional="true"/>
+    </service>
+    <!-- QuoteAttribute  -->
+    <service name="createQuoteAttribute" default-entity-name="QuoteAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a QuoteAttribute</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteAttribute" default-entity-name="QuoteAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteAttribute</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeQuoteAttribute" default-entity-name="QuoteAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove a QuoteAttribute</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <!-- QuoteCoefficient  -->
+    <service name="createQuoteCoefficient" default-entity-name="QuoteCoefficient" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a QuoteCoefficient</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteCoefficient" default-entity-name="QuoteCoefficient" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteCoefficient</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeQuoteCoefficient" default-entity-name="QuoteCoefficient" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove a QuoteCoefficient</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <!-- Specialized Quote services -->
+    <service name="createQuoteAndQuoteItemForRequest" engine="groovy" default-entity-name="QuoteItem"
+                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteAndQuoteItemForRequest" auth="true">
+        <description>Create a new Quote and Quote Item for a CustRequest</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="true"/>
+        <override name="custRequestId" optional="false"/>
+    </service>
+    <service name="autoUpdateQuotePrice" engine="groovy" default-entity-name="QuoteItem"
+                location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="autoUpdateQuotePrice" auth="true">
+        <description>Update the QuoteItem price with the passed value (if present) or automatically from the averageCost</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="manualQuoteUnitPrice" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="defaultQuoteUnitPrice" type="BigDecimal" mode="IN" optional="true"/>
+    </service>
+    <service name="autoCreateQuoteAdjustments" engine="groovy" auth="true"
+            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="autoCreateQuoteAdjustments">
+        <description>Remove all existing quote adjustments, recalc them and persist in QuoteAdjustment.</description>
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+    </service>
+    <service name="createQuoteAdjustment" default-entity-name="QuoteAdjustment" engine="groovy" auth="true"
+            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteAdjustment">
+        <description>Creates a new quote adjustment record</description>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes mode="OUT" include="pk" optional="false"/>
+        <override name="quoteAdjustmentTypeId" optional="false"/>
+        <override name="quoteId" optional="false"/>
+        <override name="description" allow-html="any"/>
+    </service>
+    <service name="updateQuoteAdjustment" default-entity-name="QuoteAdjustment" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteAdjustment</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_UPDATE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="removeQuoteAdjustment" default-entity-name="QuoteAdjustment" engine="entity-auto" invoke="delete" auth="true">
+        <description>Remove a QuoteAdjustment</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+    </service>
+
+    <!--Duplicate the service createQuoteWorkEffort, the first inform the deprecation, the second override and work normally-->
+    <service name="createQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="entity-auto" invoke="create" auth="true">
+        <deprecated use-instead="ensureWorkEffortAndCreateQuoteWorkEffort" since="Upcoming Release">
+            use createQuoteWorkEffort to create a workeffort has been deprecated for best pratice naming reason, use ensureWorkEffortAndCreateQuoteWorkEffort instead.
+            Now createQuoteWorkEffort work as a crud service on QuoteWorkEffort
+        </deprecated>
+    </service>
+    <service name="createQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new QuoteWorkEffort</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+    <service name="deleteQuoteWorkEffort" default-entity-name="QuoteWorkEffort" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a new QuoteWorkEffort</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_DELETE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk"/>
+    </service>
+    <service name="ensureWorkEffortAndCreateQuoteWorkEffort" default-entity-name="WorkEffort" engine="groovy"
+             location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="ensureWorkEffortAndCreateQuoteWorkEffort" auth="true">
+        <description>Creates a new QuoteWorkEffort record and WorkEffort if needed</description>
+        <required-permissions join-type="AND">
+            <check-permission permission="ORDERMGR" action="_CREATE"/>
+        </required-permissions>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="OUT" include="pk"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <attribute name="quoteId" type="String" mode="IN"/>
+    </service>
+    <service name="createQuoteFromCart" engine="groovy" auth="true"
+            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteFromCart">
+        <description>Creates a new quote from a shopping cart</description>
+        <attribute name="cart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
+        <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createQuoteFromShoppingList" engine="groovy" auth="true"
+            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteFromShoppingList">
+        <description>Creates a new quote from a shopping list</description>
+        <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
+        <attribute name="applyStorePromotions" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createQuoteFromCustRequest" engine="groovy" auth="true"
+            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteFromCustRequest">
+        <description>Creates a new quote from a customer request</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="quoteTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="sendQuoteReportMail" engine="java" require-new-transaction="true" max-retry="3"
+            location="org.apache.ofbiz.order.quote.QuoteServices" invoke="sendQuoteReportMail">
+        <description>Send a quote report mail</description>
+        <attribute name="emailType" type="String" mode="INOUT" optional="false"/>
+        <attribute name="quoteId" type="String" mode="IN" optional="false"/>
+        <attribute name="sendTo" type="String" mode="IN" optional="false"/>
+        <attribute name="sendCc" type="String" mode="IN" optional="true"/>
+        <attribute name="note" type="String" mode="IN" optional="true"/>
+        <attribute name="body" type="String" mode="OUT" optional="true"/>
+        <attribute name="subject" type="String" mode="OUT" optional="true"/>
+        <attribute name="messageWrapper" type="org.apache.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
+    </service>
+     <service name="storeQuote" engine="java" default-entity-name="Quote" validate="true" auth="true"
+            location="org.apache.ofbiz.order.quote.QuoteServices" invoke="storeQuote">
+        <description>Creates quote entities</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="quoteItems" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteAttributes" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteCoefficients" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteRoles" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteTerms" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteTermAttributes" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteWorkEfforts" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteAdjustments" type="List" mode="IN" optional="true"/>
+        <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="createQuoteNote" engine="groovy"
+            location="component://order/groovyScripts/quote/QuoteServices.groovy" invoke="createQuoteNote" auth="true">
+        <description>Create a note item and associate with a quote</description>
+        <attribute name="quoteId" type="String" mode="IN"/>
+        <attribute name="noteInfo" type="String" mode="IN" allow-html="safe"/>
+        <attribute name="noteName" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createQuoteTermAttribute" default-entity-name="QuoteTermAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a QuoteTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteTermAttribute" default-entity-name="QuoteTermAttribute" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteQuoteTermAttribute" default-entity-name="QuoteTermAttribute" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a QuoteTermAttribute record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createQuoteType" default-entity-name="QuoteType" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a QuoteType record</description>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteType" default-entity-name="QuoteType" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteQuoteType" default-entity-name="QuoteType" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a QuoteType record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+    <service name="createQuoteTypeAttr" default-entity-name="QuoteTypeAttr" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a QuoteTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateQuoteTypeAttr" default-entity-name="QuoteTypeAttr" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a QuoteTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteQuoteTypeAttr" default-entity-name="QuoteTypeAttr" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a QuoteTypeAttr record</description>
+        <auto-attributes include="pk" mode="IN"/>
+    </service>
+
+</services>
