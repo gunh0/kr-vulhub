@@ -65,6 +65,8 @@
         - Contributor: [@baethwjd2](https://github.com/baethwjd2) | CVSS: 5.1 (NVD v2)
 
 - **Next.js** — React 기반 풀스택 웹 프레임워크
+    - [CVE-2024-46982](./Next.js/CVE-2024-46982/README.md) — Pages Router 비동적 SSR 라우트 캐시 오염
+        - Contributor: [@MyeongJong03](https://github.com/MyeongJong03) | Risk Score: 7.5 (Reproducibility: 90%)
     - [CVE-2025-29927](./Next.js/CVE-2025-29927/README.md) — Next.js 미들웨어 인가 우회
         - Contributor: [@idealinsane](https://github.com/idealinsane) | CVSS: 9.1 (NVD)
 
